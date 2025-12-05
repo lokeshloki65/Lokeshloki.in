@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>   
+    
+  <meta name="google-site-verification" content="6o5M1sSBJeZTC4Ap1wxnwmbjjKSWYQbZEhobu7y3FLs" />
+  <meta charset="utf-8">        
+  <meta name="viewport" content="width=device-width, initial-scale=1">     
+           
+  <title>Lokesh Developer | AI & Web Developer Portfolio</title>         
+        
+  <meta name="title" content="Lokesh Developer | AI, Web & Full Stack Developer">       
+  <meta name="description" content="Portfolio of Lokesh, a skilled AI and Web Developer. I'm Lokesh M, the developer behind this site. View my resume, projects, and skills.">
+    
+  <meta name="keywords" content="lokesh developer, lokesh, developer, lokesh m, lokeshloki, lokesh ai developer, lokesh web developer, full stack developer, ai developer portfolio, lokesh portfolio, Kuhalur developer">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://lokeshloki.site/">
+  <meta property="og:title" content="Lokesh Developer | Portfolio Website">
+  <meta property="og:description" content="Explore the portfolio of Lokesh, a professional AI and Web Developer.">
+  <meta property="og:image" content="https://lokeshloki.site/image/lokeshM1.jpg">  
+ 
+  <meta property="twitter:card" content="summary_large_image"> 
+  <meta property="twitter:url" content="https://lokeshloki.site/">
+  <meta property="twitter:title" content="Lokesh Developer | AI & Web Portfolio">
+  <meta property="twitter:description" content="Explore the portfolio of Lokesh, a professional AI and Web Developer.">
+  <meta property="twitter:image" content="https://lokeshloki.site/image/lokeshM1.jpg">
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="logo.png">
+
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js"></script>
+
+  <style>
+    .nav-toggle {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .nav-toggle {
+        display: block;
+        font-size: 24px;
+        color: white;
+        cursor: pointer;
+      }
+      .menu {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        text-align: center;
+        background: #01010b;
+      }
+      .menu.show {
+        display: flex;
+      }
+    }
+
+    .menu a.active {
+      background-color: #329bdd;
+      color: white;
+      border-radius: 4px;
+      padding: 5px 10px;
+    }
+  </style>
+</head>
+
+<body>
+ <nav>
+  <div class="logo">
+    <img src="logo.png" alt="Logo" class="logo-img">
+    <span>Lokesh<span>.M</span></span>
+  </div>
+
+
+  <div class="menu" id="navMenu">
+  
+
+    <a href="#home" class="nav-link">Home</a>
+    <a href="#about" class="nav-link">About</a>
+    <a href="#skill" class="nav-link">Skills</a>
+    <a href="#projects" class="nav-link">Projects</a>
+    <a href="#certifications" class="nav-link">Certifications</a>
+    <a href="#contact" class="nav-link">Contact</a>
+  </div>
+</nav>
+
+<script>
+  const themeToggle = document.getElementById('theme-toggle');
+themeToggle.addEventListener('click', () => {
+  document.body.classList.toggle('dark-theme');
+  document.body.classList.toggle('light-theme');
+  const currentTheme = document.body.classList.contains('dark-theme') ? 'dark' : 'light';
+  localStorage.setItem('theme', currentTheme);
+});
+
+window.addEventListener('DOMContentLoaded', () => {
+  const savedTheme = localStorage.getItem('theme') || 'dark'; // default to dark
+  document.body.classList.add(savedTheme + '-theme');
+});
+
+</script>
+
+
+
+ <script>
+  const menuToggle = document.querySelector('.menu-toggle');
+  const menu = document.querySelector('.menu');
+
+  menuToggle.addEventListener('click', () => {
+    menu.classList.toggle('active');
+  });
+
+  document.querySelectorAll('.menu a').forEach(link => {
+    link.addEventListener('click', () => {
+      menu.classList.remove('active');
+    });
+  });
+</script>
+ <!-- Home Section -->
+  <header data-aos="fade-up" id="home">
+    <img src="lokeshm.jpg" alt="Lokesh M" class="profile-img" />
+    <h1>Hi, I'm <span class="highlight">Lokesh M</span></h1>
+
+    <div class="resume-container">
+      <a href="RESUME.pdf" target="_blank" class="resume-btn">
+        📄 My Resume
+      </a>
+      <div id="resume-lottie"></div>
+    </div>
+
+    <div class="typed-text">
+      <span id="typed"></span>
+    </div>
+  </header>
+
+  <!-- Script Section -->
+  <script>
+    AOS.init();
+
+    document.addEventListener("DOMContentLoaded", function () {
+      new Typed('#typed', {
+        strings: [
+          'Artificial Intelligence and Data Science Student',
+          'Web Developer 💻',
+          'Java, Python Programmer 🐍',
+        ],
+        typeSpeed: 50,
+        backSpeed: 30,
+        loop: true
+      });
+
+      lottie.loadAnimation({
+        container: document.getElementById('resume-lottie'),
+        renderer: 'svg',
+        loop: true,
+        autoplay: true,
+        path: 'https://assets4.lottiefiles.com/packages/lf20_dqt8bqgh.json'
+      });
+    });
+  </script>
+
+<section id="about">
+  <h2 class="section-title">About Me</h2>
+  <div class="about-section">
+    <div class="profile-wrapper">
+      <img src="lokesh1213.jpg" alt="Lokesh" class="profile-img" />
+    </div>
+    <div class="about-text">
+      I'm <span>Lokesh</span> from <span>Vellore</span>, an <span>enthusiastic and dedicated</span> 
+      <span>Third-year B.Tech student</span> in 
+      <span>Artificial Intelligence & Data Science</span>. I have a strong foundation in 
+      <span>computer science</span> and a passion for <span>software and web development</span>. 
+      I am eager to apply my skills, work on <span>innovative projects</span>, and grow professionally in the field of technology. 
+      My aspiration is to become a <span>well-rounded software and web developer</span>.
+    </div>
+  </div>
+</section>
+
+<!-- Skills Section -->
+<section id="skill">
+  <h2 class="section-title">Skills</h2>
+   <div id="skills-container"></div>
+  <div class="container">
+    <!-- HTML -->
+    <a href="https://html.com" target="_blank" class="skill-card">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML Logo" class="skill-logo">
+      <h3>HTML</h3>
+      <p class="skill-level advanced">Strong</p>
+      <ul class="framework-list">
+        <li>Semantic HTML</li>
+        <li>Forms & Validation</li>
+        <li>Audio/Video Tags (Quiz App)</li>
+        <li>Responsive UI (LearnPro/Xmytra)</li>
+      </ul>
+    </a>
+
+    <!-- CSS -->
+    <a href="https://css-tricks.com" target="_blank" class="skill-card">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS Logo" class="skill-logo">
+      <h3>CSS</h3>
+      <p class="skill-level advanced">Strong</p>
+      <ul class="framework-list">
+        <li>Flexbox & Grid (Xmytra)</li>
+        <li>Media Queries (Portfolio/LearnPro)</li>
+        <li>Animations & Transitions</li>
+        <li>Dark Mode UI (LearnPro)</li>
+      </ul>
+    </a>
+
+    <!-- Java -->
+    <a href="https://www.oracle.com/java/" target="_blank" class="skill-card">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java Logo" class="skill-logo">
+      <h3>Java</h3>
+      <p class="skill-level intermediate">Intermediate</p>
+      <ul class="framework-list">
+        <li>OOP Concepts</li>
+        <li>Socket Programming (Chat App)</li>
+        <li>JDBC (Chat App DB)</li>
+        <li>JavaFX (Desktop GUI)</li>
+      </ul>
+    </a>
+
+    <!-- Python -->
+    <a href="https://www.python.org" target="_blank" class="skill-card">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python Logo" class="skill-logo">
+      <h3>Python</h3>
+      <p class="skill-level advanced">Advanced</p>
+      <ul class="framework-list">
+        <li>Django (Chatbot)</li>
+        <li>Flask (Weather Analysis)</li>
+        <li>OpenCV (Face Projects)</li>
+        <li>Pandas / Matplotlib</li>
+      </ul>
+    </a>
+
+    <!-- MySQL -->
+    <a href="https://www.mysql.com" target="_blank" class="skill-card">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL Logo" class="skill-logo">
+      <h3>MySQL</h3>
+      <p class="skill-level intermediate">Intermediate</p>
+      <ul class="framework-list">
+        <li>Joins & Queries (Attendance)</li>
+        <li>Login/Auth Storage</li>
+        <li>Database Design (Xmytra)</li>
+        <li>ER Diagrams</li>
+      </ul>
+    </a>
+
+    <!-- React -->
+    <a href="https://reactjs.org/" target="_blank" class="skill-card">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React Logo" class="skill-logo">
+      <h3>React</h3>
+      <p class="skill-level intermediate">Intermediate</p>
+      <ul class="framework-list">
+        <li>Component Structure (LearnPro)</li>
+        <li>React Router (Navigation)</li>
+        <li>Hooks & State</li>
+        <li>Dynamic UI (Course Player)</li>
+      </ul>
+    </a>
+
+    <!-- Machine Learning -->
+    <a href="https://en.wikipedia.org/wiki/Machine_learning" target="_blank" class="skill-card">
+      <img src="https://cdn-icons-png.flaticon.com/512/4712/4712109.png" alt="ML Logo" class="skill-logo">
+      <h3>Machine Learning</h3>
+      <p class="skill-level intermediate">Intermediate</p>
+      <ul class="framework-list">
+        <li>KNN / SVM (Face Detection)</li>
+        <li>face_recognition Lib</li>
+        <li>Scikit-learn</li>
+        <li>Training & Prediction Logic</li>
+      </ul>
+    </a>
+
+    <!-- MongoDB -->
+    <a href="https://www.mongodb.com/" target="_blank" class="skill-card">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" alt="MongoDB Logo" class="skill-logo">
+      <h3>MongoDB</h3>
+      <p class="skill-level intermediate">Intermediate</p>
+      <ul class="framework-list">
+        <li>CRUD Operations (Chat App / LearnPro)</li>
+        <li>Login/Auth DB</li>
+        <li>Course Progress Save (LearnPro)</li>
+        <li>Mongoose (with Node)</li>
+      </ul>
+    </a>
+
+  </div>
+</section>
+
+
+<!-- Projects Section -->
+<section id="projects">
+  <h2 class="section-title">Projects</h2>
+  <div id="projects-container"></div>
+  <div class="project-section">
+
+    <div class="project-card">
+      <div class="project-content">
+        <h3><i class="fas fa-shopping-cart"></i> Grocery Shop</h3>
+        <p>🛒 My Grocery E-commerce. Features include user login, cart system, and Twilio SMS confirmations for orders.</p>
+      </div>
+      <div class="overlay">
+        <a href="https://grocery-shop-6-l9dm.onrender.com/index.html" target="_blank">View Project</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-content">
+        <h3><i class="fas fa-robot"></i> Chatbot</h3>
+        <p>🤖 Smart multilingual chatbot integrated with Farm2Bag.com for order and product support.</p>
+      </div>
+      <div class="overlay">
+        <a href="https://chatbot-1-uzj5.onrender.com/" target="_blank">View Project</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-content">
+        <h3><i class="fas fa-cloud-sun"></i> Real time Weather Analysis</h3>
+        <p>☀️ Weather Analysis Dashboard built with Flask that allows users to register, log in, and perform real-time weather analysis.</p>
+      </div>
+      <div class="overlay">
+        <a href="https://weather-analysis-21gk.onrender.com/" target="_blank">View Project</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-content">
+        <h3><i class="fas fa-user-secret"></i> Exam Face Recognition</h3>
+        <p>🕵️‍♂️ A robust AI-based proctoring system to monitor candidates during exams.</p>
+      </div>
+      <div class="overlay">
+        <a href="https://github.com/lokeshloki65/exam-face-recognition" target="_blank">View Project</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-content">
+        <h3><i class="fas fa-id-card"></i> Face Attendance System</h3>
+        <p>🪪 Face Recognition Attendance System using real-time facial recognition technology.</p>
+      </div>
+      <div class="overlay">
+        <a href="https://github.com/lokeshloki65/Face-Recognition-Attendance-System" target="_blank">View Project</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-content">
+        <h3><i class="fas fa-store"></i> Xmytra</h3>
+        <p>🛍️ Myntra clone built with HTML, CSS, and JavaScript featuring responsive pages and cart.</p>
+      </div>
+      <div class="overlay">
+        <a href="https://github.com/lokeshloki65/Xyntra" target="_blank">View Project</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-content">
+        <h3><i class="fas fa-graduation-cap"></i> LearnPro</h3>
+        <p>🎓 An interactive E-learning platform with course pages, dashboard, video lessons, dark mode, and progress tracking.</p>
+      </div>
+      <div class="overlay">
+        <a href="https://e-learning-platform-beta.vercel.app/" target="_blank">View Project</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-content">
+        <h3><i class="fas fa-question-circle"></i> Interactive Quiz App</h3>
+        <p>❓ A dynamic JavaScript-based quiz application with real-time scoring, timer, and animated question transitions.</p>
+      </div>
+      <div class="overlay">
+        <a href="https://github.com/lokeshloki65/Interactive_Quiz" target="_blank">View Project</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+  </div>
+ <div style="text-align:center; margin-top:2rem;">
+      <a href="#" onclick="showViewProjects()" class="resume-btn"
+         style="background:#00a6ffd4; padding:0.8rem 1.6rem; border-radius:50px;
+                display:inline-block; font-weight:600; transition:transform .35s;">
+        🚀 View All Projects
+      </a>
+    </div>
+  </section>
+
+  <!-- ✅ Hidden section initially -->
+  <section id="view-project" style="display: none;">
+    <h2 class="section-title">View Projects</h2>
+    <div class="grid" id="projectsGrid"></div>
+
+    <div id="projectModal" class="modal">
+      <div class="modal-content">
+        <span class="modal-close" onclick="closeModal()">×</span>
+        <h2 id="modalTitle"></h2>
+        <p id="modalDesc"></p>
+        <div id="modalMedia" class="media-container"></div>
+        <div id="modalActions" class="modal-actions"></div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <style>
+    body {
+      margin: 0;
+      background: #01010b;
+      color: #fff;
+      font-family: 'Poppins', sans-serif;
+    }
+    .section-title {
+      color: #00a6ff;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+   .grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  max-width: 1200px;
+  margin: 0 auto;
+  justify-content: center; 
+}
+
+    .project-card {
+      background: #121212;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 0 10px #329bdd;
+      text-align: center;
+      transition: transform 0.4s, box-shadow 0.4s;
+      cursor: pointer;
+    }
+    .project-card:hover {
+      transform: translateY(-8px) rotateZ(2deg);
+      box-shadow: 0 0 20px #00a6ff;
+    }
+    .modal-actions a {
+  display: inline-block;
+  background: #00a6ff;
+  color: white;
+  padding: 10px 18px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  margin: 5px;
+  transition: transform 0.3s, background 0.3s;
+  box-shadow: 0 0 10px #00a6ff;
+}
+.modal-actions a:hover {
+  background: #fff;
+  color: #00a6ff;
+  transform: scale(1.1);
+  box-shadow: 0 0 15px #00a6ff;
+}
+
+    .project-card button {
+      margin-top: 10px;
+      background: #00a6ff;
+      border: none;
+      padding: 10px 16px;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .modal {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.9);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s;
+    }
+    .modal.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .modal-content {
+      background: #121212;
+      padding: 30px;
+      border-radius: 12px;
+      max-width: 600px;
+      width: 90%;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      text-align: center;
+      transform: translateY(-50px);
+      transition: transform 0.5s;
+    }
+    .modal.show .modal-content {
+      transform: translateY(0);
+    }
+    .modal-close {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 32px;
+      cursor: pointer;
+      color: #fff;
+      background: none;
+      border: none;
+    }
+    .modal-close:hover {
+      color: #ff4d4d;
+      transform: scale(1.2);
+    }
+    .floating-btn {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      background: #a9aaaa61;
+      color: #fff;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-decoration: none;
+      font-size: 20px;
+      box-shadow: 0 0 20px #00a6ff;
+      transition: transform 0.3s;
+      z-index: 999;
+    }
+    .floating-btn:hover {
+      transform: translateY(-50%) scale(1.2);
+      background: #ff4d4d;
+    }
+    .floating-btn.left {
+      left: 20px;
+    }
+    .floating-btn.right {
+      right: 20px;
+    }
+    #modalMedia img,
+#modalMedia video {
+  width: 100%;
+  height: auto;
+  max-height: 60vh;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  object-fit: contain;
+}
+@media (max-width: 600px) {
+  .grid {
+    grid-template-columns: 1fr; /* Force one card per row on mobile */
+    padding: 0 10px;
+  }
+
+  .project-card {
+    margin: 0 auto; /* Center card itself */
+  }
+}
+
+  .modal-actions a {
+    padding: 8px 14px;
+    font-size: 14px;
+  }
+
+  .resume-btn {
+    font-size: 15px;
+    padding: 0.6rem 1.4rem;
+  }
+
+ 
+  #modalMedia img,
+  #modalMedia video {
+    max-height: 40vh;
+  }
+
+  #modalMedia img,
+#modalMedia video {
+  width: 100%;
+  height: auto;
+  max-height: 60vh;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  object-fit: contain;
+}
+@media (max-width: 600px) {
+  .grid {
+    grid-template-columns: 1fr; /* Force one card per row on mobile */
+    padding: 0 10px;
+  }
+
+  .project-card {
+    margin: 0 auto; /* Center card itself */
+  }
+}
+
+  .modal-actions a {
+    padding: 8px 14px;
+    font-size: 14px;
+  }
+
+  .resume-btn {
+    font-size: 15px;
+    padding: 0.6rem 1.4rem;
+  }
+
+ 
+
+  #modalMedia img,
+  #modalMedia video {
+    max-height: 40vh;
+  }
+
+.project-card:active {
+  transform: scale(0.98);
+  box-shadow: 0 0 15px #00a6ff;
+}
+
+  </style>
+
+   <script>
+  function showViewProjects() {
+    document.getElementById("view-project").style.display = "block";
+    document.getElementById("view-project").scrollIntoView({ behavior: "smooth" });
+  }
+
+  function closeModal() {
+    const modal = document.getElementById('projectModal');
+    modal.classList.remove('show');
+
+    // Pause all videos and reset to beginning
+    const videos = modal.querySelectorAll('video');
+    videos.forEach(video => {
+      video.pause();
+      video.currentTime = 0;
+    });
+  }
+
+  const token = "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";
+
+  const demoMedia = {
+    "weather-analysis": ["image/WEATHER.png"],
+    "grocery-shop": ["videos/shop.mp4"],
+    "Ai-meme_generator": ["image/tamil_meme.png"],
+    "portfolio-site": ["image/lokeshloki.site(1).png"],
+    "e-learning-platform": ["image/learnpro.png"],
+    "Interactive_Quiz": ["image/quize.png"],
+    "lokeshloki.site": ["image/lokeshloki.site.png"],
+    "Lokesh_Portfolio": ["image/lokesh portfolio.png"],
+    "PORTFOLIO": ["image/lokeshloki.site(1).png"],
+    "real_time_chat": ["image/real time chat.png"],
+    "Xyntra": ["image/xyntra.png"]
+  };
+
+  const orderedNames = [
+    "grocery-shop",           // 1
+    "e-learning-platform",    // 3
+    "weather-analysis",       // 2
+    "live-location-tracker",  //4
+    "Xyntra",                 // 5
+    "real_time_chat",         // 6
+    "Interactive_Quiz",       // 7
+    "lokeshloki.site",        // 8
+    "Lokesh_Portfolio",       // 9
+    "Ai-meme_generator",      // 10
+    "PORTFOLIO"               // 11
+  ];
+
+  fetch("https://api.github.com/user/repos?per_page=100", {
+    headers: {
+      Authorization: `token ${token}`
+    }
+  })
+  .then(res => res.json())
+  .then(repos => {
+    const repoMap = {};
+    repos.forEach(repo => {
+      repoMap[repo.name] = repo;
+    });
+
+    // ➤ 1. Add top 10 in desired order
+    orderedNames.forEach(name => {
+      const repo = repoMap[name];
+      if (repo) {
+        addProjectCard({
+          name: repo.name,
+          desc: repo.description || "No description available.",
+          link: repo.html_url,
+          private: repo.private,
+          media: demoMedia[repo.name] || []
+        });
+        delete repoMap[name]; // remove so it doesn't repeat
+      }
+    });
+
+    // ➤ 2. Add all remaining repos automatically
+    Object.values(repoMap).forEach(repo => {
+      addProjectCard({
+        name: repo.name,
+        desc: repo.description || "No description available.",
+        link: repo.html_url,
+        private: repo.private,
+        media: demoMedia[repo.name] || []
+      });
+    });
+  })
+  .catch(error => {
+    console.error("Error fetching repositories:", error);
+  });
+
+  function addProjectCard(project) {
+    const grid = document.getElementById('projectsGrid');
+    const card = document.createElement('div');
+    card.className = 'project-card';
+    card.innerHTML = `
+      <h3>${project.name}</h3>
+      <p>${project.desc}</p>
+      <button onclick='showDetails(${JSON.stringify(project).replace(/'/g, "\\'").replace(/"/g, '&quot;')})'>
+        🔍 View
+      </button>
+    `;
+    grid.appendChild(card);
+  }
+
+  function showDetails(project) {
+    document.getElementById('modalTitle').textContent = project.name;
+    document.getElementById('modalDesc').textContent = project.desc;
+
+    const media = document.getElementById('modalMedia');
+    media.innerHTML = '';
+
+    if (project.media.length > 0) {
+      project.media.forEach(src => {
+        if (src.endsWith('.mp4')) {
+          media.innerHTML += `<video src="${src}" controls playsinline></video>`;
+        } else {
+          media.innerHTML += `<img src="${src}" alt="Project media">`;
+        }
+      });
+    }
+
+    const liveLinks = {
+      "grocery-shop": "https://grocery-shop-6-l9dm.onrender.com/index.html",
+      "weather-analysis": "https://weather-analysis-21gk.onrender.com/",
+      "e-learning-platform": "https://e-learning-platform-beta.vercel.app/",
+      "live-location-tracker": "https://live-location-tracker-1-qdz1.onrender.com/"
+
+    };
+
+    const actions = document.getElementById('modalActions');
+    actions.innerHTML = '';
+
+    // ✅ Add Live Demo Box (if applicable)
+    if (liveLinks.hasOwnProperty(project.name)) {
+      actions.innerHTML += `
+       
+          <a href="${liveLinks[project.name]}" target="_blank" style="
+            display: inline-block;
+            background: #00a6ff;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;">
+            🌐 Visit Live Demo
+          </a>
+        </div>
+      `;
+    }
+
+    // 🔒 Add private repo warning
+    if (project.private) {
+      actions.innerHTML += `
+        <p style="color: #ff4d4d; font-weight: bold;">
+          🚫 This project is private.<br>📩 Contact Lokesh to access.
+        </p>
+      `;
+    } else {
+      actions.innerHTML += `
+        <a href="${project.link}" target="_blank">
+          <i class="fab fa-github"></i> View on GitHub
+        </a>
+      `;
+    }
+
+    document.getElementById('projectModal').classList.add('show');
+  }
+</script>
+
+</body>
+</html>
+
+
+
+
+<!-- Certifications Section -->
+<section id="certifications">
+  <h2 class="section-title">Certifications</h2>
+ <div id="certs-container"></div>
+  <div class="cert-grid">
+    <div class="cert-card" onclick="openLightbox(0)">
+      <img src="image/certifications image/oracle_cert.jpg" alt="Oracle Certification" loading="lazy" />
+      <div class="cert-info">
+        <h3>Oracle APEX Cloud Developer</h3>
+        <p>Oracle University - May 2025</p>
+      </div>
+    </div>
+
+    <div class="cert-card" onclick="openLightbox(1)">
+      <img src="image/certifications image/certifications_kongu .jpg" alt="Gen-AI with Cloud" loading="lazy" />
+      <div class="cert-info">
+        <h3>Gen-AI with Cloud</h3>
+        <p>Kongu Engineering College - Oct 2024</p>
+      </div>
+    </div>
+
+    <div class="cert-card" onclick="openLightbox(2)">
+      <img src="image/certifications image/certifications 33 blg.jpg" alt="Hackathon" loading="lazy" />
+      <div class="cert-info">
+        <h3>National Hackathon</h3>
+        <p>Shridevi Institute - Oct 2024</p>
+      </div>
+    </div>
+
+    <div class="cert-card" onclick="openLightbox(3)">
+      <img src="image/certifications image/certfications 22.jpg" alt="IoT" loading="lazy" />
+      <div class="cert-info">
+        <h3>IoT Workshop</h3>
+        <p>Kongu Engineering College - Feb 2025</p>
+      </div>
+    </div>
+
+    <div class="cert-card" onclick="openLightbox(4)">
+      <img src="image/certifications image/certifications_kongu .jpg" alt="AI Workshop" loading="lazy" />
+      <div class="cert-info">
+        <h3>Hackathon</h3>
+        <p>Kongu Engineering College - Mar 2025</p>
+      </div>
+    </div>
+
+    <div class="cert-card" onclick="openLightbox(5)">
+      <img src="image/certifications image/certification erode.jpg" alt="Web Dev" loading="lazy" />
+      <div class="cert-info">
+        <h3>National Technical Symposium</h3>
+        <p>ERODE SENGUNTHAR - April 2024</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <span class="close" onclick="closeLightbox()">×</span>
+    <span class="nav-btn prev" onclick="changeSlide(-1)">❮</span>
+    <img id="lightboxImage" src="" alt="Certificate Preview" />
+    <p id="img-count"></p>
+    <span class="nav-btn next" onclick="changeSlide(1)">❯</span>
+  </div>
+  
+</section>
+<script>
+  const certImages = [
+    "image/certifications image/oracle_cert.jpg",
+    "image/certifications image/certifications_kongu .jpg",
+    "image/certifications image/certifications 33 blg.jpg",
+    "image/certifications image/certfications 22.jpg",
+    "image/certifications image/certifications_kongu .jpg",
+    "image/certifications image/certification erode.jpg"
+  ];
+
+  let currentImageIndex = 0;
+
+  function openLightbox(index) {
+    currentImageIndex = index;
+    document.getElementById("lightbox").style.display = "flex";
+    updateLightbox();
+  }
+
+  function closeLightbox() {
+    document.getElementById("lightbox").style.display = "none";
+  }
+
+  function changeSlide(direction) {
+    currentImageIndex = (currentImageIndex + direction + certImages.length) % certImages.length;
+    updateLightbox(true);
+  }
+
+  function updateLightbox(animated = false) {
+    const img = document.getElementById("lightboxImage");
+    const count = document.getElementById("img-count");
+
+    if (animated) {
+      img.style.animation = "none";
+      void img.offsetWidth;
+      img.style.animation = "rotateZoom 0.6s ease-in-out";
+    }
+
+    img.src = certImages[currentImageIndex];
+    count.textContent = `Certificate ${currentImageIndex + 1} of ${certImages.length}`;
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.cert-card').forEach((card, i) => {
+      card.style.animationDelay = `${i * 0.2}s`;
+    });
+  });
+</script>
+
+
+
+
+  <!-- Contact Section (Placeholder) -->
+  <section id="contact">
+    <!-- Contact Section -->
+  <section class="contact-section">
+    <!-- Left Social Icons -->
+    <div class="social-icons left">
+      <a href="https://www.linkedin.com/in/lokesh-m-265b832b3?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank"><i class="fab fa-linkedin"></i></a>
+      <a href="mailto:imlokesh152005@gmail.com"><i class="fas fa-envelope"></i></a>
+      <a href="https://wa.me/918072894184" target="_blank"><i class="fab fa-whatsapp"></i></a>
+    </div>
+
+    <!-- Contact Container -->
+    <div class="contact-container">
+      <h2>Contact</h2>
+      <form class="contact-form" id="contact-form" action="https://formspree.io/f/xkgryqgb" method="POST">
+        <input type="text" name="name" placeholder="Your Name" required />
+        <input type="email" name="email" placeholder="Your Email" required />
+        <textarea name="message" placeholder="Your Message" required></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+    </div>
+
+    <!-- Right Social Icons -->
+    <div class="social-icons right">
+      <a href="https://github.com/lokeshloki65" target="_blank"><i class="fab fa-github"></i></a>
+      <a href="https://instagram.com/lovely_loki._65" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a href="https://t.me/+919655865777"><i class="fas fa-paper-plane"></i></a>
+    </div>
+  </section>
+
+
+  <!-- Form Submission Script -->
+  <script>
+    const form = document.getElementById("contact-form");
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+      const formData = new FormData(form);
+      const response = await fetch(form.action, {
+        method: "POST",
+        body: formData,
+        headers: {
+          Accept: "application/json",
+        },
+      });
+
+      if (response.ok) {
+        alert("✅ Thank you! Your message has been sent.");
+        form.reset();
+      } else {
+        alert("❌ Something went wrong. Please try again later.");
+      }
+    });
+  </script>
+  
+    </div>
+  </section>
+
+  <script>
+    window.addEventListener('load', function() {
+  // Your initialization code here
+});
+    document.addEventListener('DOMContentLoaded', function() {
+  const typed = new Typed('#typed', {
+    strings: [
+      'Artificial Intelligence and Data Science Student',
+      'Web Developer 💻',
+      'Java, Python Programmer 🐍',
+    ],
+    typeSpeed: 50,
+    backSpeed: 30,
+    loop: true
+  });
+});
+
+    // Navbar scroll effect
+    window.addEventListener('scroll', function() {
+      const nav = document.querySelector('nav');
+      if (window.scrollY > 50) {
+        nav.classList.add('scrolled');
+      } else {
+        nav.classList.remove('scrolled');
+      }
+    });
+
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        const targetElement = document.querySelector(targetId);
+        
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 80,
+            behavior: 'smooth'
+          });
+          
+          // Update active link
+          document.querySelectorAll('.menu a').forEach(link => {
+            link.classList.remove('active');
+          });
+          this.classList.add('active');
+        }
+      });
+    });
+
+    // Set active link based on scroll position
+    window.addEventListener('scroll', function() {
+      const scrollPosition = window.scrollY;
+      
+      document.querySelectorAll('section').forEach(section => {
+        const sectionTop = section.offsetTop - 100;
+        const sectionHeight = section.offsetHeight;
+        const sectionId = section.getAttribute('id');
+        
+        if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+          document.querySelectorAll('.menu a').forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === `#${sectionId}`) {
+              link.classList.add('active');
+            }
+          });
+        }
+      });
+    });
+
+    // Disable right-click
+    document.addEventListener("contextmenu", function (e) {
+      e.preventDefault();
+    });
+
+    // Disable common shortcut keys for viewing source and developer tools
+    document.addEventListener("keydown", function (e) {
+      // F12
+      if (e.keyCode === 123) {
+        e.preventDefault();
+      }
+
+      // Ctrl+Shift+I or Ctrl+Shift+J
+      if ((e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74))) {
+        e.preventDefault();
+      }
+
+      // Ctrl+U
+      if (e.ctrlKey && e.keyCode === 85) {
+        e.preventDefault();
+      }
+
+      // Ctrl+Shift+C (Element picker)
+      if (e.ctrlKey && e.shiftKey && e.keyCode === 67) {
+        e.preventDefault();
+      }
+    });
+    const certImages = [
+      "oracle_cert.jpg",
+      "certifications_kongu .jpg",
+      "certifications 33 blg.jpg",
+      "certfications 22.jpg",
+      "certfication kongu hackathon.jpg",
+      "Whats certfi.jpg"
+    ];
+
+    let currentImageIndex = 0;
+
+    function openLightbox(index) {
+      currentImageIndex = index;
+      document.getElementById("lightbox").style.display = "flex";
+      document.getElementById("lightboxImage").src = certImages[currentImageIndex];
+    }
+
+    function closeLightbox() {
+      document.getElementById("lightbox").style.display = "none";
+    }
+
+    function changeSlide(direction) {
+      const lightboxImage = document.getElementById("lightboxImage");
+
+      lightboxImage.style.animation = "none";
+      void lightboxImage.offsetWidth; // reflow
+      lightboxImage.style.animation = "rotateZoom 0.6s ease-in-out";
+
+      currentImageIndex = (currentImageIndex + direction + certImages.length) % certImages.length;
+      setTimeout(() => {
+        lightboxImage.src = certImages[currentImageIndex];
+      }, 200);
+    }
+    let touchStartX = 0;
+
+  document.getElementById("lightbox").addEventListener("touchstart", e => {
+    touchStartX = e.changedTouches[0].screenX;
+  });
+
+  document.getElementById("lightbox").addEventListener("touchend", e => {
+    const touchEndX = e.changedTouches[0].screenX;
+    if (touchStartX - touchEndX > 50) changeSlide(1);  // Swipe left
+    if (touchEndX - touchStartX > 50) changeSlide(-1); // Swipe right
+  });
+
+    window.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.cert-card').forEach((card, i) => {
+        card.style.animationDelay = `${i * 0.2}s`;
+      });
+  </script>
+
+
+
+<script>
+  const firebaseConfig = {
+  apiKey: "AIzaSyDWLbhIBWDoDqnL8lL-Kid28uFMnSsrLaE",
+  authDomain: "portfilio-46c11.firebaseapp.com",
+  projectId: "portfilio-46c11",
+  storageBucket: "portfilio-46c11.firebasestorage.app",
+  messagingSenderId: "540895475169",
+  appId: "1:540895475169:web:1bc7639d77c14dfd3a0ea0",
+  measurementId: "G-CJJ57L2315"
+};
+
+
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+
+  // Skills Loader
+  db.collection("skills").get().then(snapshot => {
+    const skillContainer = document.getElementById("skills-container");
+    snapshot.forEach(doc => {
+      const s = doc.data();
+      skillContainer.innerHTML += `
+        <div class="skill-card">
+          <h3>${s.name} (${s.level})</h3>
+          <ul>${s.details.map(d => `<li>${d}</li>`).join('')}</ul>
+        </div>`;
+    });
+  });
+
+  // Projects Loader
+  db.collection("projects").get().then(snapshot => {
+    const projectContainer = document.getElementById("projects-container");
+    snapshot.forEach(doc => {
+      const p = doc.data();
+      projectContainer.innerHTML += `
+        <div class="project-card">
+          <h3>${p.title}</h3>
+          <p>${p.description}</p>
+          <a href="${p.link}" target="_blank">🔗 View Project</a>
+        </div>`;
+    });
+  });
+
+  // Certifications Loader
+  db.collection("certifications").get().then(snapshot => {
+    const certContainer = document.getElementById("certs-container");
+    snapshot.forEach(doc => {
+      const c = doc.data();
+      certContainer.innerHTML += `
+        <div class="cert-card">
+          <h3>${c.title}</h3>
+          <p>${c.issuer}</p>
+          <img src="${c.image}" alt="${c.title}" width="300" />
+        </div>`;
+    });
+  });
+</script>
+
+
+</body>
+
+</html>
+
+
+
+<!-- Modern Footer -->
+<footer class="lokesh-footer">
+  <div class="footer-top">
+    <div class="footer-column">
+      <h3>Quick Links</h3>
+      <ul>
+        <li><a href="#home">🏠 Home</a></li>
+        <li><a href="#about">👤 About</a></li>
+        <li><a href="#projects">💻 Projects</a></li>
+        <li><a href="#skill">🚀 Skills</a></li>
+        <li><a href="#certifications">🎓 Certifications</a></li>
+        <li><a href="#contact">📩 Contact</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-column center">
+      <img src="logo.png" alt="Lokesh Logo" class="footer-logo" />
+      <h2>Lokesh M</h2>
+      <p>AI Developer | Web Programmer</p>
+
+      <div class="footer-social">
+        <a href="https://github.com/lokeshloki65" target="_blank"><i class="fab fa-github"></i></a>
+        <a href="https://linkedin.com/in/lokesh-m-265b832b3" target="_blank"><i class="fab fa-linkedin"></i></a>
+        <a href="mailto:imlokesh152005@gmail.com"><i class="fas fa-envelope"></i></a>
+        <a href="https://wa.me/918072894184" target="_blank"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://instagram.com/lovely_loki._65" target="_blank"><i class="fab fa-instagram"></i></a>
+      </div>
+    </div>
+
+    <div class="footer-column">
+  <h3>Contact Info</h3>
+
+  <p>
+    <i class="fas fa-map-marker-alt"></i>
+    <a href="https://maps.google.com/?q=Vellore, Tamil Nadu, India" target="_blank">
+      Vellore, Tamil Nadu, India
+    </a>
+  </p>
+
+  <p>
+    <i class="fas fa-phone"></i>
+    <a href="tel:+919655865777">+91 96558 65777</a>
+  </p>
+
+  <p>
+    <i class="fas fa-envelope"></i>
+    <a href="mailto:lokesh152005@gmail.com">lokesh152005@gmail.com</a>
+  </p>
+</div>
+
+
+  <div class="footer-bottom">
+    <p>© 2025 Lokesh M. All Rights Reserved.</p>
+  </div>
+</footer>
+
+
+
+<script>
+  /* Disable right‑click               */
+  document.addEventListener('contextmenu', e => e.preventDefault());
+
+  /* Disable keys that open DevTools   */
+  document.addEventListener('keydown', e => {
+    // F12
+    if (e.keyCode === 123) e.preventDefault();
+
+    // Ctrl+Shift+I  |  Ctrl+Shift+J
+    if (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74))
+      e.preventDefault();
+
+    // Ctrl+U  (View‑Source)
+    if (e.ctrlKey && e.keyCode === 85) e.preventDefault();
+
+    // Ctrl+Shift+C  (Element picker)
+    if (e.ctrlKey && e.shiftKey && e.keyCode === 67) e.preventDefault();
+  });
+</script>
