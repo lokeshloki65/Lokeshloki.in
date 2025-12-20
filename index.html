@@ -2974,10 +2974,9 @@
             // Mobile nav toggle
             navToggle.addEventListener('click', () => navMenu.classList.toggle('show'));
             navLinks.forEach(link => link.addEventListener('click', () => {
-                // Removed auto-close on click to prevent "flashing" behavior if user misclicks
-                // if (navMenu.classList.contains('show')) {
-                //     navMenu.classList.remove('show');
-                // }
+                if (navMenu.classList.contains('show')) {
+                    navMenu.classList.remove('show');
+                }
             }));
 
             // Theme switcher
@@ -3019,7 +3018,7 @@
             });
         }
 
-        
+
 
         function startCounterAnimation() {
             const counters = document.querySelectorAll('.counter');
