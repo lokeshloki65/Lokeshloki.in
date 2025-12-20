@@ -2815,8 +2815,7 @@
                 title: 'SV Academy',
                 description: 'Official academic portal managing student admissions, gallery, and digital notices for a smart campus experience.',
                 link: 'https://quiz.lokeshloki.site/',
-                buttonText: 'Live View',
-                youtube: '#'
+                buttonText: 'Live View'
             },
             {
                 id: 2,
@@ -2824,8 +2823,7 @@
                 title: 'AI-Agro',
                 description: 'Smart AI agriculture system providing crop suggestions, disease detection & weather reports for farmers.',
                 link: 'https://ai-agro-live.com',
-                buttonText: 'Live View',
-                youtube: '#'
+                buttonText: 'Live View'
             },
             {
                 id: 3,
@@ -2833,8 +2831,7 @@
                 title: 'Medicine Tracker',
                 description: 'A digital health assistant to track prescriptions, set pill reminders, and manage medical inventory efficiently.',
                 link: 'https://github.com/lokeshloki65/medicine-tracker',
-                buttonText: 'GitHub',
-                youtube: '#'
+                buttonText: 'View on GitHub'
             },
             {
                 id: 4,
@@ -2842,8 +2839,7 @@
                 title: 'Food Delivery App',
                 description: 'Full-stack food ordering platform featuring real-time cart management, restaurant listings, and secure checkout.',
                 link: 'https://github.com/lokeshloki65/food-delivery-app',
-                buttonText: 'GitHub',
-                youtube: '#'
+                buttonText: 'View on GitHub'
             },
             {
                 id: 5,
@@ -2851,8 +2847,7 @@
                 title: 'AI Face Attendance',
                 description: 'Automated attendance system using Python & OpenCV to detect and verify student faces securely.',
                 link: 'https://github.com/lokeshloki65/face-recognition-attendance',
-                buttonText: 'GitHub',
-                youtube: '#'
+                buttonText: 'View on GitHub'
             },
             {
                 id: 6,
@@ -2860,8 +2855,7 @@
                 title: 'LearnPro',
                 description: 'Comprehensive E-Learning Platform with Firebase Auth, course progress tracking, and a modern responsive UI.',
                 link: 'https://github.com/lokeshloki65/e-learning-platform',
-                buttonText: 'GitHub',
-                youtube: '#'
+                buttonText: 'View on GitHub'
             }
         ];
         // All Certificates Data
@@ -3132,6 +3126,11 @@
                 card.className = 'project-card';
                 card.setAttribute('data-aos', 'fade-up'); // Animation on scroll
 
+                // Determine icon based on button text
+                const iconClass = project.buttonText.toLowerCase().includes('github')
+                    ? 'fab fa-github'
+                    : 'fas fa-external-link-alt';
+
                 card.innerHTML = `
                 <div class="project-img-wrapper">
                     <img src="${project.image}" alt="${project.title}" loading="lazy">
@@ -3141,11 +3140,8 @@
                     <p>${project.description}</p>
                 </div>
                 <div class="overlay">
-                    <a href="${project.github}" target="_blank" class="btn-project-link btn-github">
-                        <i class="fab fa-github"></i> View Project
-                    </a>
-                    <a href="${project.youtube}" target="_blank" class="btn-project-link btn-video">
-                        <i class="fab fa-youtube"></i> Live Demo Video
+                    <a href="${project.link}" target="_blank" class="btn-project-link btn-github">
+                        <i class="${iconClass}"></i> ${project.buttonText}
                     </a>
                 </div>`;
                 grid.appendChild(card);
