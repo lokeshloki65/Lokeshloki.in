@@ -1738,7 +1738,41 @@
             border: 1px solid rgba(0, 166, 255, 0.3);
             backdrop-filter: blur(10px);
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-            clip-path: polygon(0 0, 100% 0, 100% 85%, 90% 100%, 0 100%);
+            /* clip-path: polygon(0 0, 100% 0, 100% 85%, 90% 100%, 0 100%);  Removed to allow badge to fit nicely if needed, or keep it */
+            position: relative;
+            /* Ensure relative positioning for absolute badge */
+        }
+
+        /* --- VERIFIED BADGE STYLE --- */
+        .cert-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            padding: 5px 12px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            z-index: 10;
+            border: 1px solid rgba(255, 215, 0, 0.5);
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
+        }
+
+        .cert-badge i {
+            color: #FFD700;
+            font-size: 0.9rem;
+            filter: drop-shadow(0 0 5px #FFD700);
+        }
+
+        .cert-badge span {
+            color: #fff;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
         }
 
         .cert-card:hover {
@@ -2645,6 +2679,7 @@
                 </div>
             </div>
 
+
             <div class="view-all-btn-container" id="view-all-projects-btn-container"
                 style="text-align: center; margin-top: 3rem;">
                 <a href="javascript:void(0);" onclick="loadMoreProjects()" class="resume-btn">
@@ -2743,12 +2778,7 @@
                 </div>
 
                 <div class="contact-card-form">
-                    <form id="contact-form" action="https://formsubmit.co/lokesh152005@gmail.com" method="POST">
-                        <!-- FormSubmit Configuration -->
-                        <input type="hidden" name="_captcha" value="false">
-                        <input type="hidden" name="_next" value="https://lokeshloki.in/">
-                        <input type="hidden" name="_template" value="table">
-                        <input type="hidden" name="_subject" value="New Submission from Lokesh Portfolio">
+                    <form id="contact-form" action="https://formspree.io/f/xnjaveww" method="POST">
 
                         <div class="input-group">
                             <input type="text" name="name" required>
@@ -3538,6 +3568,10 @@
                     card.setAttribute('data-aos', 'fade-up');
                     card.setAttribute('onclick', `openCertLightbox(${index})`);
                     card.innerHTML = `
+                    <div class="cert-badge">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Verified</span>
+                    </div>
                     <img src="${cert.img}" alt="${cert.title}" loading="lazy" />
                     <div class="cert-info">
                         <h3>${cert.title}</h3>
@@ -3556,6 +3590,10 @@
                     card.setAttribute('data-aos', 'fade-up');
                     card.setAttribute('onclick', `openCertLightbox(${index})`);
                     card.innerHTML = `
+                    <div class="cert-badge">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Verified</span>
+                    </div>
                     <img src="${cert.img}" alt="${cert.title}" loading="lazy" />
                     <div class="cert-info">
                         <h3>${cert.title}</h3>
