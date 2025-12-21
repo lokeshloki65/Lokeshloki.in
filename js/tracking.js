@@ -16,47 +16,69 @@ if (!visitorId) {
     localStorage.setItem('visitorId', visitorId);
 }
 
-// --- 2. Device & Browser Detection ---
-const getDeviceType = () => {
+// --- 2. Advanced Device & OS Detection ---
+const getSystemInfo = () => {
     const ua = navigator.userAgent;
-    if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
-        return "tablet";
-    }
-    else if (/Mobile|Android|iP(hone|od)|IEMobile|BlackBerry|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(ua)) {
-        return "mobile";
-    }
-    return "desktop";
-};
+    let os = "Unknown OS";
+    let device = "Desktop";
 
-const getBrowserName = () => {
-    const agent = navigator.userAgent.toLowerCase();
-    switch (true) {
-        case agent.indexOf("edge") > -1: return "edge";
-        case agent.indexOf("opr") > -1: return "opera";
-        case agent.indexOf("chrome") > -1: return "chrome";
-        case agent.indexOf("trident") > -1: return "ie";
-        case agent.indexOf("firefox") > -1: return "firefox";
-        case agent.indexOf("safari") > -1: return "safari";
-        default: return "other";
+    // OS Detection
+    if (ua.indexOf("Win") !== -1) os = "Windows";
+    if (ua.indexOf("Mac") !== -1) os = "MacOS";
+    if (ua.indexOf("Linux") !== -1) os = "Linux";
+    if (ua.indexOf("Android") !== -1) { os = "Android"; device = "Mobile"; }
+    if (ua.indexOf("like Mac") !== -1) { os = "iOS"; device = "Mobile"; }
+
+    // Windows Version Check
+    if (os === "Windows") {
+        if (/Windows NT 10.0/.test(ua)) os = "Windows 10/11";
+        if (/Windows NT 6.3/.test(ua)) os = "Windows 8.1";
+        if (/Windows NT 6.2/.test(ua)) os = "Windows 8";
+        if (/Windows NT 6.1/.test(ua)) os = "Windows 7";
     }
+
+    // Browser Detection
+    let browser = "Unknown";
+    if (ua.indexOf("Firefox") > -1) browser = "Firefox";
+    else if (ua.indexOf("SamsungBrowser") > -1) browser = "Samsung Internet";
+    else if (ua.indexOf("Opera") > -1 || ua.indexOf("OPR") > -1) browser = "Opera";
+    else if (ua.indexOf("Trident") > -1) browser = "Internet Explorer";
+    else if (ua.indexOf("Edge") > -1) browser = "Edge";
+    else if (ua.indexOf("Chrome") > -1) browser = "Chrome";
+    else if (ua.indexOf("Safari") > -1) browser = "Safari";
+
+    return { os, device, browser };
+    // GPU/Renderer Detection (to guess model like 'iPhone 13' vs 'iPhone 11' if possible, mostly just 'Apple GPU')
+    let renderer = "Unknown GPU";
+    try {
+        const canvas = document.createElement('canvas');
+        const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+        if (gl) {
+            const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+            if (debugInfo) {
+                renderer = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
+            }
+        }
+    } catch (e) { }
+
+    return { os, device, browser, renderer };
 };
 
 // --- 3. Geo Location (Free API) ---
 async function getIpInfo() {
     try {
         const response = await fetch('https://ipapi.co/json/');
-        return await response.json();
+        return await response.json(); // Returns { ip, city, region, country_name, latitude, longitude, org }
     } catch (e) {
         console.warn("Failed to fetch IP info", e);
-        return { country_name: 'Unknown', city: 'Unknown', ip: 'Unknown' };
+        return { country_name: 'Unknown', city: 'Unknown', ip: 'Unknown', latitude: 0, longitude: 0 };
     }
 }
 
 // --- 4. Main Tracking Function ---
 async function initTracking() {
     const ipInfo = await getIpInfo();
-    const deviceType = getDeviceType();
-    const browserName = getBrowserName();
+    const sysInfo = getSystemInfo();
     const screenRes = `${window.screen.width}x${window.screen.height}`;
 
     const visitorRef = doc(db, "analytics", "visitors", "list", visitorId);
@@ -67,8 +89,12 @@ async function initTracking() {
         ip: ipInfo.ip || 'Unknown',
         country: ipInfo.country_name || 'Unknown',
         city: ipInfo.city || 'Unknown',
-        device: deviceType,
-        browser: browserName,
+        device: sysInfo.device,
+        os: sysInfo.os,
+        browser: sysInfo.browser,
+        renderer: sysInfo.renderer || 'Unknown',
+        lat: ipInfo.latitude || 0,
+        lon: ipInfo.longitude || 0,
         screen: screenRes,
         lastActive: serverTimestamp(),
         online: true,
