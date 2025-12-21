@@ -2613,6 +2613,11 @@
                     </div>
                     <div class="marquee-content" id="marquee-row-2-dup"></div>
                 </div>
+                <div class="view-all-btn-container" style="text-align: center; margin-top: 2rem;">
+                    <a href="javascript:void(0);" onclick="showAllSkills()" class="resume-btn">
+                        View All Technical Skills
+                    </a>
+                </div>
             </div>
         </section>
 
@@ -2625,27 +2630,27 @@
             </div>
         </section>
 
-        <div class="view-all-btn-container" style="text-align: center; margin-bottom: 4rem;">
-            <a href="javascript:void(0);" onclick="showAllSkills()" class="resume-btn">
-                View All Technical Skills
-            </a>
-        </div>
-
         <section id="projects">
             <h2 class="section-title">My Projects</h2>
             <div class="project-grid" id="featured-projects-grid">
+                <!-- Static Content Filled by JS -->
             </div>
-            <div class="view-all-btn-container">
-                <a href="javascript:void(0);" onclick="showViewProjects()" class="resume-btn">
+
+            <!-- Hidden Container for Dynamic GitHub Projects -->
+            <div id="more-projects-container" style="display: none; margin-top: 4rem;">
+                <h3 class="section-title" style="font-size: 2rem; margin-bottom: 2rem; opacity: 0.8;">More Projects
+                    (GitHub)</h3>
+                <div class="project-grid" id="more-projects-grid">
+                    <!-- Dynamic Content Filled Here -->
+                </div>
+            </div>
+
+            <div class="view-all-btn-container" id="view-all-projects-btn-container"
+                style="text-align: center; margin-top: 3rem;">
+                <a href="javascript:void(0);" onclick="loadMoreProjects()" class="resume-btn">
                     View All Projects
                 </a>
             </div>
-        </section>
-
-        <section id="view-project" data-aos="fade-up">
-            <h2 class="section-title">All My Projects</h2>
-            <div class="grid" id="projectsGrid"></div>
-
         </section>
 
         <section id="certifications">
@@ -2696,7 +2701,8 @@
             <div class="contact-wrapper-glass" data-aos="zoom-in">
                 <div class="contact-card-info">
                     <h3>Let's Collaborate</h3>
-                    <p>I'm always open to discussing new projects, creative ideas or opportunities to be part of your
+                    <p>I'm always open to discussing new projects, creative ideas or opportunities to be part of
+                        your
                         visions.</p>
 
                     <div class="info-row">
@@ -3107,8 +3113,7 @@
             ];
 
 
-            // === UPDATED FEATURED PROJECTS DATA (Grand & Attractive Cards) ===
-            // NOTE: Replace '#' with your actual YouTube links
+            // === STATIC FEATURED PROJECTS DATA (Restored) ===
             const featuredProjectsData = [
                 {
                     id: 1,
@@ -3159,6 +3164,85 @@
                     buttonText: 'View on GitHub'
                 }
             ];
+
+            // === DYNAMIC GITHUB PROJECTS (View All Logic) ===
+            const username = 'lokeshloki65';
+
+            async function loadMoreProjects() {
+                const buttonContainer = document.getElementById('view-all-projects-btn-container');
+                const moreContainer = document.getElementById('more-projects-container');
+                const grid = document.getElementById('more-projects-grid');
+
+                // Show loading
+                if (buttonContainer) buttonContainer.style.display = 'none';
+                if (moreContainer) moreContainer.style.display = 'block';
+                grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; color: var(--primary-color);">Loading from GitHub...</div>';
+
+                try {
+                    const response = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=100`);
+                    const data = await response.json();
+
+                    // Filter out the ones already shown in static list if possible, or just show all
+                    // For simplicity and to ensure we get everything, we'll show all public repos here
+                    // excluding forks if desired. Let's keep forks as per previous request.
+                    const allRepos = data.sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
+
+                    displayMoreProjects(allRepos);
+                } catch (error) {
+                    console.error('Error fetching repos:', error);
+                    grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; color: red;">Failed to load projects from GitHub.</div>';
+                    if (buttonContainer) buttonContainer.style.display = 'block'; // Show button again on error
+                }
+            }
+
+            function displayMoreProjects(repos) {
+                const grid = document.getElementById('more-projects-grid');
+                grid.innerHTML = ''; // Clear loading message
+
+                repos.forEach(repo => {
+                    // Create card HTML
+                    const card = document.createElement('div');
+                    card.className = 'project-card';
+                    card.setAttribute('data-aos', 'fade-up');
+
+                    const desc = repo.description ? repo.description : 'No description available.';
+                    const lang = repo.language ? repo.language : 'Code';
+
+                    card.innerHTML = `
+                        <div class="project-content" style="padding: 1.5rem; display: flex; flex-direction: column; height: 100%;">
+                            <div class="project-header" style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+                                <div class="folder-icon" style="color: var(--primary-color); font-size: 1.5rem;">
+                                    <i class="far fa-folder-open"></i>
+                                </div>
+                                <div class="project-links" style="display: flex; gap: 1rem; font-size: 0.9rem; color: var(--secondary-text-color);">
+                                    <span><i class="far fa-star"></i> ${repo.stargazers_count}</span>
+                                    <span><i class="fas fa-code-branch"></i> ${repo.forks_count}</span>
+                                </div>
+                            </div>
+                            
+                            <h3 class="project-title" style="font-size: 1.4rem; color: var(--text-color); margin-bottom: 0.5rem;">${repo.name}</h3>
+                            
+                            <p class="project-desc" style="font-size: 0.95rem; color: var(--secondary-text-color); margin-bottom: 1.5rem; line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; flex-grow: 1;">
+                                ${desc}
+                            </p>
+                            
+                            <div class="project-footer" style="display: flex; justify-content: space-between; align-items: center; margin-top: auto;">
+                                <span class="project-lang" style="font-size: 0.85rem; color: var(--primary-color); font-family: monospace;">${lang}</span>
+                                <a href="${repo.html_url}" target="_blank" class="project-link" style="color: var(--text-color); font-size: 1.2rem; transition: 0.3s;">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                            </div>
+                        </div>
+                    `;
+
+                    // Style overrides to ensure Neon look without images
+                    card.style.background = 'rgba(255, 255, 255, 0.03)';
+                    card.style.border = '1px solid rgba(255, 255, 255, 0.1)';
+                    card.style.minHeight = '250px'; // Different height for text-only cards
+
+                    grid.appendChild(card);
+                });
+            }
             // All Certificates Data
             const allCertificatesData = [
                 { img: "image/certifications image/new_cert_3.jpg", title: "Web Development Internship", issuer: "Codtech IT Solutions - July 2025" },
@@ -3194,16 +3278,12 @@
 
                 // --- Dynamic Content Generation ---
                 generateTimeline();
-                generateMarqueeSkills(); // NEW FUNCTION FOR SKILLS
-                generateFeaturedProjects();
+                generateMarqueeSkills();
+                generateFeaturedProjects(); // RESTORED STATIC CALL
                 generateFeaturedCertificates();
                 generateAllCertificates();
-                fetchAllProjects(); // Fetches all projects for the modal view
+                // fetchGitHubRepos(); REMOVED IN FAVOR OF loadMoreProjects() ON CLICK
 
-                generateAllCertificates();
-                fetchAllProjects(); // Fetches all projects for the modal view
-
-                // Start the Eye Animation Logic
                 initCyberEye();
 
                 // Start 3D Tilt
@@ -3458,11 +3538,11 @@
                     card.setAttribute('data-aos', 'fade-up');
                     card.setAttribute('onclick', `openCertLightbox(${index})`);
                     card.innerHTML = `
-                <img src="${cert.img}" alt="${cert.title}" loading="lazy" />
-                <div class="cert-info">
-                    <h3>${cert.title}</h3>
-                    <p>${cert.issuer}</p>
-                </div>`;
+                    <img src="${cert.img}" alt="${cert.title}" loading="lazy" />
+                    <div class="cert-info">
+                        <h3>${cert.title}</h3>
+                        <p>${cert.issuer}</p>
+                    </div>`;
                     grid.appendChild(card);
                 });
             }
@@ -3476,15 +3556,14 @@
                     card.setAttribute('data-aos', 'fade-up');
                     card.setAttribute('onclick', `openCertLightbox(${index})`);
                     card.innerHTML = `
-                <img src="${cert.img}" alt="${cert.title}" loading="lazy" />
-                <div class="cert-info">
-                    <h3>${cert.title}</h3>
-                    <p>${cert.issuer}</p>
-                </div>`;
+                    <img src="${cert.img}" alt="${cert.title}" loading="lazy" />
+                    <div class="cert-info">
+                        <h3>${cert.title}</h3>
+                        <p>${cert.issuer}</p>
+                    </div>`;
                     grid.appendChild(card);
                 });
             }
-
             // --- EYE TRACKING LOGIC ---
             function initCyberEye() {
                 const eyeContainer = document.querySelector('.cyber-eye-container');
@@ -3521,13 +3600,7 @@
 
             // --- "VIEW ALL" AND MODAL/LIGHTBOX LOGIC ---
 
-            function showViewProjects() {
-                const viewSection = document.getElementById("view-project");
-                const buttonContainer = document.querySelector('a[onclick="showViewProjects()"]').parentElement;
-                viewSection.style.display = "block";
-                if (buttonContainer) { buttonContainer.style.display = 'none'; }
-                viewSection.scrollIntoView({ behavior: "smooth", block: "start" });
-            }
+
 
             // --- VIEW ALL SKILLS LOGIC ---
             function showAllSkills() {
@@ -3558,79 +3631,7 @@
                 if (buttonContainer) { buttonContainer.style.display = 'none'; }
             }
 
-            // --- GITHUB PROJECTS FETCHING FOR "ALL PROJECTS" SECTION ---
-            function fetchAllProjects() {
-                const username = "lokeshloki65"; // Your GitHub username
-                const demoMedia = {
-                    "weather-analysis": ["image/WEATHER.png"], "grocery-shop": ["videos/shop.mp4"],
-                    "Ai-meme_generator": ["image/tamil_meme.png"], "e-learning-platform": ["image/learnpro.png"],
-                    "Interactive_Quiz": ["image/quize.png"], "lokeshloki.site": ["image/lokeshloki.site.png"],
-                    "real_time_chat": ["image/real time chat.png"], "Xyntra": ["image/xyntra.png"]
-                };
-                const orderedNames = ["grocery-shop", "e-learning-platform", "weather-analysis", "live-location-tracker", "Xyntra", "real_time_chat", "Interactive_Quiz", "lokeshloki.site"];
 
-                fetch(`https://api.github.com/users/${username}/repos?sort=pushed&per_page=100`)
-                    .then(res => res.json())
-                    .then(repos => {
-                        if (!Array.isArray(repos)) {
-                            console.error("Fetched data is not an array:", repos);
-                            return;
-                        }
-                        const repoMap = repos.reduce((map, repo) => (map[repo.name] = repo, map), {});
-                        const addedRepos = new Set();
-                        orderedNames.forEach(name => {
-                            if (repoMap[name] && !addedRepos.has(name)) {
-                                addProjectCard(repoMap[name], demoMedia);
-                                addedRepos.add(name);
-                            }
-                        });
-                        repos.forEach(repo => {
-                            if (!addedRepos.has(repo.name) && !repo.fork) {
-                                addProjectCard(repo, demoMedia);
-                            }
-                        });
-                    }).catch(error => console.error("Error fetching repositories:", error));
-            }
-
-            function addProjectCard(repo, demoMedia) {
-                const project = {
-                    name: repo.name,
-                    desc: repo.description || "No description provided.",
-                    link: repo.html_url,
-                    private: repo.private, // This will always be false for public API
-                    media: demoMedia[repo.name] || []
-                };
-                const grid = document.getElementById('projectsGrid');
-                const card = document.createElement('div');
-                card.className = 'project-card';
-                card.innerHTML = `
-            <h3>${project.name}</h3>
-            <p>${project.desc.substring(0, 100)}</p>
-            <button onclick='showDetails(${JSON.stringify(project).replace(/'/g, "\\'")})'>🔍 View</button>`;
-                grid.appendChild(card);
-            }
-
-            function showDetails(project) {
-                document.getElementById('modalTitle').textContent = project.name;
-                document.getElementById('modalDesc').textContent = project.desc;
-                const media = document.getElementById('modalMedia');
-                media.innerHTML = (project.media || []).map(src =>
-                    src.endsWith('.mp4') ? `<video src="${src}" controls playsinline loop muted autoplay></video>` : `<img src="${src}" alt="Project media">`
-                ).join('');
-
-                const liveLinks = {
-                    "grocery-shop": "https://grocery-shop-6-l9dm.onrender.com/index.html",
-                    "weather-analysis": "https://weather-analysis-21gk.onrender.com/",
-                    "e-learning-platform": "https://e-learning-platform-beta.vercel.app/",
-                    "live-location-tracker": "https://live-location-tracker-1-qdz1.onrender.com/"
-                };
-                const actions = document.getElementById('modalActions');
-                actions.innerHTML = `<a href="${project.link}" target="_blank"><i class="fab fa-github"></i> View on GitHub</a>`;
-                if (liveLinks[project.name]) {
-                    actions.innerHTML += `<a href="${liveLinks[project.name]}" target="_blank">🌐 Visit Live Demo</a>`;
-                }
-                document.getElementById('projectModal').classList.add('show');
-            }
 
             // --- FUTURISTIC 3D TILT EFFECT ---
             function initTiltEffect() {
