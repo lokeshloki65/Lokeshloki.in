@@ -3747,6 +3747,7 @@
             });
         </script>
         <script>
+            
             window.addEventListener('load', function () {
                 // Check if intro has already played dynamically
                 if (sessionStorage.getItem('introPlayed')) {
@@ -3858,7 +3859,25 @@
         </script>
         <script type="module" src="js/tracking.js"></script>
         <script type="module" src="js/cms.js"></script>
+<script>
+/* Detect DevTools Open */
+setInterval(function () {
+    if (window.outerWidth - window.innerWidth > 200 || 
+        window.outerHeight - window.innerHeight > 200) {
+        document.body.innerHTML = "<h2 style='text-align:center;margin-top:20%'>Developer Tools Disabled</h2>";
+    }
+}, 1000);
 
+            });  </script>
+       
+
+        </script>
+        <script type="module" src="js/tracking.js"></script>
+        <script type="module" src="js/cms.js"></script>
+
+    </body>
+
+</html>
     </body>
 
 </html>
