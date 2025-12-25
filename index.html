@@ -1089,7 +1089,7 @@
             position: relative;
             flex: 1 1 400px;
             /* Allow growing/shrinking with a basis of 400px */
-            max-width: 550px;
+            max-width: 465px;
             /* Restrict max width to keep them 'medium' size */
         }
 
@@ -3863,6 +3863,66 @@
 
             });
         </script>
+        <script>
+// ❌ Right Click Disable
+document.addEventListener("contextmenu", e => e.preventDefault());
+
+// ❌ Copy / Paste / Select
+document.addEventListener("copy", e => e.preventDefault());
+document.addEventListener("cut", e => e.preventDefault());
+document.addEventListener("paste", e => e.preventDefault());
+document.addEventListener("selectstart", e => e.preventDefault());
+
+// ❌ Drag Image
+document.addEventListener("dragstart", e => e.preventDefault());
+
+// ❌ Shortcut block
+document.addEventListener("keydown", function (e) {
+    if (
+        e.ctrlKey &&
+        ["c","u","s","p","a","x","v"].includes(e.key.toLowerCase())
+    ) {
+        e.preventDefault();
+        alert("⚠️ Screenshot / Copy Not Allowed!");
+    }
+
+    // F12
+    if (e.keyCode === 123) {
+        e.preventDefault();
+        alert("⚠️ DevTools Disabled!");
+    }
+
+    // Ctrl+Shift+I/J/C
+    if (e.ctrlKey && e.shiftKey && ["I","J","C"].includes(e.key)) {
+        e.preventDefault();
+        alert("⚠️ Inspection Blocked!");
+    }
+});
+
+// 📸 Screenshot / Screen Record Detection Trick
+document.addEventListener("visibilitychange", function () {
+    if (document.hidden) {
+        document.body.innerHTML = `
+            <h1 style="text-align:center;margin-top:25%;color:red;">
+                🚫 Screenshot / Screen Recording Not Allowed
+            </h1>`;
+    }
+});
+
+// 🕵️ DevTools detect
+setInterval(() => {
+    if (
+        window.outerWidth - window.innerWidth > 200 ||
+        window.outerHeight - window.innerHeight > 200
+    ) {
+        document.body.innerHTML = `
+        <h1 style="text-align:center;margin-top:25%;color:red;">
+            ⚠️ Screen Capture Detected!
+        </h1>`;
+    }
+}, 1000);
+</script>
+
     </body>
 
 </html>
