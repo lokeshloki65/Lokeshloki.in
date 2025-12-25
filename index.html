@@ -1,26 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-  
-<head> 
-    <meta charset="UTF-8">    
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-   
-    <title>Lokesh M | AI & Web Developer</title> 
 
-    <meta name="title" content="Lokesh M | AI, Web & Full Stack Developer Portfolio"> 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Lokesh M | AI & Web Developer</title>
+
+    <meta name="title" content="Lokesh M | AI, Web & Full Stack Developer Portfolio">
     <meta name="description"
         content="Portfolio of Lokesh M, a skilled AI and Web Developer. View my resume, projects, and skills.">
     <meta name="keywords"
         content="lokesh developer, lokesh, developer, lokesh m, lokeshloki, lokesh ai developer, lokesh web developer, full stack developer, ai developer portfolio, lokesh portfolio">
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-Q0HB7HCZ8P"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'G-Q0HB7HCZ8P');
-</script>
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://lokeshloki.in/">
     <meta property="og:title" content="Lokesh Developer | Portfolio Website">
@@ -30,8 +22,7 @@
 
     <link rel="icon" type="image/png" href="logo.png">
     <link rel="canonical" href="https://lokeshloki.in/">
-<script type="module" src="js/tracking.js"></script>
-<script type="module" src="js/cms.js"></script>
+
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -1074,8 +1065,11 @@
         }
 
         .tech-stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* Added for vertical alignment if needed */
+            flex-wrap: wrap;
             gap: 2rem;
             max-width: 1200px;
             margin: 0 auto;
@@ -1093,6 +1087,10 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             overflow: hidden;
             position: relative;
+            flex: 1 1 400px;
+            /* Allow growing/shrinking with a basis of 400px */
+            max-width: 550px;
+            /* Restrict max width to keep them 'medium' size */
         }
 
         .stat-card-new:hover {
@@ -1109,6 +1107,11 @@
 
         .stat-card-full {
             grid-column: 1 / -1;
+            width: 100%;
+            max-width: 100%;
+            /* Override the max-width from .stat-card-new */
+            flex: 1 1 100%;
+            /* Force full width in flex container */
             padding: 1rem;
             overflow-x: auto;
         }
@@ -2622,7 +2625,10 @@
 
 
 
-
+                <div class="stat-card-new" data-aos="fade-left">
+                    <img src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=lokeshloki65&theme=tokyonight&hide_border=true&bg_color=00000000"
+                        alt="Lokesh Profile Details">
+                </div>
                 <div class="stat-card-new stat-card-full" data-aos="fade-up">
                     <img src="https://ghchart.rshah.org/00a6ff/lokeshloki65" alt="Lokesh's Github Chart"
                         style="width: 100%; min-height: 100px;">
@@ -3749,7 +3755,6 @@
             });
         </script>
         <script>
-            
             window.addEventListener('load', function () {
                 // Check if intro has already played dynamically
                 if (sessionStorage.getItem('introPlayed')) {
@@ -3857,29 +3862,7 @@
 
 
             });
-
         </script>
-        <script type="module" src="js/tracking.js"></script>
-        <script type="module" src="js/cms.js"></script>
-<script>
-/* Detect DevTools Open */
-setInterval(function () {
-    if (window.outerWidth - window.innerWidth > 200 || 
-        window.outerHeight - window.innerHeight > 200) {
-        document.body.innerHTML = "<h2 style='text-align:center;margin-top:20%'>Developer Tools Disabled</h2>";
-    }
-}, 1000);
-
-              </script>
-       
-
-        </script>
-        <script type="module" src="js/tracking.js"></script>
-        <script type="module" src="js/cms.js"></script>
-
-    </body>
-
-</html>
     </body>
 
 </html>
