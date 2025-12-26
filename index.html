@@ -3740,20 +3740,7 @@
             }
 
         </script>
-        <script>
-            document.addEventListener('contextmenu', e => e.preventDefault());
 
-            document.addEventListener('keydown', e => {
-                if (e.keyCode === 123) e.preventDefault();
-
-                if (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74))
-                    e.preventDefault();
-
-                if (e.ctrlKey && e.keyCode === 85) e.preventDefault();
-
-                if (e.ctrlKey && e.shiftKey && e.keyCode === 67) e.preventDefault();
-            });
-        </script>
         <script>
             window.addEventListener('load', function () {
                 // Check if intro has already played dynamically
@@ -3864,63 +3851,115 @@
             });
         </script>
         <script>
-// ❌ Right Click Disable
-document.addEventListener("contextmenu", e => e.preventDefault());
+/* ===============================
+   🔐 ADVANCED SECURITY SCRIPT
+   Author: Lokesh
+================================ */
 
-// ❌ Copy / Paste / Select
-document.addEventListener("copy", e => e.preventDefault());
-document.addEventListener("cut", e => e.preventDefault());
-document.addEventListener("paste", e => e.preventDefault());
-document.addEventListener("selectstart", e => e.preventDefault());
+// Toast Message Function
+function showToast(message, type = "error") {
+    const toast = document.createElement("div");
+    toast.innerText = message;
 
-// ❌ Drag Image
-document.addEventListener("dragstart", e => e.preventDefault());
+    toast.style.position = "fixed";
+    toast.style.bottom = "20px";
+    toast.style.right = "20px";
+    toast.style.padding = "10px 18px";
+    toast.style.background = type === "error" ? "#ff3d3d" : "#333";
+    toast.style.color = "#fff";
+    toast.style.borderRadius = "6px";
+    toast.style.fontSize = "14px";
+    toast.style.zIndex = "99999";
+    toast.style.boxShadow = "0 0 10px rgba(0,0,0,0.4)";
+    toast.style.animation = "fadein 0.3s";
 
-// ❌ Shortcut block
-document.addEventListener("keydown", function (e) {
-    if (
-        e.ctrlKey &&
-        ["c","u","s","p","a","x","v"].includes(e.key.toLowerCase())
-    ) {
-        e.preventDefault();
-        alert("⚠️ Screenshot / Copy Not Allowed!");
-    }
+    document.body.appendChild(toast);
+
+    setTimeout(() => {
+        toast.remove();
+    }, 2000);
+}
+
+// Prevent all unwanted actions
+function killEvent(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    return false;
+}
+
+// ❌ Disable Right Click
+document.addEventListener("contextmenu", e => {
+    killEvent(e);
+    showToast("🔒 Right Click Disabled");
+});
+
+// ❌ Disable Keyboard Shortcuts
+document.addEventListener("keydown", e => {
 
     // F12
-    if (e.keyCode === 123) {
-        e.preventDefault();
-        alert("⚠️ DevTools Disabled!");
+    if (e.key === "F12") {
+        killEvent(e);
+        showToast("⚠️ Developer Tools Disabled");
     }
 
-    // Ctrl+Shift+I/J/C
-    if (e.ctrlKey && e.shiftKey && ["I","J","C"].includes(e.key)) {
-        e.preventDefault();
-        alert("⚠️ Inspection Blocked!");
+    // Ctrl + U
+    if (e.ctrlKey && e.key.toLowerCase() === "u") {
+        killEvent(e);
+        showToast("🚫 View Source Disabled");
+    }
+
+    // Ctrl + Shift + I / J / C
+    if (e.ctrlKey && e.shiftKey && ["i", "j", "c"].includes(e.key.toLowerCase())) {
+        killEvent(e);
+        showToast("🛑 Inspect Blocked");
+    }
+
+    // Ctrl + S
+    if (e.ctrlKey && e.key.toLowerCase() === "s") {
+        killEvent(e);
+        showToast("💾 Save Disabled");
+    }
+
+    // Ctrl + P
+    if (e.ctrlKey && e.key.toLowerCase() === "p") {
+        killEvent(e);
+        showToast("🖨️ Print Disabled");
+    }
+
+    // Ctrl + A
+    if (e.ctrlKey && e.key.toLowerCase() === "a") {
+        killEvent(e);
+        showToast("📛 Selection Disabled");
     }
 });
 
-// 📸 Screenshot / Screen Record Detection Trick
-document.addEventListener("visibilitychange", function () {
+// ❌ Disable Drag
+document.addEventListener("dragstart", e => killEvent(e));
+
+// ❌ Disable Text Selection
+document.addEventListener("selectstart", e => killEvent(e));
+
+// 🔐 Tab Change Detection
+document.addEventListener("visibilitychange", () => {
     if (document.hidden) {
-        document.body.innerHTML = `
-            <h1 style="text-align:center;margin-top:25%;color:red;">
-                🚫 Screenshot / Screen Recording Not Allowed
-            </h1>`;
+        document.title = "🔒 Content Locked";
+    } else {
+        document.title = "Lokesh M | AI & Web Developer";
     }
 });
 
-// 🕵️ DevTools detect
+// 🛡️ DevTools Detection (Lightweight)
 setInterval(() => {
-    if (
-        window.outerWidth - window.innerWidth > 200 ||
-        window.outerHeight - window.innerHeight > 200
-    ) {
+    const widthDiff = window.outerWidth - window.innerWidth;
+    const heightDiff = window.outerHeight - window.innerHeight;
+
+    if (widthDiff > 150 || heightDiff > 150) {
         document.body.innerHTML = `
-        <h1 style="text-align:center;margin-top:25%;color:red;">
-            ⚠️ Screen Capture Detected!
-        </h1>`;
+            <h2 style="text-align:center;margin-top:20%;color:red;">
+                🚫 Developer Tools Detected
+            </h2>`;
     }
-}, 1000);
+}, 1500);
 </script>
 
     </body>
