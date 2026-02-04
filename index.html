@@ -25,9 +25,16 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
+
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+
 
     <style>
         :root {
@@ -122,7 +129,8 @@
             left: 0;
             width: 100%;
             height: 100vh;
-            background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+            background: var(--bg-color);
+            /* Changed to match main theme */
             z-index: 99999;
             /* Very high z-index to cover everything */
             display: flex;
@@ -355,7 +363,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1;
+            z-index: 100000;
+            /* Initially high to show on loading screen */
             pointer-events: none;
             /* Let clicks pass through */
         }
@@ -2465,789 +2474,782 @@
 
 <body>
 
+    <!-- LOGO ANIMATION OVERLAY -->
+    <div id="logo-animation-overlay">
+        <!-- Stars removed as requested -->
+        <div class="logo-container" id="logoBox">
+            <div class="arc-blue" id="arcBlue"></div>
+            <div class="arc-white" id="arcWhite"></div>
 
-    <body>
+            <div class="letter-l" id="txtL">L</div>
+            <div class="letter-m" id="txtM">M</div>
+        </div>
+    </div>
 
-        <!-- LOGO ANIMATION OVERLAY -->
-        <div id="logo-animation-overlay">
-            <div class="stars-overlay"></div>
-            <div class="logo-container" id="logoBox">
-                <div class="arc-blue" id="arcBlue"></div>
-                <div class="arc-white" id="arcWhite"></div>
+    <!-- AUDIO ELEMENTS -->
+    <audio id="snd1" src="mp3/1.mp3"></audio>
+    <audio id="snd2" src="mp3/3.mp3"></audio>
+    <audio id="snd3" src="mp3/22.mp3"></audio>
 
-                <div class="letter-l" id="txtL">L</div>
-                <div class="letter-m" id="txtM">M</div>
+    <div id="particles-js"></div>
+
+    <nav>
+        <a href="#home" class="logo">
+            <img src="logo.png" alt="Logo">
+            <div class="logo-text-wrapper">
+                <div class="main-name">Lokesh<span>.M</span></div>
+                <div class="logo-subtitle">AI Engineer</div>
+            </div>
+        </a>
+        <div class="nav-items">
+            <div class="menu" id="navMenu">
+                <a href="#home" class="nav-link home-icon" aria-label="Home"><i class="fas fa-home"></i></a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#tech-stats" class="nav-link">Stats</a>
+                <a href="#timeline-section" class="nav-link">Timeline</a>
+                <a href="#skill" class="nav-link">Skills</a>
+                <a href="#projects" class="nav-link">Projects</a>
+                <a href="#certifications" class="nav-link">Certifications</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+
+            <div class="theme-switcher">
+                <input type="checkbox" id="theme-toggle">
+                <label for="theme-toggle">
+                    <i class="fas fa-sun"></i>
+                    <i class="fas fa-moon"></i>
+                </label>
+            </div>
+            <div class="nav-toggle" id="navToggle"><i class="fas fa-bars"></i></div>
+        </div>
+    </nav>
+
+    <section id="home" data-aos="fade-in">
+        <div class="home-content" data-aos="fade-right">
+            <h3>Hello,</h3>
+            <h1>I'm <span class="animate-text">Lokesh M</span></h1>
+            <div class="typed-text">And I'm a <span id="typed"></span></div>
+
+            <p class="home-description">
+                An enthusiastic and dedicated B.Tech student with a strong passion for Artificial Intelligence, Data
+                Science, and building modern web applications.
+            </p>
+
+
+            <div class="home-buttons">
+                <a href="resume.html" class="resume-btn magnetic-btn">View Resume</a>
+                <a href="#contact" class="resume-btn secondary-btn magnetic-btn">Hire Me</a>
+            </div>
+
+            <div class="home-social">
+                <a href="https://github.com/lokeshloki65" target="_blank" class="social-icon"><i
+                        class="fab fa-github"></i></a>
+                <a href="https://linkedin.com/in/lokesh-m-265b832b3" target="_blank" class="social-icon"><i
+                        class="fab fa-linkedin-in"></i></a>
+                <a href="mailto:lokesh152005@gmail.com" class="social-icon"><i class="fas fa-envelope"></i></a>
+                <a href="https://wa.me/919655865777" target="_blank" class="social-icon"><i
+                        class="fab fa-whatsapp"></i></a>
+                <a href="https://instagram.com/lovely_loki._65" target="_blank" class="social-icon"><i
+                        class="fab fa-instagram"></i></a>
             </div>
         </div>
 
-        <!-- AUDIO ELEMENTS -->
-        <audio id="snd1" src="mp3/1.mp3"></audio>
-        <audio id="snd2" src="mp3/3.mp3"></audio>
-        <audio id="snd3" src="mp3/22.mp3"></audio>
-
-        <div id="particles-js"></div>
-
-        <nav>
-            <a href="#home" class="logo">
-                <img src="logo.png" alt="Logo">
-                <div class="logo-text-wrapper">
-                    <div class="main-name">Lokesh<span>.M</span></div>
-                    <div class="logo-subtitle">AI Engineer</div>
-                </div>
-            </a>
-            <div class="nav-items">
-                <div class="menu" id="navMenu">
-                    <a href="#home" class="nav-link home-icon" aria-label="Home"><i class="fas fa-home"></i></a>
-                    <a href="#about" class="nav-link">About</a>
-                    <a href="#tech-stats" class="nav-link">Stats</a>
-                    <a href="#timeline-section" class="nav-link">Timeline</a>
-                    <a href="#skill" class="nav-link">Skills</a>
-                    <a href="#projects" class="nav-link">Projects</a>
-                    <a href="#certifications" class="nav-link">Certifications</a>
-                    <a href="#contact" class="nav-link">Contact</a>
-                </div>
-                <div class="theme-switcher">
-                    <input type="checkbox" id="theme-toggle">
-                    <label for="theme-toggle">
-                        <i class="fas fa-sun"></i>
-                        <i class="fas fa-moon"></i>
-                    </label>
-                </div>
-                <div class="nav-toggle" id="navToggle"><i class="fas fa-bars"></i></div>
-            </div>
-        </nav>
-
-        <section id="home" data-aos="fade-in">
-            <div class="home-content" data-aos="fade-right">
-                <h3>Hello,</h3>
-                <h1>I'm <span class="animate-text">Lokesh M</span></h1>
-                <div class="typed-text">And I'm a <span id="typed"></span></div>
-
-                <p class="home-description">
-                    An enthusiastic and dedicated B.Tech student with a strong passion for Artificial Intelligence, Data
-                    Science, and building modern web applications.
-                </p>
-
-
-                <div class="home-buttons">
-                    <a href="resume.html" class="resume-btn magnetic-btn">View Resume</a>
-                    <a href="#contact" class="resume-btn secondary-btn magnetic-btn">Hire Me</a>
+        <div class="home-profile-animation" data-aos="zoom-in" data-aos-delay="200">
+            <div class="profile-orbit-container">
+                <div class="profile-img-box">
+                    <img src="lokeshm.jpg" alt="Lokesh M" class="profile-img" />
                 </div>
 
-                <div class="home-social">
-                    <a href="https://github.com/lokeshloki65" target="_blank" class="social-icon"><i
-                            class="fab fa-github"></i></a>
-                    <a href="https://linkedin.com/in/lokesh-m-265b832b3" target="_blank" class="social-icon"><i
-                            class="fab fa-linkedin-in"></i></a>
-                    <a href="mailto:lokesh152005@gmail.com" class="social-icon"><i class="fas fa-envelope"></i></a>
-                    <a href="https://wa.me/919655865777" target="_blank" class="social-icon"><i
-                            class="fab fa-whatsapp"></i></a>
-                    <a href="https://instagram.com/lovely_loki._65" target="_blank" class="social-icon"><i
-                            class="fab fa-instagram"></i></a>
+                <div class="orbit-ring ring-1">
+                    <div class="orbit-icon pos-1"><i class="fab fa-html5"></i></div>
+                    <div class="orbit-icon pos-2"><i class="fab fa-react"></i></div>
+                </div>
+
+                <div class="orbit-ring ring-2">
+                    <div class="orbit-icon pos-3"><i class="fab fa-python"></i></div>
+                    <div class="orbit-icon pos-4"><i class="fab fa-js"></i></div>
+                    <div class="orbit-icon pos-5"><i class="fab fa-css3-alt"></i></div>
+                    <div class="orbit-icon pos-6"><i class="fab fa-java"></i></div>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <div class="home-profile-animation" data-aos="zoom-in" data-aos-delay="200">
-                <div class="profile-orbit-container">
-                    <div class="profile-img-box">
-                        <img src="lokeshm.jpg" alt="Lokesh M" class="profile-img" />
-                    </div>
-
-                    <div class="orbit-ring ring-1">
-                        <div class="orbit-icon pos-1"><i class="fab fa-html5"></i></div>
-                        <div class="orbit-icon pos-2"><i class="fab fa-react"></i></div>
-                    </div>
-
-                    <div class="orbit-ring ring-2">
-                        <div class="orbit-icon pos-3"><i class="fab fa-python"></i></div>
-                        <div class="orbit-icon pos-4"><i class="fab fa-js"></i></div>
-                        <div class="orbit-icon pos-5"><i class="fab fa-css3-alt"></i></div>
-                        <div class="orbit-icon pos-6"><i class="fab fa-java"></i></div>
-                    </div>
-                </div>
+    <section id="about" data-aos="fade-up">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-section">
+            <!-- Profile Image with Pulse & Spin Animation -->
+            <div class="about-image-wrapper profile-pulse">
+                <div class="spin-ring"></div>
+                <img src="lokesh1213.jpg" alt="About Lokesh" class="profile-img" data-aos="fade-right" />
             </div>
-        </section>
+            <div class="about-text" data-aos="fade-left">
+                I'm <span>Lokesh</span> from <span>Vellore</span>, an <span>enthusiastic and dedicated</span>
+                <span>Third-year B.Tech student</span> in
+                <span>Artificial Intelligence & Data Science</span>. I have a strong foundation in
+                <span>computer science</span> and a passion for <span>software and web development</span>.
+                I am eager to apply my skills, work on <span>innovative projects</span>, and grow professionally in
+                the
+                field of technology.
+                My aspiration is to become a <span>well-rounded software and web developer</span>.
 
-        <section id="about" data-aos="fade-up">
-            <h2 class="section-title">About Me</h2>
-            <div class="about-section">
-                <!-- Profile Image with Pulse & Spin Animation -->
-                <div class="about-image-wrapper profile-pulse">
-                    <div class="spin-ring"></div>
-                    <img src="lokesh1213.jpg" alt="About Lokesh" class="profile-img" data-aos="fade-right" />
-                </div>
-                <div class="about-text" data-aos="fade-left">
-                    I'm <span>Lokesh</span> from <span>Vellore</span>, an <span>enthusiastic and dedicated</span>
-                    <span>Third-year B.Tech student</span> in
-                    <span>Artificial Intelligence & Data Science</span>. I have a strong foundation in
-                    <span>computer science</span> and a passion for <span>software and web development</span>.
-                    I am eager to apply my skills, work on <span>innovative projects</span>, and grow professionally in
-                    the
-                    field of technology.
-                    My aspiration is to become a <span>well-rounded software and web developer</span>.
-
-                    <div style="margin-top: 2rem;">
-                        <a href="RESUME.pdf" download="Lokesh_Resume.pdf" class="resume-btn">
-                            Download Resume <i class="fas fa-download"></i>
-                        </a>
-                    </div>
-
-                </div>
-            </div>
-            <div class="stats-container" data-aos="fade-up">
-                <div class="stat-item">
-                    <i class="fas fa-project-diagram"></i>
-                    <h3><span id="projects-counter" class="counter" data-target="60">0</span>+</h3>
-                    <p> Projects</p>
-                </div>
-                <div class="stat-item">
-                    <i class="fas fa-code"></i>
-                    <h3><span id="loc-counter" class="counter" data-target="10">0</span>+</h3>
-                    <p>Certifications</p>
-                </div>
-                <div class="stat-item">
-                    <i class="fas fa-mug-hot"></i>
-                    <h3><span id="hours-counter" class="counter" data-target="2">0</span>+</h3>
-                    <p>Learning Years</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="tech-stats" data-aos="fade-up">
-            <h2 class="section-title">My Tech Stats</h2>
-            <div class="tech-stats-grid">
-
-                <div class="stat-card-new" data-aos="fade-right">
-                    <img src="https://github-stats-api-lcjp.vercel.app/api?username=lokeshloki65&show_icons=true&count_private=true&hide_border=true&bg_color=00000000&title_color=00a6ff&icon_color=00a6ff&text_color=ffffff&rank_icon=github"
-                        alt="Lokesh GitHub Stats">
-                </div>
-
-
-
-
-                <div class="stat-card-new" data-aos="fade-left">
-                    <img src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=lokeshloki65&theme=tokyonight&hide_border=true&bg_color=00000000"
-                        alt="Lokesh Profile Details">
-                </div>
-                <div class="stat-card-new stat-card-full" data-aos="fade-up">
-                    <img src="https://ghchart.rshah.org/00a6ff/lokeshloki65" alt="Lokesh's Github Chart"
-                        style="width: 100%; min-height: 100px;">
-                </div>
-
-        </section>
-
-        <section id="timeline-section" data-aos="fade-up">
-            <h2 class="section-title">Education & Experience</h2>
-            <div class="timeline" id="timeline-container"></div>
-        </section>
-
-        <section id="skill" aria-labelledby="skills-title">
-            <h2 class="section-title" id="skills-title">Technical Skills</h2>
-
-            <div class="skills-infinite-wrapper">
-                <div class="marquee-row">
-                    <div class="marquee-content" id="marquee-row-1">
-                    </div>
-                    <div class="marquee-content" id="marquee-row-1-dup"></div>
-                </div>
-
-                <div class="marquee-row reverse">
-                    <div class="marquee-content" id="marquee-row-2">
-                    </div>
-                    <div class="marquee-content" id="marquee-row-2-dup"></div>
-                </div>
-                <div class="view-all-btn-container" style="text-align: center; margin-top: 2rem;">
-                    <a href="javascript:void(0);" onclick="showAllSkills()" class="resume-btn">
-                        View All Technical Skills
+                <div style="margin-top: 2rem;">
+                    <a href="RESUME.pdf" download="Lokesh_Resume.pdf" class="resume-btn">
+                        Download Resume <i class="fas fa-download"></i>
                     </a>
                 </div>
-            </div>
-        </section>
 
-        <!-- View All Skills Button & Section -->
-        <section id="view-skills" style="display: none;" data-aos="fade-up">
-            <h2 class="section-title">All Technical Skills</h2>
-            <div class="skills-grid-wrapper" id="allSkillsGrid"
-                style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; max-width: 1200px; margin: 0 auto; padding: 20px;">
-                <!-- Filled by JS -->
             </div>
-        </section>
+        </div>
+        <div class="stats-container" data-aos="fade-up">
+            <div class="stat-item">
+                <i class="fas fa-project-diagram"></i>
+                <h3><span id="projects-counter" class="counter" data-target="65">0</span>+</h3>
+                <p> Projects</p>
+            </div>
+            <div class="stat-item">
+                <i class="fas fa-code"></i>
+                <h3><span id="loc-counter" class="counter" data-target="10">0</span>+</h3>
+                <p>Certifications</p>
+            </div>
+            <div class="stat-item">
+                <i class="fas fa-mug-hot"></i>
+                <h3><span id="hours-counter" class="counter" data-target="2">0</span>+</h3>
+                <p>Learning Years</p>
+            </div>
+        </div>
+    </section>
 
-        <section id="projects">
-            <h2 class="section-title">My Projects</h2>
-            <div class="project-grid" id="featured-projects-grid">
-                <!-- Static Content Filled by JS -->
+    <section id="tech-stats" data-aos="fade-up">
+        <h2 class="section-title">My Tech Stats</h2>
+        <div class="tech-stats-grid">
+
+            <div class="stat-card-new" data-aos="fade-right">
+                <img src="https://github-stats-api-lcjp.vercel.app/api?username=lokeshloki65&show_icons=true&count_private=true&hide_border=true&bg_color=00000000&title_color=00a6ff&icon_color=00a6ff&text_color=ffffff&rank_icon=github"
+                    alt="Lokesh GitHub Stats">
             </div>
 
-            <!-- Hidden Container for Dynamic GitHub Projects -->
-            <div id="more-projects-container" style="display: none; margin-top: 4rem;">
-                <h3 class="section-title" style="font-size: 2rem; margin-bottom: 2rem; opacity: 0.8;">More Projects
-                    (GitHub)</h3>
-                <div class="project-grid" id="more-projects-grid">
-                    <!-- Dynamic Content Filled Here -->
+
+
+
+            <div class="stat-card-new" data-aos="fade-left">
+                <img src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=lokeshloki65&theme=tokyonight&hide_border=true&bg_color=00000000"
+                    alt="Lokesh Profile Details">
+            </div>
+            <div class="stat-card-new stat-card-full" data-aos="fade-up">
+                <img src="https://ghchart.rshah.org/00a6ff/lokeshloki65" alt="Lokesh's Github Chart"
+                    style="width: 100%; min-height: 100px;">
+            </div>
+
+    </section>
+
+    <section id="timeline-section" data-aos="fade-up">
+        <h2 class="section-title"> Experience & Education </h2>
+        <div class="timeline" id="timeline-container"></div>
+    </section>
+
+    <section id="skill" aria-labelledby="skills-title">
+        <h2 class="section-title" id="skills-title">Technical Skills</h2>
+
+        <div class="skills-infinite-wrapper">
+            <div class="marquee-row">
+                <div class="marquee-content" id="marquee-row-1">
                 </div>
+                <div class="marquee-content" id="marquee-row-1-dup"></div>
             </div>
 
-
-            <div class="view-all-btn-container" id="view-all-projects-btn-container"
-                style="text-align: center; margin-top: 3rem;">
-                <a href="javascript:void(0);" onclick="loadMoreProjects()" class="resume-btn">
-                    View All Projects
+            <div class="marquee-row reverse">
+                <div class="marquee-content" id="marquee-row-2">
+                </div>
+                <div class="marquee-content" id="marquee-row-2-dup"></div>
+            </div>
+            <div class="view-all-btn-container" style="text-align: center; margin-top: 2rem;">
+                <a href="javascript:void(0);" onclick="showAllSkills()" class="resume-btn">
+                    View All Technical Skills
                 </a>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="certifications">
-            <div class="cert-section-header" data-aos="zoom-in">
-                <div class="cyber-eye-container">
-                    <div class="eye-outer-ring"></div>
-                    <div class="eye-main">
-                        <div class="eye-grid"></div>
-                        <div class="eye-pupil"></div>
-                    </div>
-                </div>
-                <h2 class="section-title">Verified Certifications</h2>
-            </div>
+    <!-- View All Skills Button & Section -->
+    <section id="view-skills" style="display: none;" data-aos="fade-up">
+        <h2 class="section-title">All Technical Skills</h2>
+        <div class="skills-grid-wrapper" id="allSkillsGrid"
+            style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; max-width: 1200px; margin: 0 auto; padding: 20px;">
+            <!-- Filled by JS -->
+        </div>
+    </section>
 
-            <div class="cert-grid" id="featured-certs-grid">
-            </div>
-            <div class="view-all-btn-container">
-                <a href="javascript:void(0);" onclick="showAllCertificates()" class="resume-btn">
-                    🎓 View All Certificates
-                </a>
-            </div>
-        </section>
-        <section id="view-certifications" data-aos="fade-up">
-            <h2 class="section-title">All Certifications</h2>
-            <div class="cert-grid" id="all-certs-grid">
-            </div>
-        </section>
-
-        <div class="lightbox" id="cert-lightbox">
-            <span class="close" onclick="closeCertLightbox()">×</span>
-            <span class="nav-btn prev" onclick="changeCertSlide(-1)">❮</span>
-            <img id="lightboxImage" src="" alt="Certificate Preview" />
-            <p id="img-count"></p>
-            <span class="nav-btn next" onclick="changeCertSlide(1)">❯</span>
+    <section id="projects">
+        <h2 class="section-title">My Projects</h2>
+        <div class="project-grid" id="featured-projects-grid">
+            <!-- Static Content Filled by JS -->
         </div>
 
-        <section id="contact" style="position: relative; overflow: hidden; padding: 6rem 5%;">
-            <!-- Background Elements for Contact Section specifically -->
-            <div
-                style="position: absolute; top: -100px; left: -100px; width: 400px; height: 400px; background: var(--primary-color); opacity: 0.1; filter: blur(100px); border-radius: 50%; z-index: -1;">
+        <!-- Hidden Container for Dynamic GitHub Projects -->
+        <div id="more-projects-container" style="display: none; margin-top: 4rem;">
+            <h3 class="section-title" style="font-size: 2rem; margin-bottom: 2rem; opacity: 0.8;">More Projects
+                (GitHub)</h3>
+            <div class="project-grid" id="more-projects-grid">
+                <!-- Dynamic Content Filled Here -->
             </div>
-            <div
-                style="position: absolute; bottom: -100px; right: -100px; width: 400px; height: 400px; background: var(--accent-color); opacity: 0.1; filter: blur(100px); border-radius: 50%; z-index: -1;">
+        </div>
+
+
+        <div class="view-all-btn-container" id="view-all-projects-btn-container"
+            style="text-align: center; margin-top: 3rem;">
+            <a href="javascript:void(0);" onclick="loadMoreProjects()" class="resume-btn">
+                View All Projects
+            </a>
+        </div>
+    </section>
+
+    <section id="certifications">
+        <div class="cert-section-header" data-aos="zoom-in">
+            <div class="cyber-eye-container">
+                <div class="eye-outer-ring"></div>
+                <div class="eye-main">
+                    <div class="eye-grid"></div>
+                    <div class="eye-pupil"></div>
+                </div>
             </div>
+            <h2 class="section-title">Verified Certifications</h2>
+        </div>
 
-            <h2 class="section-title" data-aos="fade-down">Connect With Me</h2>
+        <div class="cert-grid" id="featured-certs-grid">
+        </div>
+        <div class="view-all-btn-container">
+            <a href="javascript:void(0);" onclick="showAllCertificates()" class="resume-btn">
+                🎓 View All Certificates
+            </a>
+        </div>
+    </section>
+    <section id="view-certifications" data-aos="fade-up">
+        <h2 class="section-title">All Certifications</h2>
+        <div class="cert-grid" id="all-certs-grid">
+        </div>
+    </section>
 
-            <div class="contact-wrapper-glass" data-aos="zoom-in">
-                <div class="contact-card-info">
-                    <h3>Let's Collaborate</h3>
-                    <p>I'm always open to discussing new projects, creative ideas or opportunities to be part of
-                        your
-                        visions.</p>
+    <div class="lightbox" id="cert-lightbox">
+        <span class="close" onclick="closeCertLightbox()">×</span>
+        <span class="nav-btn prev" onclick="changeCertSlide(-1)">❮</span>
+        <img id="lightboxImage" src="" alt="Certificate Preview" />
+        <p id="img-count"></p>
+        <span class="nav-btn next" onclick="changeCertSlide(1)">❯</span>
+    </div>
 
-                    <div class="info-row">
-                        <div class="icon-box"><i class="fas fa-map-marked-alt"></i></div>
-                        <div>
-                            <span class="label">Location</span>
-                            <span class="value">Vellore, Tamil Nadu, India</span>
-                        </div>
-                    </div>
+    <section id="contact" style="position: relative; overflow: hidden; padding: 6rem 5%;">
+        <!-- Background Elements for Contact Section specifically -->
+        <div
+            style="position: absolute; top: -100px; left: -100px; width: 400px; height: 400px; background: var(--primary-color); opacity: 0.1; filter: blur(100px); border-radius: 50%; z-index: -1;">
+        </div>
+        <div
+            style="position: absolute; bottom: -100px; right: -100px; width: 400px; height: 400px; background: var(--accent-color); opacity: 0.1; filter: blur(100px); border-radius: 50%; z-index: -1;">
+        </div>
 
-                    <div class="info-row">
-                        <div class="icon-box"><i class="fas fa-envelope-open-text"></i></div>
-                        <div>
-                            <span class="label">Email</span>
-                            <span class="value"><a
-                                    href="mailto:lokesh152005@gmail.com">lokesh152005@gmail.com</a></span>
-                        </div>
-                    </div>
+        <h2 class="section-title" data-aos="fade-down">Connect With Me</h2>
 
-                    <div class="info-row">
-                        <div class="icon-box"><i class="fas fa-phone-alt"></i></div>
-                        <div>
-                            <span class="label">Phone</span>
-                            <span class="value"><a href="tel:+919655865777">+91 965 586 5777</a></span>
-                        </div>
-                    </div>
+        <div class="contact-wrapper-glass" data-aos="zoom-in">
+            <div class="contact-card-info">
+                <h3>Let's Collaborate</h3>
+                <p>I'm always open to discussing new projects, creative ideas or opportunities to be part of
+                    your
+                    visions.</p>
 
-                    <div class="social-dock">
-                        <a href="https://github.com/lokeshloki65" target="_blank" class="dock-item" style="--i:0"><i
-                                class="fab fa-github"></i></a>
-                        <a href="https://linkedin.com/in/lokesh-m-265b832b3" target="_blank" class="dock-item"
-                            style="--i:1"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="https://instagram.com/lovely_loki._65" target="_blank" class="dock-item"
-                            style="--i:2"><i class="fab fa-instagram"></i></a>
-                        <a href="https://wa.me/919655865777" target="_blank" class="dock-item" style="--i:3"><i
-                                class="fab fa-whatsapp"></i></a>
+                <div class="info-row">
+                    <div class="icon-box"><i class="fas fa-map-marked-alt"></i></div>
+                    <div>
+                        <span class="label">Location</span>
+                        <span class="value">Vellore, Tamil Nadu, India</span>
                     </div>
                 </div>
 
-                <div class="contact-card-form">
-                    <form id="contact-form" action="https://formspree.io/f/xnjaveww" method="POST">
+                <div class="info-row">
+                    <div class="icon-box"><i class="fas fa-envelope-open-text"></i></div>
+                    <div>
+                        <span class="label">Email</span>
+                        <span class="value"><a href="mailto:lokesh152005@gmail.com">lokesh152005@gmail.com</a></span>
+                    </div>
+                </div>
 
-                        <div class="input-group">
-                            <input type="text" name="name" required>
-                            <label>Your Name</label>
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <div class="input-group">
-                            <input type="email" name="email" required>
-                            <label>Email Address</label>
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <div class="input-group">
-                            <textarea name="message" required></textarea>
-                            <label>Your Message</label>
-                            <i class="fas fa-comment-dots" style="top: 15px;"></i>
-                        </div>
-                        <button type="submit" class="submit-btn-glow">
-                            Send Message <i class="fas fa-paper-plane"></i>
-                        </button>
-                    </form>
+                <div class="info-row">
+                    <div class="icon-box"><i class="fas fa-phone-alt"></i></div>
+                    <div>
+                        <span class="label">Phone</span>
+                        <span class="value"><a href="tel:+919655865777">+91 965 586 5777</a></span>
+                    </div>
+                </div>
+
+                <div class="social-dock">
+                    <a href="https://github.com/lokeshloki65" target="_blank" class="dock-item" style="--i:0"><i
+                            class="fab fa-github"></i></a>
+                    <a href="https://linkedin.com/in/lokesh-m-265b832b3" target="_blank" class="dock-item"
+                        style="--i:1"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://instagram.com/lovely_loki._65" target="_blank" class="dock-item" style="--i:2"><i
+                            class="fab fa-instagram"></i></a>
+                    <a href="https://wa.me/919655865777" target="_blank" class="dock-item" style="--i:3"><i
+                            class="fab fa-whatsapp"></i></a>
                 </div>
             </div>
 
-            <style>
-                /* === UNIQUE FUTURISTIC CONTACT STYLES === */
+            <div class="contact-card-form">
+                <form id="contact-form" action="https://formspree.io/f/xnjaveww" method="POST">
+
+                    <div class="input-group">
+                        <input type="text" name="name" required>
+                        <label>Your Name</label>
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="input-group">
+                        <input type="email" name="email" required>
+                        <label>Email Address</label>
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="input-group">
+                        <textarea name="message" required></textarea>
+                        <label>Your Message</label>
+                        <i class="fas fa-comment-dots" style="top: 15px;"></i>
+                    </div>
+                    <button type="submit" class="submit-btn-glow">
+                        Send Message <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <style>
+            /* === UNIQUE FUTURISTIC CONTACT STYLES === */
+            .contact-wrapper-glass {
+                display: flex;
+                flex-wrap: wrap;
+                max-width: 1100px;
+                margin: 0 auto;
+                background: rgba(255, 255, 255, 0.03);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                backdrop-filter: blur(20px);
+                border-radius: 20px;
+                overflow: hidden;
+                box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            }
+
+            .contact-card-info {
+                flex: 1;
+                min-width: 300px;
+                padding: 3rem;
+                background: linear-gradient(135deg, rgba(0, 166, 255, 0.1) 0%, transparent 100%);
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                border-right: 1px solid rgba(255, 255, 255, 0.05);
+            }
+
+            .contact-card-info h3 {
+                font-size: 2rem;
+                margin-bottom: 1rem;
+                background: linear-gradient(to right, #fff, var(--primary-color));
+                -webkit-background-clip: text;
+                background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+
+            .contact-card-info p {
+                color: var(--secondary-text-color);
+                margin-bottom: 2rem;
+                line-height: 1.6;
+            }
+
+            .info-row {
+                display: flex;
+                align-items: center;
+                gap: 15px;
+                margin-bottom: 1.5rem;
+            }
+
+            .icon-box {
+                width: 50px;
+                height: 50px;
+                background: rgba(0, 166, 255, 0.1);
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: var(--primary-color);
+                font-size: 1.2rem;
+                border: 1px solid rgba(0, 166, 255, 0.2);
+                transition: 0.3s;
+            }
+
+            .info-row:hover .icon-box {
+                background: var(--primary-color);
+                color: #fff;
+                box-shadow: 0 0 15px var(--primary-color);
+            }
+
+            .info-row div .label {
+                display: block;
+                font-size: 0.8rem;
+                color: var(--secondary-text-color);
+            }
+
+            .info-row div .value {
+                color: var(--text-color);
+                font-weight: 500;
+            }
+
+            .info-row div .value a {
+                color: var(--text-color);
+                transition: 0.3s;
+            }
+
+            .info-row div .value a:hover {
+                color: var(--primary-color);
+            }
+
+            .social-dock {
+                display: flex;
+                gap: 10px;
+                margin-top: auto;
+                padding-top: 2rem;
+            }
+
+            .dock-item {
+                width: 45px;
+                height: 45px;
+                border-radius: 12px;
+                background: rgba(255, 255, 255, 0.05);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: var(--text-color);
+                font-size: 1.2rem;
+                transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .dock-item:hover {
+                transform: translateY(-8px) scale(1.1);
+                background: var(--primary-color);
+                color: #fff;
+                box-shadow: 0 10px 20px rgba(0, 166, 255, 0.3);
+            }
+
+            .contact-card-form {
+                flex: 1.2;
+                min-width: 300px;
+                padding: 3rem;
+                background: rgba(0, 0, 0, 0.2);
+            }
+
+            .input-group {
+                position: relative;
+                margin-bottom: 2rem;
+            }
+
+            .input-group input,
+            .input-group textarea {
+                width: 100%;
+                padding: 12px 10px 12px 40px;
+                background: transparent;
+                border: none;
+                border-bottom: 1px solid var(--border-color);
+                color: #fff;
+                font-size: 1rem;
+                outline: none;
+                transition: 0.3s;
+            }
+
+            .input-group textarea {
+                height: 100px;
+                resize: none;
+                padding-top: 15px;
+            }
+
+            .input-group label {
+                position: absolute;
+                left: 40px;
+                top: 12px;
+                color: var(--secondary-text-color);
+                transition: 0.3s;
+                pointer-events: none;
+            }
+
+            .input-group i {
+                position: absolute;
+                left: 10px;
+                top: 15px;
+                color: var(--primary-color);
+                transition: 0.3s;
+            }
+
+            .input-group input:focus,
+            .input-group input:valid,
+            .input-group textarea:focus,
+            .input-group textarea:valid {
+                border-bottom-color: var(--primary-color);
+            }
+
+            .input-group input:focus+label,
+            .input-group input:valid+label,
+            .input-group textarea:focus+label,
+            .input-group textarea:valid+label {
+                top: -15px;
+                left: 0;
+                font-size: 0.8rem;
+                color: var(--primary-color);
+            }
+
+            .submit-btn-glow {
+                width: 100%;
+                padding: 15px;
+                border: none;
+                background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+                color: #fff;
+                font-size: 1rem;
+                font-weight: bold;
+                border-radius: 50px;
+                cursor: pointer;
+                transition: 0.3s;
+                box-shadow: 0 5px 15px rgba(0, 166, 255, 0.3);
+                position: relative;
+                overflow: hidden;
+            }
+
+            .submit-btn-glow:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 8px 25px rgba(0, 166, 255, 0.5);
+                letter-spacing: 1px;
+            }
+
+            @media (max-width: 768px) {
                 .contact-wrapper-glass {
-                    display: flex;
-                    flex-wrap: wrap;
-                    max-width: 1100px;
-                    margin: 0 auto;
-                    background: rgba(255, 255, 255, 0.03);
-                    border: 1px solid rgba(255, 255, 255, 0.1);
-                    backdrop-filter: blur(20px);
-                    border-radius: 20px;
-                    overflow: hidden;
-                    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+                    flex-direction: column;
                 }
 
                 .contact-card-info {
-                    flex: 1;
-                    min-width: 300px;
-                    padding: 3rem;
-                    background: linear-gradient(135deg, rgba(0, 166, 255, 0.1) 0%, transparent 100%);
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: center;
-                    border-right: 1px solid rgba(255, 255, 255, 0.05);
-                }
-
-                .contact-card-info h3 {
-                    font-size: 2rem;
-                    margin-bottom: 1rem;
-                    background: linear-gradient(to right, #fff, var(--primary-color));
-                    -webkit-background-clip: text;
-                    background-clip: text;
-                    -webkit-text-fill-color: transparent;
-                }
-
-                .contact-card-info p {
-                    color: var(--secondary-text-color);
-                    margin-bottom: 2rem;
-                    line-height: 1.6;
-                }
-
-                .info-row {
-                    display: flex;
-                    align-items: center;
-                    gap: 15px;
-                    margin-bottom: 1.5rem;
-                }
-
-                .icon-box {
-                    width: 50px;
-                    height: 50px;
-                    background: rgba(0, 166, 255, 0.1);
-                    border-radius: 50%;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    color: var(--primary-color);
-                    font-size: 1.2rem;
-                    border: 1px solid rgba(0, 166, 255, 0.2);
-                    transition: 0.3s;
-                }
-
-                .info-row:hover .icon-box {
-                    background: var(--primary-color);
-                    color: #fff;
-                    box-shadow: 0 0 15px var(--primary-color);
-                }
-
-                .info-row div .label {
-                    display: block;
-                    font-size: 0.8rem;
-                    color: var(--secondary-text-color);
-                }
-
-                .info-row div .value {
-                    color: var(--text-color);
-                    font-weight: 500;
-                }
-
-                .info-row div .value a {
-                    color: var(--text-color);
-                    transition: 0.3s;
-                }
-
-                .info-row div .value a:hover {
-                    color: var(--primary-color);
-                }
-
-                .social-dock {
-                    display: flex;
-                    gap: 10px;
-                    margin-top: auto;
-                    padding-top: 2rem;
-                }
-
-                .dock-item {
-                    width: 45px;
-                    height: 45px;
-                    border-radius: 12px;
-                    background: rgba(255, 255, 255, 0.05);
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    color: var(--text-color);
-                    font-size: 1.2rem;
-                    transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-                    border: 1px solid rgba(255, 255, 255, 0.1);
-                }
-
-                .dock-item:hover {
-                    transform: translateY(-8px) scale(1.1);
-                    background: var(--primary-color);
-                    color: #fff;
-                    box-shadow: 0 10px 20px rgba(0, 166, 255, 0.3);
+                    padding: 2rem;
+                    border-right: none;
+                    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
                 }
 
                 .contact-card-form {
-                    flex: 1.2;
-                    min-width: 300px;
-                    padding: 3rem;
-                    background: rgba(0, 0, 0, 0.2);
-                }
-
-                .input-group {
-                    position: relative;
-                    margin-bottom: 2rem;
-                }
-
-                .input-group input,
-                .input-group textarea {
-                    width: 100%;
-                    padding: 12px 10px 12px 40px;
-                    background: transparent;
-                    border: none;
-                    border-bottom: 1px solid var(--border-color);
-                    color: #fff;
-                    font-size: 1rem;
-                    outline: none;
-                    transition: 0.3s;
-                }
-
-                .input-group textarea {
-                    height: 100px;
-                    resize: none;
-                    padding-top: 15px;
-                }
-
-                .input-group label {
-                    position: absolute;
-                    left: 40px;
-                    top: 12px;
-                    color: var(--secondary-text-color);
-                    transition: 0.3s;
-                    pointer-events: none;
-                }
-
-                .input-group i {
-                    position: absolute;
-                    left: 10px;
-                    top: 15px;
-                    color: var(--primary-color);
-                    transition: 0.3s;
-                }
-
-                .input-group input:focus,
-                .input-group input:valid,
-                .input-group textarea:focus,
-                .input-group textarea:valid {
-                    border-bottom-color: var(--primary-color);
-                }
-
-                .input-group input:focus+label,
-                .input-group input:valid+label,
-                .input-group textarea:focus+label,
-                .input-group textarea:valid+label {
-                    top: -15px;
-                    left: 0;
-                    font-size: 0.8rem;
-                    color: var(--primary-color);
-                }
-
-                .submit-btn-glow {
-                    width: 100%;
-                    padding: 15px;
-                    border: none;
-                    background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
-                    color: #fff;
-                    font-size: 1rem;
-                    font-weight: bold;
-                    border-radius: 50px;
-                    cursor: pointer;
-                    transition: 0.3s;
-                    box-shadow: 0 5px 15px rgba(0, 166, 255, 0.3);
-                    position: relative;
-                    overflow: hidden;
-                }
-
-                .submit-btn-glow:hover {
-                    transform: translateY(-3px);
-                    box-shadow: 0 8px 25px rgba(0, 166, 255, 0.5);
-                    letter-spacing: 1px;
-                }
-
-                @media (max-width: 768px) {
-                    .contact-wrapper-glass {
-                        flex-direction: column;
-                    }
-
-                    .contact-card-info {
-                        padding: 2rem;
-                        border-right: none;
-                        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-                    }
-
-                    .contact-card-form {
-                        padding: 2rem;
-                    }
-                }
-            </style>
-        </section>
-
-        <footer class="lokesh-footer">
-            <div class="footer-top">
-                <div class="footer-column">
-                    <h3>Quick Links</h3>
-                    <ul>
-                        <li><a href="#home">🏠 Home</a></li>
-                        <li><a href="#about">👤 About</a></li>
-                        <li><a href="#timeline-section">📅 Timeline</a></li>
-                        <li><a href="#skill">🚀 Skills</a></li>
-                        <li><a href="#projects">💻 Projects</a></li>
-                        <li><a href="#certifications">🎓 Certifications</a></li>
-                        <li><a href="#contact">📩 Contact</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column center">
-                    <img src="logo.png" alt="Lokesh Logo" class="footer-logo" />
-                    <h2>Lokesh M</h2>
-                    <p>AI Developer | Web Programmer</p>
-                    <div class="footer-social">
-                        <a href="https://github.com/lokeshloki65" target="_blank"><i class="fab fa-github"></i></a>
-                        <a href="https://linkedin.com/in/lokesh-m-265b832b3" target="_blank"><i
-                                class="fab fa-linkedin"></i></a>
-                        <a href="mailto:lokesh152005@gmail.com"><i class="fas fa-envelope"></i></a>
-                        <a href="https://wa.me/919655865777" target="_blank"><i class="fab fa-whatsapp"></i></a>
-                        <a href="https://instagram.com/lovely_loki._65" target="_blank"><i
-                                class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-                <div class="footer-column">
-                    <h3>Contact Info</h3>
-                    <p><i class="fas fa-map-marker-alt"></i> <a href="#">Vellore, Tamil Nadu, India</a></p>
-                    <p><i class="fas fa-phone"></i> <a href="tel:+919655865777">+91 96558 65777</a></p>
-                    <p><i class="fas fa-envelope"></i> <a
-                            href="mailto:lokesh152005@gmail.com">lokesh152005@gmail.com</a>
-                    </p>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>© 2025 Lokesh M. All Rights Reserved.</p>
-            </div>
-        </footer>
-
-        <div id="toast"></div>
-
-        <button id="scrollTopBtn" title="Go to top"><i class="fas fa-arrow-up"></i></button>
-
-
-        <div id="projectModal" class="modal">
-            <div class="modal-content">
-                <span class="modal-close" onclick="closeModal()">×</span>
-                <h2 id="modalTitle"></h2>
-                <p id="modalDesc"></p>
-                <div id="modalMedia" class="media-container"></div>
-                <div id="modalActions" class="modal-actions"></div>
-            </div>
-        </div>
-
-        <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
-        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
-
-        <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-
-        <script>
-            // --- DATA ARRAYS FOR EASY UPDATES ---
-
-            // Timeline Data - UPDATED WITH SNESTRON SYSTEMS
-            const timelineData = [
-                {
-                    type: 'experience',
-                    date: 'Nov 28, 2025 - Dec 28, 2025',
-                    title: 'Data Science Intern',
-                    institution: 'Snestron Systems Private Limited',
-                    description: 'Selected for the Data Science domain. Focused on learning, skill development, practical knowledge, and completing assignments within the 4-week internship duration.'
-                },
-                {
-                    type: 'education',
-                    date: '2023 - 2027',
-                    title: 'B.Tech in Artificial Intelligence & Data Science',
-                    institution: 'Shree venkateshwara hi-tech Engineering College',
-                    description: 'Currently in pre-final year, focusing on machine learning, data structures, and web development. Maintaining a strong academic record.'
-                },
-                {
-                    type: 'experience',
-                    date: 'June 2025 - July 2025',
-                    title: 'Web Development Intern',
-                    institution: 'CodeTech-IT solution',
-                    description: 'Gained hands-on experience in developing and maintaining web applications using HTML,css and JAVA SCRIPT.'
-                },
-                {
-                    type: 'education',
-                    date: '2021 - 2023',
-                    title: 'HSC - Higher Secondary Certificate',
-                    institution: 'Sri Saraswathi Vidiyaliya Matric School',
-                    description: 'Completed my higher secondary education with a focus on computer science , scoring 90%.'
-                }
-            ];
-
-            // === SKILL DATA (Cleaned & Unique) ===
-            const skillData = [
-                { title: 'HTML', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg', filterClass: '' },
-                { title: 'CSS', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg', filterClass: '' },
-                { title: 'Java', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg', filterClass: '' },
-                { title: 'Python', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg', filterClass: '' },
-                { title: 'MySQL', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg', filterClass: '' },
-                { title: 'React', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg', filterClass: '' },
-                { title: 'Firebase', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg', filterClass: '' },
-                { title: 'Cloudinary', logo: 'https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/cloudinary.svg', filterClass: 'filter-white' },
-                { title: 'Git & GitHub', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg', filterClass: '' },
-                { title: 'VS Code', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg', filterClass: '' },
-                { title: 'Django', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg', filterClass: 'filter-white' },
-                { title: 'TensorFlow', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg', filterClass: '' },
-                { title: 'MongoDB', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg', filterClass: '' },
-                { title: 'Render', logo: 'https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/render.svg', filterClass: 'filter-white' },
-                { title: 'Vercel', logo: 'https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/vercel.svg', filterClass: 'filter-white' },
-                { title: 'Gemini API', logo: 'https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/googlegemini.svg', filterClass: 'filter-white' },
-                { title: 'WeatherAPI', logo: 'https://cdn.weatherapi.com/v4/images/weatherapi_logo.png', filterClass: '' },
-            ];
-
-
-            // === STATIC FEATURED PROJECTS DATA (Restored) ===
-            const featuredProjectsData = [
-                {
-                    id: 1,
-                    image: 'https://i.pinimg.com/736x/e4/fb/1e/e4fb1e6495aed99b3219fcd9d4707dfa.jpg',
-                    title: 'SV Academy',
-                    description: 'Official academic portal managing student admissions, gallery, and digital notices for a smart campus experience.',
-                    link: 'https://quiz.lokeshloki.site/',
-                    buttonText: 'Live View'
-                },
-                {
-                    id: 2,
-                    image: 'https://i.pinimg.com/736x/63/42/e7/6342e7fb4ce7586536da12d5388d5f25.jpg',
-                    title: 'AI-Agro',
-                    description: 'Smart AI agriculture system providing crop suggestions, disease detection & weather reports for farmers.',
-                    link: 'https://ai-agro-live.com',
-                    buttonText: 'Live View'
-                },
-                {
-                    id: 3,
-                    image: 'https://i.pinimg.com/736x/a1/11/83/a11183d16083762fd1772b40e5f0063e.jpg',
-                    title: 'Medicine Tracker',
-                    description: 'A digital health assistant to track prescriptions, set pill reminders, and manage medical inventory efficiently.',
-                    link: 'https://github.com/lokeshloki65/medicine-tracker',
-                    buttonText: 'View on GitHub'
-                },
-                {
-                    id: 4,
-                    image: 'https://i.pinimg.com/736x/44/91/d2/4491d206a2c3639216bac6d735a5137f.jpg',
-                    title: 'Food Delivery App',
-                    description: 'Full-stack food ordering platform featuring real-time cart management, restaurant listings, and secure checkout.',
-                    link: 'https://github.com/lokeshloki65/food-delivery-app',
-                    buttonText: 'View on GitHub'
-                },
-                {
-                    id: 5,
-                    image: 'https://i.pinimg.com/736x/61/41/ec/6141ec2bf04bebc02b133c0308f6d66c.jpg',
-                    title: 'AI Face Attendance',
-                    description: 'Automated attendance system using Python & OpenCV to detect and verify student faces securely.',
-                    link: 'https://github.com/lokeshloki65/face-recognition-attendance',
-                    buttonText: 'View on GitHub'
-                },
-                {
-                    id: 6,
-                    image: 'https://i.pinimg.com/736x/cb/e3/11/cbe311fe3ddd6d3f1ce7cc3e8067030b.jpg',
-                    title: 'LearnPro',
-                    description: 'Comprehensive E-Learning Platform with Firebase Auth, course progress tracking, and a modern responsive UI.',
-                    link: 'https://github.com/lokeshloki65/e-learning-platform',
-                    buttonText: 'View on GitHub'
-                }
-            ];
-
-            // === DYNAMIC GITHUB PROJECTS (View All Logic) ===
-            const username = 'lokeshloki65';
-
-            async function loadMoreProjects() {
-                const buttonContainer = document.getElementById('view-all-projects-btn-container');
-                const moreContainer = document.getElementById('more-projects-container');
-                const grid = document.getElementById('more-projects-grid');
-
-                // Show loading
-                if (buttonContainer) buttonContainer.style.display = 'none';
-                if (moreContainer) moreContainer.style.display = 'block';
-                grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; color: var(--primary-color);">Loading from GitHub...</div>';
-
-                try {
-                    const response = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=100`);
-                    const data = await response.json();
-
-                    // Filter out the ones already shown in static list if possible, or just show all
-                    // For simplicity and to ensure we get everything, we'll show all public repos here
-                    // excluding forks if desired. Let's keep forks as per previous request.
-                    const allRepos = data.sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
-
-                    displayMoreProjects(allRepos);
-                } catch (error) {
-                    console.error('Error fetching repos:', error);
-                    grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; color: red;">Failed to load projects from GitHub.</div>';
-                    if (buttonContainer) buttonContainer.style.display = 'block'; // Show button again on error
+                    padding: 2rem;
                 }
             }
+        </style>
+    </section>
 
-            function displayMoreProjects(repos) {
-                const grid = document.getElementById('more-projects-grid');
-                grid.innerHTML = ''; // Clear loading message
+    <footer class="lokesh-footer">
+        <div class="footer-top">
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#home">🏠 Home</a></li>
+                    <li><a href="#about">👤 About</a></li>
+                    <li><a href="#timeline-section">📅 Timeline</a></li>
+                    <li><a href="#skill">🚀 Skills</a></li>
+                    <li><a href="#projects">💻 Projects</a></li>
+                    <li><a href="#certifications">🎓 Certifications</a></li>
+                    <li><a href="#contact">📩 Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-column center">
+                <img src="logo.png" alt="Lokesh Logo" class="footer-logo" />
+                <h2>Lokesh M</h2>
+                <p>AI Developer | Web Programmer</p>
+                <div class="footer-social">
+                    <a href="https://github.com/lokeshloki65" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://linkedin.com/in/lokesh-m-265b832b3" target="_blank"><i
+                            class="fab fa-linkedin"></i></a>
+                    <a href="mailto:lokesh152005@gmail.com"><i class="fas fa-envelope"></i></a>
+                    <a href="https://wa.me/919655865777" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://instagram.com/lovely_loki._65" target="_blank"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Contact Info</h3>
+                <p><i class="fas fa-map-marker-alt"></i> <a href="#">Vellore, Tamil Nadu, India</a></p>
+                <p><i class="fas fa-phone"></i> <a href="tel:+919655865777">+91 96558 65777</a></p>
+                <p><i class="fas fa-envelope"></i> <a href="mailto:lokesh152005@gmail.com">lokesh152005@gmail.com</a>
+                </p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 Lokesh M. All Rights Reserved.</p>
+        </div>
+    </footer>
 
-                repos.forEach(repo => {
-                    // Create card HTML
-                    const card = document.createElement('div');
-                    card.className = 'project-card';
-                    card.setAttribute('data-aos', 'fade-up');
+    <div id="toast"></div>
 
-                    const desc = repo.description ? repo.description : 'No description available.';
-                    const lang = repo.language ? repo.language : 'Code';
+    <button id="scrollTopBtn" title="Go to top"><i class="fas fa-arrow-up"></i></button>
 
-                    card.innerHTML = `
+
+    <div id="projectModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal()">×</span>
+            <h2 id="modalTitle"></h2>
+            <p id="modalDesc"></p>
+            <div id="modalMedia" class="media-container"></div>
+            <div id="modalActions" class="modal-actions"></div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+    <script>
+        // --- DATA ARRAYS FOR EASY UPDATES ---
+
+        // Timeline Data - UPDATED WITH SNESTRON SYSTEMS
+        const timelineData = [
+ {
+    type: 'experience',
+    date: 'Feb 2026 - Present',
+    title: 'Artificial Intelligence & Machine Learning Intern',
+    institution: 'TCS Foundation (in collaboration with NIT)',
+    description: 'Selected through an Ideathon conducted by NIT in collaboration with TCS Foundation. Working on Artificial Intelligence and Machine Learning based solutions, focusing on real-world problem solving, model development, and applied research. Currently gaining hands-on experience in AI/ML concepts and practical implementation.'
+},
+
+            {
+                type: 'education',
+                date: '2023 - 2027',
+                title: 'B.Tech in Artificial Intelligence & Data Science',
+                institution: 'Shree venkateshwara hi-tech Engineering College',
+                description: 'Currently in pre-final year, focusing on machine learning, data structures, and web development. Maintaining a strong academic record.'
+            },
+            {
+                type: 'experience',
+                date: 'June 2025 - July 2025',
+                title: 'Web Development Intern',
+                institution: 'CodeTech-IT solution',
+                description: 'Gained hands-on experience in developing and maintaining web applications using HTML,css and JAVA SCRIPT.'
+            },
+            {
+                type: 'education',
+                date: '2021 - 2023',
+                title: 'HSC - Higher Secondary Certificate',
+                institution: 'Sri Saraswathi Vidiyaliya Matric School',
+                description: 'Completed my higher secondary education with a focus on computer science , scoring 90%.'
+            }
+        ];
+
+        // === SKILL DATA (Cleaned & Unique) ===
+        const skillData = [
+            { title: 'HTML', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg', filterClass: '' },
+            { title: 'CSS', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg', filterClass: '' },
+            { title: 'Java', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg', filterClass: '' },
+            { title: 'Python', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg', filterClass: '' },
+            { title: 'MySQL', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg', filterClass: '' },
+            { title: 'React', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg', filterClass: '' },
+            { title: 'Firebase', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg', filterClass: '' },
+            { title: 'Cloudinary', logo: 'https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/cloudinary.svg', filterClass: 'filter-white' },
+            { title: 'Git & GitHub', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg', filterClass: '' },
+            { title: 'Django', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg', filterClass: 'filter-white' },
+            { title: 'TensorFlow', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg', filterClass: '' },
+            { title: 'MongoDB', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg', filterClass: '' },
+            { title: 'Render', logo: 'https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/render.svg', filterClass: 'filter-white' },
+            { title: 'Vercel', logo: 'https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/vercel.svg', filterClass: 'filter-white' },
+        ];
+
+
+        // === STATIC FEATURED PROJECTS DATA (Restored) ===
+        const featuredProjectsData = [
+            {
+                id: 1,
+                image: 'https://i.pinimg.com/736x/e4/fb/1e/e4fb1e6495aed99b3219fcd9d4707dfa.jpg',
+                title: 'SV Academy',
+                description: 'Official academic portal managing student admissions, gallery, and digital notices for a smart campus experience.',
+                link: 'https://quiz.lokeshloki.site/',
+                buttonText: 'Live View'
+            },
+            {
+                id: 2,
+                image: 'https://i.pinimg.com/736x/63/42/e7/6342e7fb4ce7586536da12d5388d5f25.jpg',
+                title: 'AI-Agro',
+                description: 'Smart AI agriculture system providing crop suggestions, disease detection & weather reports for farmers.',
+                link: 'https://ai-agro-live.com',
+                buttonText: 'Live View'
+            },
+            {
+                id: 3,
+                image: 'https://i.pinimg.com/736x/a1/11/83/a11183d16083762fd1772b40e5f0063e.jpg',
+                title: 'Medicine Tracker',
+                description: 'A digital health assistant to track prescriptions, set pill reminders, and manage medical inventory efficiently.',
+                link: 'https://github.com/lokeshloki65/medicine-tracker',
+                buttonText: 'View on GitHub'
+            },
+            {
+                id: 4,
+                image: 'https://i.pinimg.com/736x/44/91/d2/4491d206a2c3639216bac6d735a5137f.jpg',
+                title: 'Food Delivery App',
+                description: 'Full-stack food ordering platform featuring real-time cart management, restaurant listings, and secure checkout.',
+                link: 'https://github.com/lokeshloki65/food-delivery-app',
+                buttonText: 'View on GitHub'
+            },
+            {
+                id: 5,
+                image: 'https://i.pinimg.com/736x/61/41/ec/6141ec2bf04bebc02b133c0308f6d66c.jpg',
+                title: 'AI Face Attendance',
+                description: 'Automated attendance system using Python & OpenCV to detect and verify student faces securely.',
+                link: 'https://github.com/lokeshloki65/face-recognition-attendance',
+                buttonText: 'View on GitHub'
+            },
+            {
+                id: 6,
+                image: 'https://i.pinimg.com/736x/cb/e3/11/cbe311fe3ddd6d3f1ce7cc3e8067030b.jpg',
+                title: 'LearnPro',
+                description: 'Comprehensive E-Learning Platform with Firebase Auth, course progress tracking, and a modern responsive UI.',
+                link: 'https://github.com/lokeshloki65/e-learning-platform',
+                buttonText: 'View on GitHub'
+            }
+        ];
+
+        // === DYNAMIC GITHUB PROJECTS (View All Logic) ===
+        const username = 'lokeshloki65';
+
+        async function loadMoreProjects() {
+            const buttonContainer = document.getElementById('view-all-projects-btn-container');
+            const moreContainer = document.getElementById('more-projects-container');
+            const grid = document.getElementById('more-projects-grid');
+
+            // Show loading
+            if (buttonContainer) buttonContainer.style.display = 'none';
+            if (moreContainer) moreContainer.style.display = 'block';
+            grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; color: var(--primary-color);">Loading from GitHub...</div>';
+
+            try {
+                const response = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=100`);
+                const data = await response.json();
+
+                // Filter out the ones already shown in static list if possible, or just show all
+                // For simplicity and to ensure we get everything, we'll show all public repos here
+                // excluding forks if desired. Let's keep forks as per previous request.
+                const allRepos = data.sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
+
+                displayMoreProjects(allRepos);
+            } catch (error) {
+                console.error('Error fetching repos:', error);
+                grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; color: red;">Failed to load projects from GitHub.</div>';
+                if (buttonContainer) buttonContainer.style.display = 'block'; // Show button again on error
+            }
+        }
+
+        function displayMoreProjects(repos) {
+            const grid = document.getElementById('more-projects-grid');
+            grid.innerHTML = ''; // Clear loading message
+
+            repos.forEach(repo => {
+                // Create card HTML
+                const card = document.createElement('div');
+                card.className = 'project-card';
+                card.setAttribute('data-aos', 'fade-up');
+
+                const desc = repo.description ? repo.description : 'No description available.';
+                const lang = repo.language ? repo.language : 'Code';
+
+                card.innerHTML = `
                         <div class="project-content" style="padding: 1.5rem; display: flex; flex-direction: column; height: 100%;">
                             <div class="project-header" style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
                                 <div class="folder-icon" style="color: var(--primary-color); font-size: 1.5rem;">
@@ -3274,284 +3276,286 @@
                         </div>
                     `;
 
-                    // Style overrides to ensure Neon look without images
-                    card.style.background = 'rgba(255, 255, 255, 0.03)';
-                    card.style.border = '1px solid rgba(255, 255, 255, 0.1)';
-                    card.style.minHeight = '250px'; // Different height for text-only cards
+                // Style overrides to ensure Neon look without images
+                card.style.background = 'rgba(255, 255, 255, 0.03)';
+                card.style.border = '1px solid rgba(255, 255, 255, 0.1)';
+                card.style.minHeight = '250px'; // Different height for text-only cards
 
-                    grid.appendChild(card);
-                });
-            }
-            // All Certificates Data
-            const allCertificatesData = [
-                { img: "image/certifications image/new_cert_3.jpg", title: "Web Development Internship", issuer: "Codtech IT Solutions - July 2025" },
-                { img: "image/certifications image/oracle_cert.jpg", title: "Oracle APEX Cloud Developer", issuer: "Oracle University - May 2025" },
-                { img: "image/certifications image/certifications 33 blg.jpg", title: "National Hackathon", issuer: "Shridevi Institute - Oct 2024" },
-                { img: "image/certifications image/certification erode.jpg", title: "Oracle - AI Agent Studio", issuer: "Oracle University - June 2025" },
-                { img: "image/certifications image/new_cert_1.jpg", title: "Project Competition 2K25", issuer: "Velammal Institute of Technology -Aug 2025" },
-                { img: "image/certifications image/certifications_kongu .jpg", title: "Hackathon", issuer: "Kongu Engineering College - Mar 2025" },
-                { img: "image/certifications image/new_cert_2.jpg", title: "HackVerse", issuer: "Silicon Hack Club - Sep 2025" },
-                { img: "image/certifications image/certifications_kongu .jpg", title: "Gen-AI with Cloud", issuer: "Kongu Engineering College - Oct 2024" },
-                { img: "image/certifications image/certfications 22.jpg", title: "IoT Workshop", issuer: "Kongu Engineering College - Feb 2025" },
-            ];
+                grid.appendChild(card);
+            });
+        }
+        // All Certificates Data
+        const allCertificatesData = [
+            { img: "image/certifications image/certfications 22.jpg", title: "Ideathon 2026(NIT Trichy)", issuer: "NIT Trichy - Feb 2026" },
 
-            // --- MAIN SCRIPT ---
+            { img: "image/certifications image/new_cert_3.jpg", title: "Web Development Internship", issuer: "Codtech IT Solutions - July 2025" },
+            { img: "image/certifications image/oracle_cert.jpg", title: "Oracle APEX Cloud Developer", issuer: "Oracle University - May 2025" },
+            { img: "image/certifications image/certifications 33 blg.jpg", title: "National Hackathon", issuer: "Shridevi Institute - Oct 2024" },
+            { img: "image/certifications image/certification erode.jpg", title: "Oracle - AI Agent Studio", issuer: "Oracle University - June 2025" },
+            { img: "image/certifications image/new_cert_1.jpg", title: "Project Competition 2K25", issuer: "Velammal Institute of Technology -Aug 2025" },
+            { img: "image/certifications image/certifications_kongu .jpg", title: "Hackathon", issuer: "Kongu Engineering College - Mar 2025" },
+            { img: "image/certifications image/new_cert_2.jpg", title: "HackVerse", issuer: "Silicon Hack Club - Sep 2025" },
+            { img: "image/certifications image/certifications_kongu .jpg", title: "Gen-AI with Cloud", issuer: "Kongu Engineering College - Oct 2024" },
+            { img: "image/certifications image/certfications 22.jpeg", title: "Ideathon 2026(NIT Trichy)", issuer: "NIT Trichy - Feb 2026" },
+        ];
 
-            document.addEventListener('DOMContentLoaded', () => {
-                AOS.init({
-                    duration: 1000,
-                    once: true,
-                    offset: 50,
-                    disable: 'mobile' // Disable animations on mobile for better performance
-                });
+        // --- MAIN SCRIPT ---
 
-                // handlePreloader();
-                initializeTypedJs();
-                initializeParticlesJs();
-                initializeMagneticButtons();
-                setupNavbar();
-                setupScrollToTop();
-                setupContactForm();
-                // Removed updateGitHubStats() to enforce the hardcoded numbers (60, 10, 2)
-                startCounterAnimation();
-
-                // --- Dynamic Content Generation ---
-                generateTimeline();
-                generateMarqueeSkills();
-                generateFeaturedProjects(); // RESTORED STATIC CALL
-                generateFeaturedCertificates();
-                generateAllCertificates();
-                // fetchGitHubRepos(); REMOVED IN FAVOR OF loadMoreProjects() ON CLICK
-
-                initCyberEye();
-
-                // Start 3D Tilt
-                setTimeout(initTiltEffect, 1000); // Delay to ensure elements are generated
+        document.addEventListener('DOMContentLoaded', () => {
+            AOS.init({
+                duration: 1000,
+                once: true,
+                offset: 50,
+                disable: 'mobile' // Disable animations on mobile for better performance
             });
 
-            // --- FEATURE IMPLEMENTATIONS ---
+            // handlePreloader();
+            initializeTypedJs();
+            initializeParticlesJs();
+            initializeMagneticButtons();
+            setupNavbar();
+            setupScrollToTop();
+            setupContactForm();
+            // Removed updateGitHubStats() to enforce the hardcoded numbers (60, 10, 2)
+            startCounterAnimation();
+
+            // --- Dynamic Content Generation ---
+            generateTimeline();
+            generateMarqueeSkills();
+            generateFeaturedProjects(); // RESTORED STATIC CALL
+            generateFeaturedCertificates();
+            generateAllCertificates();
+            // fetchGitHubRepos(); REMOVED IN FAVOR OF loadMoreProjects() ON CLICK
+
+            initCyberEye();
+
+            // Start 3D Tilt
+            setTimeout(initTiltEffect, 1000); // Delay to ensure elements are generated
+        });
+
+        // --- FEATURE IMPLEMENTATIONS ---
 
 
 
-            function initializeTypedJs() {
-                new Typed('#typed', {
-                    // These are your strings, matching the new design
-                    strings: ['AI & Data Science Student', 'Aspiring Web Developer 💻', 'Python Programmer', 'Aspiring Full Stack developer', 'Creative Problem Solver'],
-                    typeSpeed: 50, backSpeed: 30, loop: true
-                });
-            }
+        function initializeTypedJs() {
+            new Typed('#typed', {
+                // These are your strings, matching the new design
+                strings: ['AI & Data Science Student', 'Aspiring Web Developer 💻', 'Python Programmer', 'Aspiring Full Stack developer', 'Creative Problem Solver'],
+                typeSpeed: 50, backSpeed: 30, loop: true
+            });
+        }
 
-            function initializeParticlesJs() {
-                tsParticles.load("particles-js", {
-                    particles: {
-                        number: { value: 25, density: { enable: true, value_area: 800 } },
-                        color: { value: "#00c3ff" },
-                        shape: { type: "circle" },
-                        opacity: { value: 0.5, random: false },
-                        size: { value: 3, random: true },
-                        line_linked: { enable: true, distance: 150, color: "#329bdd", opacity: 0.4, width: 1 },
-                        move: { enable: true, speed: 2, direction: "none", out_mode: "out" }
-                    },
-                    interactivity: {
-                        events: { onhover: { enable: true, mode: "grab" }, onclick: { enable: true, mode: "push" } },
-                        modes: { grab: { distance: 140 }, push: { particles_nb: 4 } }
-                    }
-                });
-            }
-
-            function initializeMagneticButtons() {
-                // This targets all buttons with 'magnetic-btn' class, including the new one
-                const magnets = document.querySelectorAll('.magnetic-btn');
-                magnets.forEach(magnet => {
-                    magnet.addEventListener('mousemove', function (e) {
-                        const rect = this.getBoundingClientRect();
-                        const x = e.clientX - (rect.left + rect.width / 2);
-                        const y = e.clientY - (rect.top + rect.height / 2);
-                        this.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
-                    });
-                    magnet.addEventListener('mouseleave', function () {
-                        this.style.transform = 'translate(0, 0)';
-                    });
-                });
-            }
-
-            function showToast(message, type = 'success') {
-                const toast = document.getElementById('toast');
-                toast.textContent = message;
-                toast.className = ``; // Clear existing classes
-                toast.classList.add(type, 'show');
-                setTimeout(() => {
-                    toast.classList.remove('show');
-                }, 3000);
-            }
-
-            function setupNavbar() {
-                const nav = document.querySelector('nav');
-                const navLinks = document.querySelectorAll('.menu a');
-                const navToggle = document.getElementById('navToggle');
-                const navMenu = document.getElementById('navMenu');
-                const themeToggle = document.getElementById('theme-toggle');
-                const body = document.body;
-
-                // Active link highlighting
-                window.addEventListener('scroll', () => {
-                    let fromTop = window.scrollY + nav.offsetHeight + 50;
-                    navLinks.forEach(link => {
-                        let section = document.querySelector(link.getAttribute('href'));
-                        if (section && section.offsetTop <= fromTop && section.offsetTop + section.offsetHeight > fromTop) {
-                            link.classList.add('active');
-                        } else {
-                            link.classList.remove('active');
-                        }
-                    });
-                });
-
-                // Mobile nav toggle
-                navToggle.addEventListener('click', () => navMenu.classList.toggle('show'));
-                navLinks.forEach(link => link.addEventListener('click', () => {
-                    if (navMenu.classList.contains('show')) {
-                        navMenu.classList.remove('show');
-                    }
-                }));
-
-                // Theme switcher
-                const currentTheme = localStorage.getItem('theme');
-                if (currentTheme === 'light') {
-                    body.classList.add('light-mode');
-                    themeToggle.checked = true;
+        function initializeParticlesJs() {
+            tsParticles.load("particles-js", {
+                particles: {
+                    number: { value: 25, density: { enable: true, value_area: 800 } },
+                    color: { value: "#00c3ff" },
+                    shape: { type: "circle" },
+                    opacity: { value: 0.5, random: false },
+                    size: { value: 3, random: true },
+                    line_linked: { enable: true, distance: 150, color: "#329bdd", opacity: 0.4, width: 1 },
+                    move: { enable: true, speed: 2, direction: "none", out_mode: "out" }
+                },
+                interactivity: {
+                    events: { onhover: { enable: true, mode: "grab" }, onclick: { enable: true, mode: "push" } },
+                    modes: { grab: { distance: 140 }, push: { particles_nb: 4 } }
                 }
-                themeToggle.addEventListener('change', () => {
-                    body.classList.toggle('light-mode');
-                    localStorage.setItem('theme', body.classList.contains('light-mode') ? 'light' : 'dark');
+            });
+        }
+
+        function initializeMagneticButtons() {
+            // This targets all buttons with 'magnetic-btn' class, including the new one
+            const magnets = document.querySelectorAll('.magnetic-btn');
+            magnets.forEach(magnet => {
+                magnet.addEventListener('mousemove', function (e) {
+                    const rect = this.getBoundingClientRect();
+                    const x = e.clientX - (rect.left + rect.width / 2);
+                    const y = e.clientY - (rect.top + rect.height / 2);
+                    this.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
                 });
-            }
+                magnet.addEventListener('mouseleave', function () {
+                    this.style.transform = 'translate(0, 0)';
+                });
+            });
+        }
 
-            function setupScrollToTop() {
-                const scrollTopBtn = document.getElementById("scrollTopBtn");
-                window.onscroll = () => scrollTopBtn.style.display = (document.documentElement.scrollTop > 300) ? "flex" : "none";
-                scrollTopBtn.addEventListener("click", () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-            }
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = ``; // Clear existing classes
+            toast.classList.add(type, 'show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
 
-            function setupContactForm() {
-                const form = document.getElementById("contact-form");
-                form.addEventListener("submit", async function (e) {
-                    e.preventDefault();
-                    const formData = new FormData(form);
-                    try {
-                        const response = await fetch(form.action, {
-                            method: "POST", body: formData, headers: { Accept: "application/json" },
-                        });
-                        if (response.ok) {
-                            showToast(" Thank you! Your message has been sent.", "success");
-                            form.reset();
-                        } else {
-                            showToast(" Something went wrong. Please try again.", "error");
-                        }
-                    } catch (error) {
-                        showToast(" Network error. Please check your connection.", "error");
+        function setupNavbar() {
+            const nav = document.querySelector('nav');
+            const navLinks = document.querySelectorAll('.menu a');
+            const navToggle = document.getElementById('navToggle');
+            const navMenu = document.getElementById('navMenu');
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            // Active link highlighting
+            window.addEventListener('scroll', () => {
+                let fromTop = window.scrollY + nav.offsetHeight + 50;
+                navLinks.forEach(link => {
+                    let section = document.querySelector(link.getAttribute('href'));
+                    if (section && section.offsetTop <= fromTop && section.offsetTop + section.offsetHeight > fromTop) {
+                        link.classList.add('active');
+                    } else {
+                        link.classList.remove('active');
                     }
                 });
+            });
+
+            // Mobile nav toggle
+            navToggle.addEventListener('click', () => navMenu.classList.toggle('show'));
+            navLinks.forEach(link => link.addEventListener('click', () => {
+                if (navMenu.classList.contains('show')) {
+                    navMenu.classList.remove('show');
+                }
+            }));
+
+            // Theme switcher
+            const currentTheme = localStorage.getItem('theme');
+            if (currentTheme === 'light') {
+                body.classList.add('light-mode');
+                themeToggle.checked = true;
             }
+            themeToggle.addEventListener('change', () => {
+                body.classList.toggle('light-mode');
+                localStorage.setItem('theme', body.classList.contains('light-mode') ? 'light' : 'dark');
+            });
+        }
 
+        function setupScrollToTop() {
+            const scrollTopBtn = document.getElementById("scrollTopBtn");
+            window.onscroll = () => scrollTopBtn.style.display = (document.documentElement.scrollTop > 300) ? "flex" : "none";
+            scrollTopBtn.addEventListener("click", () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+        }
 
-
-            function startCounterAnimation() {
-                const counters = document.querySelectorAll('.counter');
-                const speed = 200;
-
-                const observer = new IntersectionObserver(entries => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            const counter = entry.target;
-                            const updateCount = () => {
-                                const target = +counter.getAttribute('data-target');
-                                const count = +counter.innerText;
-                                const inc = Math.max(target / speed, 1); // Ensure increment is at least 1
-
-                                if (count < target) {
-                                    counter.innerText = Math.ceil(count + inc);
-                                    setTimeout(updateCount, 15);
-                                } else {
-                                    counter.innerText = target;
-                                }
-                            };
-                            updateCount();
-                            observer.unobserve(counter);
-                        }
+        function setupContactForm() {
+            const form = document.getElementById("contact-form");
+            form.addEventListener("submit", async function (e) {
+                e.preventDefault();
+                const formData = new FormData(form);
+                try {
+                    const response = await fetch(form.action, {
+                        method: "POST", body: formData, headers: { Accept: "application/json" },
                     });
-                }, { threshold: 0.5 });
-                counters.forEach(counter => observer.observe(counter));
-            }
+                    if (response.ok) {
+                        showToast(" Thank you! Your message has been sent.", "success");
+                        form.reset();
+                    } else {
+                        showToast(" Something went wrong. Please try again.", "error");
+                    }
+                } catch (error) {
+                    showToast(" Network error. Please check your connection.", "error");
+                }
+            });
+        }
 
-            // --- DYNAMIC CONTENT GENERATION FUNCTIONS ---
 
-            function generateTimeline() {
-                const container = document.getElementById('timeline-container');
-                if (!container) return;
-                timelineData.forEach((item, index) => {
-                    const side = index % 2 === 0 ? 'left' : 'right';
-                    const icon = item.type === 'education' ? 'fas fa-graduation-cap' : 'fas fa-briefcase';
-                    const timelineItem = document.createElement('div');
-                    timelineItem.className = `timeline-item ${side}`;
-                    timelineItem.setAttribute('data-aos', `fade-${side === 'left' ? 'right' : 'left'}`);
-                    timelineItem.innerHTML = `
+
+        function startCounterAnimation() {
+            const counters = document.querySelectorAll('.counter');
+            const speed = 200;
+
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const counter = entry.target;
+                        const updateCount = () => {
+                            const target = +counter.getAttribute('data-target');
+                            const count = +counter.innerText;
+                            const inc = Math.max(target / speed, 1); // Ensure increment is at least 1
+
+                            if (count < target) {
+                                counter.innerText = Math.ceil(count + inc);
+                                setTimeout(updateCount, 15);
+                            } else {
+                                counter.innerText = target;
+                            }
+                        };
+                        updateCount();
+                        observer.unobserve(counter);
+                    }
+                });
+            }, { threshold: 0.5 });
+            counters.forEach(counter => observer.observe(counter));
+        }
+
+        // --- DYNAMIC CONTENT GENERATION FUNCTIONS ---
+
+        function generateTimeline() {
+            const container = document.getElementById('timeline-container');
+            if (!container) return;
+            timelineData.forEach((item, index) => {
+                const side = index % 2 === 0 ? 'left' : 'right';
+                const icon = item.type === 'education' ? 'fas fa-graduation-cap' : 'fas fa-briefcase';
+                const timelineItem = document.createElement('div');
+                timelineItem.className = `timeline-item ${side}`;
+                timelineItem.setAttribute('data-aos', `fade-${side === 'left' ? 'right' : 'left'}`);
+                timelineItem.innerHTML = `
                 <div class="timeline-content">
                     <h3><i class="${icon}"></i> ${item.title}</h3>
                     <span class="timeline-date">${item.institution} | ${item.date}</span>
                     <p>${item.description}</p>
                 </div>`;
-                    container.appendChild(timelineItem);
-                });
-            }
+                container.appendChild(timelineItem);
+            });
+        }
 
-            // === NEW MARQUEE SKILLS FUNCTION ===
-            function generateMarqueeSkills() {
-                const row1 = document.getElementById('marquee-row-1');
-                const row2 = document.getElementById('marquee-row-2');
+        // === NEW MARQUEE SKILLS FUNCTION ===
+        function generateMarqueeSkills() {
+            const row1 = document.getElementById('marquee-row-1');
+            const row2 = document.getElementById('marquee-row-2');
 
-                // Split skills into two rows
-                const mid = Math.ceil(skillData.length / 2);
-                const skillsRow1 = skillData.slice(0, mid);
-                const skillsRow2 = skillData.slice(mid);
+            // Split skills into two rows
+            const mid = Math.ceil(skillData.length / 2);
+            const skillsRow1 = skillData.slice(0, mid);
+            const skillsRow2 = skillData.slice(mid);
 
-                const createPill = (skill) => {
-                    return `
+            const createPill = (skill) => {
+                return `
                 <div class="skill-pill">
                     <img src="${skill.logo}" class="${skill.filterClass}" alt="${skill.title}">
                     ${skill.title}
                 </div>`;
-                };
+            };
 
-                // Populate Row 1
-                const row1HTML = skillsRow1.map(createPill).join('');
-                row1.innerHTML = row1HTML;
-                document.getElementById('marquee-row-1-dup').innerHTML = row1HTML; // Duplication for seamless loop
+            // Populate Row 1
+            const row1HTML = skillsRow1.map(createPill).join('');
+            row1.innerHTML = row1HTML;
+            document.getElementById('marquee-row-1-dup').innerHTML = row1HTML; // Duplication for seamless loop
 
-                // Populate Row 2
-                const row2HTML = skillsRow2.map(createPill).join('');
-                row2.innerHTML = row2HTML;
-                document.getElementById('marquee-row-2-dup').innerHTML = row2HTML; // Duplication
-            }
+            // Populate Row 2
+            const row2HTML = skillsRow2.map(createPill).join('');
+            row2.innerHTML = row2HTML;
+            document.getElementById('marquee-row-2-dup').innerHTML = row2HTML; // Duplication
+        }
 
-            // === UPDATED FUNCTION TO GENERATE GRAND IMAGE CARDS ===
-            function generateFeaturedProjects() {
-                const grid = document.getElementById('featured-projects-grid');
-                if (!grid) return;
+        // === UPDATED FUNCTION TO GENERATE GRAND IMAGE CARDS ===
+        function generateFeaturedProjects() {
+            const grid = document.getElementById('featured-projects-grid');
+            if (!grid) return;
 
-                // Clear existing content
-                grid.innerHTML = '';
+            // Clear existing content
+            grid.innerHTML = '';
 
-                featuredProjectsData.forEach(project => {
-                    const card = document.createElement('div');
-                    card.className = 'project-card';
-                    card.setAttribute('data-aos', 'fade-up'); // Animation on scroll
+            featuredProjectsData.forEach(project => {
+                const card = document.createElement('div');
+                card.className = 'project-card';
+                card.setAttribute('data-aos', 'fade-up'); // Animation on scroll
 
-                    // Determine icon based on button text
-                    const iconClass = project.buttonText.toLowerCase().includes('github')
-                        ? 'fab fa-github'
-                        : 'fas fa-external-link-alt';
+                // Determine icon based on button text
+                const iconClass = project.buttonText.toLowerCase().includes('github')
+                    ? 'fab fa-github'
+                    : 'fas fa-external-link-alt';
 
-                    card.innerHTML = `
+                card.innerHTML = `
                 <div class="project-img-wrapper">
                     <img src="${project.image}" alt="${project.title}" loading="lazy">
                 </div>
@@ -3564,19 +3568,19 @@
                         <i class="${iconClass}"></i> ${project.buttonText}
                     </a>
                 </div>`;
-                    grid.appendChild(card);
-                });
-            }
+                grid.appendChild(card);
+            });
+        }
 
-            function generateFeaturedCertificates() {
-                const grid = document.getElementById('featured-certs-grid');
-                if (!grid) return;
-                allCertificatesData.slice(0, 6).forEach((cert, index) => {
-                    const card = document.createElement('div');
-                    card.className = 'cert-card';
-                    card.setAttribute('data-aos', 'fade-up');
-                    card.setAttribute('onclick', `openCertLightbox(${index})`);
-                    card.innerHTML = `
+        function generateFeaturedCertificates() {
+            const grid = document.getElementById('featured-certs-grid');
+            if (!grid) return;
+            allCertificatesData.slice(0, 6).forEach((cert, index) => {
+                const card = document.createElement('div');
+                card.className = 'cert-card';
+                card.setAttribute('data-aos', 'fade-up');
+                card.setAttribute('onclick', `openCertLightbox(${index})`);
+                card.innerHTML = `
                     <div class="cert-badge">
                         <i class="fas fa-check-circle"></i>
                         <span>Verified</span>
@@ -3586,19 +3590,19 @@
                         <h3>${cert.title}</h3>
                         <p>${cert.issuer}</p>
                     </div>`;
-                    grid.appendChild(card);
-                });
-            }
+                grid.appendChild(card);
+            });
+        }
 
-            function generateAllCertificates() {
-                const grid = document.getElementById('all-certs-grid');
-                if (!grid) return;
-                allCertificatesData.forEach((cert, index) => {
-                    const card = document.createElement('div');
-                    card.className = 'cert-card';
-                    card.setAttribute('data-aos', 'fade-up');
-                    card.setAttribute('onclick', `openCertLightbox(${index})`);
-                    card.innerHTML = `
+        function generateAllCertificates() {
+            const grid = document.getElementById('all-certs-grid');
+            if (!grid) return;
+            allCertificatesData.forEach((cert, index) => {
+                const card = document.createElement('div');
+                card.className = 'cert-card';
+                card.setAttribute('data-aos', 'fade-up');
+                card.setAttribute('onclick', `openCertLightbox(${index})`);
+                card.innerHTML = `
                     <div class="cert-badge">
                         <i class="fas fa-check-circle"></i>
                         <span>Verified</span>
@@ -3608,360 +3612,334 @@
                         <h3>${cert.title}</h3>
                         <p>${cert.issuer}</p>
                     </div>`;
-                    grid.appendChild(card);
-                });
-            }
-            // --- EYE TRACKING LOGIC ---
-            function initCyberEye() {
-                const eyeContainer = document.querySelector('.cyber-eye-container');
-                const pupil = document.querySelector('.eye-pupil');
-                const eyeMain = document.querySelector('.eye-main');
+                grid.appendChild(card);
+            });
+        }
+        // --- EYE TRACKING LOGIC ---
+        function initCyberEye() {
+            const eyeContainer = document.querySelector('.cyber-eye-container');
+            const pupil = document.querySelector('.eye-pupil');
+            const eyeMain = document.querySelector('.eye-main');
 
-                if (!eyeContainer || !pupil || !eyeMain) return;
+            if (!eyeContainer || !pupil || !eyeMain) return;
 
-                // Only track mouse when inside the certificates section
-                const certSection = document.getElementById('certifications');
+            // Only track mouse when inside the certificates section
+            const certSection = document.getElementById('certifications');
 
-                document.addEventListener('mousemove', (e) => {
-                    // Get the position of the eye relative to the viewport
-                    const eyeRect = eyeMain.getBoundingClientRect();
-                    const eyeCenterX = eyeRect.left + eyeRect.width / 2;
-                    const eyeCenterY = eyeRect.top + eyeRect.height / 2;
+            document.addEventListener('mousemove', (e) => {
+                // Get the position of the eye relative to the viewport
+                const eyeRect = eyeMain.getBoundingClientRect();
+                const eyeCenterX = eyeRect.left + eyeRect.width / 2;
+                const eyeCenterY = eyeRect.top + eyeRect.height / 2;
 
-                    // Mouse position
-                    const mouseX = e.clientX;
-                    const mouseY = e.clientY;
+                // Mouse position
+                const mouseX = e.clientX;
+                const mouseY = e.clientY;
 
-                    // Calculate angle and distance
-                    const angle = Math.atan2(mouseY - eyeCenterY, mouseX - eyeCenterX);
-                    const distance = Math.min(eyeMain.offsetWidth / 4, Math.hypot(mouseX - eyeCenterX, mouseY - eyeCenterY));
+                // Calculate angle and distance
+                const angle = Math.atan2(mouseY - eyeCenterY, mouseX - eyeCenterX);
+                const distance = Math.min(eyeMain.offsetWidth / 4, Math.hypot(mouseX - eyeCenterX, mouseY - eyeCenterY));
 
-                    // Calculate pupil position
-                    const pupilX = Math.cos(angle) * distance;
-                    const pupilY = Math.sin(angle) * distance;
+                // Calculate pupil position
+                const pupilX = Math.cos(angle) * distance;
+                const pupilY = Math.sin(angle) * distance;
 
-                    // Apply style
-                    pupil.style.transform = `translate(calc(-50% + ${pupilX}px), calc(-50% + ${pupilY}px))`;
-                });
-            }
+                // Apply style
+                pupil.style.transform = `translate(calc(-50% + ${pupilX}px), calc(-50% + ${pupilY}px))`;
+            });
+        }
 
-            // --- "VIEW ALL" AND MODAL/LIGHTBOX LOGIC ---
+        // --- "VIEW ALL" AND MODAL/LIGHTBOX LOGIC ---
 
 
 
-            // --- VIEW ALL SKILLS LOGIC ---
-            function showAllSkills() {
-                const viewSection = document.getElementById("view-skills");
-                const buttonContainer = document.querySelector('a[onclick="showAllSkills()"]').parentElement;
+        // --- VIEW ALL SKILLS LOGIC ---
+        function showAllSkills() {
+            const viewSection = document.getElementById("view-skills");
+            const buttonContainer = document.querySelector('a[onclick="showAllSkills()"]').parentElement;
 
-                // Populate grid
-                const grid = document.getElementById('allSkillsGrid');
-                if (grid) {
-                    grid.innerHTML = skillData.map(skill => `
+            // Populate grid
+            const grid = document.getElementById('allSkillsGrid');
+            if (grid) {
+                grid.innerHTML = skillData.map(skill => `
                         <div class="skill-pill" style="width: auto; justify-content: center;">
                             <img src="${skill.logo}" class="${skill.filterClass}" alt="${skill.title}">
                             ${skill.title}
                         </div>
                     `).join('');
-                }
-
-                viewSection.style.display = "block";
-                if (buttonContainer) { buttonContainer.style.display = 'none'; }
-                viewSection.scrollIntoView({ behavior: "smooth", block: "start" });
             }
 
-            function showAllCertificates() {
-                const viewSection = document.getElementById("view-certifications");
-                const buttonContainer = document.querySelector('a[onclick="showAllCertificates()"]').parentElement;
-                viewSection.style.display = "block";
-                viewSection.scrollIntoView({ behavior: "smooth" });
-                if (buttonContainer) { buttonContainer.style.display = 'none'; }
-            }
+            viewSection.style.display = "block";
+            if (buttonContainer) { buttonContainer.style.display = 'none'; }
+            viewSection.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+
+        function showAllCertificates() {
+            const viewSection = document.getElementById("view-certifications");
+            const buttonContainer = document.querySelector('a[onclick="showAllCertificates()"]').parentElement;
+            viewSection.style.display = "block";
+            viewSection.scrollIntoView({ behavior: "smooth" });
+            if (buttonContainer) { buttonContainer.style.display = 'none'; }
+        }
 
 
 
-            // --- FUTURISTIC 3D TILT EFFECT ---
-            function initTiltEffect() {
-                const cards = document.querySelectorAll('.project-card, .cert-card');
+        // --- FUTURISTIC 3D TILT EFFECT ---
+        function initTiltEffect() {
+            const cards = document.querySelectorAll('.project-card, .cert-card');
 
-                cards.forEach(card => {
-                    card.addEventListener('mousemove', (e) => {
-                        const rect = card.getBoundingClientRect();
-                        const x = e.clientX - rect.left;
-                        const y = e.clientY - rect.top;
+            cards.forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
 
-                        const centerX = rect.width / 2;
-                        const centerY = rect.height / 2;
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
 
-                        const rotateX = ((y - centerY) / centerY) * -10; // Max rotation 10deg
-                        const rotateY = ((x - centerX) / centerX) * 10;
+                    const rotateX = ((y - centerY) / centerY) * -10; // Max rotation 10deg
+                    const rotateY = ((x - centerX) / centerX) * 10;
 
-                        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
-                    });
-
-                    card.addEventListener('mouseleave', () => {
-                        card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
-                    });
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
                 });
-            }
 
-
-            function closeModal() {
-                const modal = document.getElementById('projectModal');
-                modal.classList.remove('show');
-                modal.querySelectorAll('video').forEach(video => { video.pause(); video.currentTime = 0; });
-            }
-
-            // --- CERTIFICATE LIGHTBOX ---
-            const certImages = allCertificatesData.map(cert => cert.img);
-            let currentImageIndex = 0;
-
-            function openCertLightbox(index) {
-                currentImageIndex = index;
-                document.getElementById("cert-lightbox").style.display = "flex";
-                updateLightbox();
-            }
-            function closeCertLightbox() {
-                document.getElementById("cert-lightbox").style.display = "none";
-            }
-            function changeCertSlide(direction) {
-                currentImageIndex = (currentImageIndex + direction + certImages.length) % certImages.length;
-                updateLightbox(true);
-            }
-            function updateLightbox(animated = false) {
-                const img = document.getElementById("lightboxImage");
-                if (animated) {
-                    img.style.animation = "none";
-                    void img.offsetWidth; // Trigger reflow
-                    img.style.animation = "rotateZoom 0.6s ease-in-out";
-                }
-                img.src = certImages[currentImageIndex];
-                document.getElementById("img-count").textContent = `Certificate ${currentImageIndex + 1} of ${certImages.length}`;
-            }
-
-        </script>
-
-        <script>
-            window.addEventListener('load', function () {
-                // Check if intro has already played dynamically
-                if (sessionStorage.getItem('introPlayed')) {
-                    const overlay = document.getElementById('logo-animation-overlay');
-                    const headerLogoImg = document.querySelector('.logo img');
-                    if (overlay) overlay.style.display = 'none';
-                    if (headerLogoImg) headerLogoImg.style.opacity = '1';
-                    return; // Skip animation
-                }
-                sessionStorage.setItem('introPlayed', 'true');
-                window.scrollTo(0, 0); // Ensure scroll is at top
-
-                // Elements
-                const txtL = document.getElementById('txtL');
-                const txtM = document.getElementById('txtM');
-                const arcBlue = document.getElementById('arcBlue');
-                const arcWhite = document.getElementById('arcWhite');
-                const logoBox = document.getElementById('logoBox');
-                const overlay = document.getElementById('logo-animation-overlay');
-
-                // Sounds
-                const s1 = document.getElementById('snd1');
-                const s2 = document.getElementById('snd2');
-                const s3 = document.getElementById('snd3');
-
-                function play(audio) {
-                    if (audio) {
-                        audio.currentTime = 0;
-                        audio.play().catch(e => console.log("Audio auto-play needs user interaction first or file missing."));
-                    }
-                }
-
-                // --- SEQUENCE START ---
-
-                // 1. L Entry (0.3s)
-                setTimeout(() => {
-                    txtL.classList.add('anim-l');
-                    play(s1);
-                }, 300);
-
-                // 2. M Entry (0.9s)
-                setTimeout(() => {
-                    txtM.classList.add('anim-m');
-                    play(s1);
-                }, 900);
-
-                // 3. Blue Arc (1.4s)
-                setTimeout(() => {
-                    arcBlue.classList.add('anim-arc');
-                    play(s2);
-                }, 1400);
-
-                // 4. White Arc (1.8s)
-                setTimeout(() => {
-                    arcWhite.classList.add('anim-arc');
-                    play(s2);
-                }, 1800);
-
-                // 5. FINAL MOMENT (2s)
-                // 5. FINAL MOMENT & MOVE (2.0s)
-                setTimeout(() => {
-                    // Trigger Flash
-                    logoBox.classList.add('anim-flash');
-                    play(s3);
-
-                    // Trigger Move Immediately
-                    // Determine target position (The Logo in the Navbar)
-                    const headerLogoImg = document.querySelector('.logo img');
-
-                    if (headerLogoImg && logoBox && overlay) {
-                        // Make background transparent to reveal site
-                        overlay.style.backgroundColor = 'transparent';
-
-                        // HIDE INTRO STARS -> REVEAL HOME BG
-                        const stars = document.querySelector('.stars-overlay');
-                        if (stars) stars.style.display = 'none';
-
-                        const startRect = logoBox.getBoundingClientRect();
-                        const endRect = headerLogoImg.getBoundingClientRect();
-
-                        const startX = startRect.left + startRect.width / 2;
-                        const startY = startRect.top + startRect.height / 2;
-
-                        const endX = endRect.left + endRect.width / 2;
-                        const endY = endRect.top + endRect.height / 2;
-
-                        const moveX = endX - startX;
-                        const moveY = endY - startY;
-
-                        const scaleFactor = endRect.height / 450;
-
-                        logoBox.style.transform = `translate(${moveX}px, ${moveY}px) scale(${scaleFactor})`;
-
-                        setTimeout(() => {
-                            overlay.style.opacity = '0';
-                            overlay.style.visibility = 'hidden';
-                            headerLogoImg.style.opacity = '1';
-                        }, 1000);
-
-                    } else {
-                        overlay.classList.add('overlay-fade-out');
-                    }
-                }, 2000);
-
-
-
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+                });
             });
-        </script>
-        <script>
-/* ===============================
-   🔐 ADVANCED SECURITY SCRIPT
-   Author: Lokesh
-================================ */
+        }
 
-// Toast Message Function
-function showToast(message, type = "error") {
-    const toast = document.createElement("div");
-    toast.innerText = message;
 
-    toast.style.position = "fixed";
-    toast.style.bottom = "20px";
-    toast.style.right = "20px";
-    toast.style.padding = "10px 18px";
-    toast.style.background = type === "error" ? "#ff3d3d" : "#333";
-    toast.style.color = "#fff";
-    toast.style.borderRadius = "6px";
-    toast.style.fontSize = "14px";
-    toast.style.zIndex = "99999";
-    toast.style.boxShadow = "0 0 10px rgba(0,0,0,0.4)";
-    toast.style.animation = "fadein 0.3s";
+        function closeModal() {
+            const modal = document.getElementById('projectModal');
+            modal.classList.remove('show');
+            modal.querySelectorAll('video').forEach(video => { video.pause(); video.currentTime = 0; });
+        }
 
-    document.body.appendChild(toast);
+        // --- CERTIFICATE LIGHTBOX ---
+        const certImages = allCertificatesData.map(cert => cert.img);
+        let currentImageIndex = 0;
 
-    setTimeout(() => {
-        toast.remove();
-    }, 2000);
-}
+        function openCertLightbox(index) {
+            currentImageIndex = index;
+            document.getElementById("cert-lightbox").style.display = "flex";
+            updateLightbox();
+        }
+        function closeCertLightbox() {
+            document.getElementById("cert-lightbox").style.display = "none";
+        }
+        function changeCertSlide(direction) {
+            currentImageIndex = (currentImageIndex + direction + certImages.length) % certImages.length;
+            updateLightbox(true);
+        }
+        function updateLightbox(animated = false) {
+            const img = document.getElementById("lightboxImage");
+            if (animated) {
+                img.style.animation = "none";
+                void img.offsetWidth; // Trigger reflow
+                img.style.animation = "rotateZoom 0.6s ease-in-out";
+            }
+            img.src = certImages[currentImageIndex];
+            document.getElementById("img-count").textContent = `Certificate ${currentImageIndex + 1} of ${certImages.length}`;
+        }
 
-// Prevent all unwanted actions
-function killEvent(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    return false;
-}
+    </script>
 
-// ❌ Disable Right Click
-document.addEventListener("contextmenu", e => {
-    killEvent(e);
-    showToast("🔒 Right Click Disabled");
-});
+    <script>
+        window.addEventListener('load', function () {
+            // Check if intro has already played dynamically
+            if (sessionStorage.getItem('introPlayed')) {
+                const overlay = document.getElementById('logo-animation-overlay');
+                const headerLogoImg = document.querySelector('.logo img');
+                if (overlay) overlay.style.display = 'none';
+                if (headerLogoImg) headerLogoImg.style.opacity = '1';
+                return; // Skip animation
+            }
+            sessionStorage.setItem('introPlayed', 'true');
+            window.scrollTo(0, 0);
 
-// ❌ Disable Keyboard Shortcuts
-document.addEventListener("keydown", e => {
+            const txtL = document.getElementById('txtL');
+            const txtM = document.getElementById('txtM');
+            const arcBlue = document.getElementById('arcBlue');
+            const arcWhite = document.getElementById('arcWhite');
+            const logoBox = document.getElementById('logoBox');
+            const overlay = document.getElementById('logo-animation-overlay');
 
-    // F12
-    if (e.key === "F12") {
-        killEvent(e);
-        showToast("⚠️ Developer Tools Disabled");
-    }
+            const s1 = document.getElementById('snd1');
+            const s2 = document.getElementById('snd2');
+            const s3 = document.getElementById('snd3');
 
-    // Ctrl + U
-    if (e.ctrlKey && e.key.toLowerCase() === "u") {
-        killEvent(e);
-        showToast("🚫 View Source Disabled");
-    }
+            function play(audio) {
+                if (audio) {
+                    audio.currentTime = 0;
+                    audio.play().catch(e => console.log("Audio auto-play needs user interaction first or file missing."));
+                }
+            }
 
-    // Ctrl + Shift + I / J / C
-    if (e.ctrlKey && e.shiftKey && ["i", "j", "c"].includes(e.key.toLowerCase())) {
-        killEvent(e);
-        showToast("🛑 Inspect Blocked");
-    }
+            setTimeout(() => {
+                txtL.classList.add('anim-l');
+                play(s1);
+            }, 100);
 
-    // Ctrl + S
-    if (e.ctrlKey && e.key.toLowerCase() === "s") {
-        killEvent(e);
-        showToast("💾 Save Disabled");
-    }
+            setTimeout(() => {
+                txtM.classList.add('anim-m');
+                play(s1);
+            }, 300);
 
-    // Ctrl + P
-    if (e.ctrlKey && e.key.toLowerCase() === "p") {
-        killEvent(e);
-        showToast("🖨️ Print Disabled");
-    }
+            setTimeout(() => {
+                arcBlue.classList.add('anim-arc');
+                play(s2);
+            }, 500);
 
-    // Ctrl + A
-    if (e.ctrlKey && e.key.toLowerCase() === "a") {
-        killEvent(e);
-        showToast("📛 Selection Disabled");
-    }
-});
+            setTimeout(() => {
+                arcWhite.classList.add('anim-arc');
+                play(s2);
+            }, 700);
 
-// ❌ Disable Drag
-document.addEventListener("dragstart", e => killEvent(e));
 
-// ❌ Disable Text Selection
-document.addEventListener("selectstart", e => killEvent(e));
+            setTimeout(() => {
 
-// 🔐 Tab Change Detection
-document.addEventListener("visibilitychange", () => {
-    if (document.hidden) {
-        document.title = "🔒 Content Locked";
-    } else {
-        document.title = "Lokesh M | AI & Web Developer";
-    }
-});
+                logoBox.classList.add('anim-flash');
+                play(s3);
 
-// 🛡️ DevTools Detection (Lightweight)
-setInterval(() => {
-    const widthDiff = window.outerWidth - window.innerWidth;
-    const heightDiff = window.outerHeight - window.innerHeight;
 
-    if (widthDiff > 150 || heightDiff > 150) {
-        document.body.innerHTML = `
+                const headerLogoImg = document.querySelector('.logo img');
+
+                if (headerLogoImg && logoBox && overlay) {
+                    overlay.style.backgroundColor = 'transparent';
+
+                    // Lower particles z-index to background
+                    const particles = document.getElementById('particles-js');
+                    if (particles) particles.style.zIndex = '-1';
+
+                    const startRect = logoBox.getBoundingClientRect();
+                    const endRect = headerLogoImg.getBoundingClientRect();
+
+                    const startX = startRect.left + startRect.width / 2;
+                    const startY = startRect.top + startRect.height / 2;
+
+                    const endX = endRect.left + endRect.width / 2;
+                    const endY = endRect.top + endRect.height / 2;
+
+                    const moveX = endX - startX;
+                    const moveY = endY - startY;
+
+                    const scaleFactor = endRect.height / 450;
+
+                    logoBox.style.transform = `translate(${moveX}px, ${moveY}px) scale(${scaleFactor})`;
+
+                    setTimeout(() => {
+                        overlay.style.opacity = '0';
+                        overlay.style.visibility = 'hidden';
+                        headerLogoImg.style.opacity = '1';
+                    }, 500);
+
+                } else {
+                    overlay.classList.add('overlay-fade-out');
+                    const particles = document.getElementById('particles-js');
+                    if (particles) particles.style.zIndex = '-1';
+                }
+            }, 1200);
+
+
+
+        });
+    </script>
+    <script>
+
+
+
+        function showToast(message, type = "error") {
+            const toast = document.createElement("div");
+            toast.innerText = message;
+
+            toast.style.position = "fixed";
+            toast.style.bottom = "20px";
+            toast.style.right = "20px";
+            toast.style.padding = "10px 18px";
+            toast.style.background = type === "error" ? "#ff3d3d" : "#333";
+            toast.style.color = "#fff";
+            toast.style.borderRadius = "6px";
+            toast.style.fontSize = "14px";
+            toast.style.zIndex = "99999";
+            toast.style.boxShadow = "0 0 10px rgba(0,0,0,0.4)";
+            toast.style.animation = "fadein 0.3s";
+
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                toast.remove();
+            }, 2000);
+        }
+
+        function killEvent(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+        }
+
+        document.addEventListener("contextmenu", e => {
+            killEvent(e);
+            showToast("🔒 Right Click Disabled");
+        });
+
+        document.addEventListener("keydown", e => {
+
+            if (e.key === "F12") {
+                killEvent(e);
+                showToast("⚠️ Developer Tools Disabled");
+            }
+
+            if (e.ctrlKey && e.key.toLowerCase() === "u") {
+                killEvent(e);
+                showToast("🚫 View Source Disabled");
+            }
+
+            if (e.ctrlKey && e.shiftKey && ["i", "j", "c"].includes(e.key.toLowerCase())) {
+                killEvent(e);
+                showToast("🛑 Inspect Blocked");
+            }
+
+            if (e.ctrlKey && e.key.toLowerCase() === "s") {
+                killEvent(e);
+                showToast("💾 Save Disabled");
+            }
+
+            if (e.ctrlKey && e.key.toLowerCase() === "p") {
+                killEvent(e);
+                showToast("🖨️ Print Disabled");
+            }
+
+            if (e.ctrlKey && e.key.toLowerCase() === "a") {
+                killEvent(e);
+                showToast("📛 Selection Disabled");
+            }
+        });
+
+        document.addEventListener("dragstart", e => killEvent(e));
+
+
+        document.addEventListener("visibilitychange", () => {
+            if (document.hidden) {
+                document.title = "🔒 Content Locked";
+            } else {
+                document.title = "Lokesh M | AI & Web Developer";
+            }
+        });
+
+        setInterval(() => {
+            const widthDiff = window.outerWidth - window.innerWidth;
+            const heightDiff = window.outerHeight - window.innerHeight;
+
+            if (widthDiff > 150 || heightDiff > 150) {
+                document.body.innerHTML = `
             <h2 style="text-align:center;margin-top:20%;color:red;">
                 🚫 Developer Tools Detected
             </h2>`;
-    }
-}, 1500);
-</script>
+            }
+        }, 1500);
+    </script>
 
-    </body>
+</body>
 
 </html>
