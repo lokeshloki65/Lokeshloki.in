@@ -3104,13 +3104,13 @@
 
         // Timeline Data - UPDATED WITH SNESTRON SYSTEMS
         const timelineData = [
- {
-    type: 'experience',
-    date: 'Feb 2026 - Present',
-    title: 'Artificial Intelligence & Machine Learning Intern',
-    institution: 'TCS Foundation (in collaboration with NIT)',
-    description: 'Selected through an Ideathon conducted by NIT in collaboration with TCS Foundation. Working on Artificial Intelligence and Machine Learning based solutions, focusing on real-world problem solving, model development, and applied research. Currently gaining hands-on experience in AI/ML concepts and practical implementation.'
-},
+            {
+                type: 'experience',
+                date: 'Feb 2026 - Present',
+                title: 'Artificial Intelligence & Machine Learning Intern',
+                institution: 'TCS Foundation (in collaboration with NIT)',
+                description: 'Selected through an Ideathon conducted by NIT in collaboration with TCS Foundation. Working on Artificial Intelligence and Machine Learning based solutions, focusing on real-world problem solving, model development, and applied research. Currently gaining hands-on experience in AI/ML concepts and practical implementation.'
+            },
 
             {
                 type: 'education',
@@ -3286,7 +3286,7 @@
         }
         // All Certificates Data
         const allCertificatesData = [
-            { img: "image/certifications image/certfications 22.jpg", title: "Ideathon 2026(NIT Trichy)", issuer: "NIT Trichy - Feb 2026" },
+            { img: "image/certifications image/certfications 22.jpeg", title: "Ideathon 2026(NIT Trichy)", issuer: "NIT Trichy - Feb 2026" },
 
             { img: "image/certifications image/new_cert_3.jpg", title: "Web Development Internship", issuer: "Codtech IT Solutions - July 2025" },
             { img: "image/certifications image/oracle_cert.jpg", title: "Oracle APEX Cloud Developer", issuer: "Oracle University - May 2025" },
@@ -3914,6 +3914,22 @@
                 killEvent(e);
                 showToast("📛 Selection Disabled");
             }
+
+            if (e.key === "PrintScreen") {
+                killEvent(e);
+                showToast("📷 Screenshot Disabled");
+                navigator.clipboard.writeText(''); // Clear clipboard immediately
+                document.body.style.display = 'none'; // Blink body
+                setTimeout(() => document.body.style.display = 'block', 100);
+            }
+        });
+
+        // Additional handling for PrintScreen release
+        document.addEventListener("keyup", e => {
+            if (e.key === "PrintScreen") {
+                navigator.clipboard.writeText('');
+                showToast("📷 Screenshot Disabled");
+            }
         });
 
         document.addEventListener("dragstart", e => killEvent(e));
@@ -3922,9 +3938,22 @@
         document.addEventListener("visibilitychange", () => {
             if (document.hidden) {
                 document.title = "🔒 Content Locked";
+                document.body.style.opacity = "0"; // Hide content
             } else {
                 document.title = "Lokesh M | AI & Web Developer";
+                document.body.style.opacity = "1"; // Show content
             }
+        });
+
+        // Also hide on blur (when user switches window or uses snipping tool)
+        window.addEventListener('blur', () => {
+            document.body.style.opacity = "0";
+            document.title = "🔒 Content Locked";
+        });
+
+        window.addEventListener('focus', () => {
+            document.body.style.opacity = "1";
+            document.title = "Lokesh M | AI & Web Developer";
         });
 
         setInterval(() => {
