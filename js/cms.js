@@ -1,5 +1,5 @@
 import { db } from "./firebase-config.js";
-import { doc, onSnapshot, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { doc, onSnapshot, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"; 
 
 function initCMS() {
     console.log("Initializing CMS listeners...");
