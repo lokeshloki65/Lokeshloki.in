@@ -4,7 +4,7 @@ import { doc, onSnapshot, collection, addDoc, serverTimestamp } from "https://ww
 function initCMS() {    
     console.log("Initializing CMS listeners...");
  
-    onSnapshot(doc(db, "cms", "home"), (doc) => {  
+    onSnapshot(doc(db, "cms", "home"), (doc) => {   
         if (doc.exists()) {   
             const data = doc.data();
             if (data.title) { 
