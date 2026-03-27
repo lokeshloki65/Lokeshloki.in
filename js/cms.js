@@ -5,7 +5,7 @@ function initCMS() {
     console.log("Initializing CMS listeners...");
  
     onSnapshot(doc(db, "cms", "home"), (doc) => {  
-        if (doc.exists()) {  
+        if (doc.exists()) {   
             const data = doc.data();
             if (data.title) { 
                 const titleEl = document.getElementById('home-title');
