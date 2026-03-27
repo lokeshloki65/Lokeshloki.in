@@ -9,7 +9,7 @@ function initCMS() {
             const data = doc.data();
             if (data.title) { 
                 const titleEl = document.getElementById('home-title');
-                if (titleEl) titleEl.innerHTML = data.title; 
+                if (titleEl) titleEl.innerHTML = data.title;  
             }
             if (data.subtitle) {
                 const subEl = document.getElementById('home-subtitle');
