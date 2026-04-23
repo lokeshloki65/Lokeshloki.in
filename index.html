@@ -2803,7 +2803,7 @@
 
         @media (max-width: 768px) {
             .reviews-swiper .swiper-slide {
-                width: 90vw; /* Wide on mobile */
+                width: 75vw; /* Adjusted so previous and next cards "peek" on the sides */
             }
 
             .review-card {
@@ -4465,6 +4465,14 @@
                         navigation: {
                             nextEl: '.swiper-button-next',
                             prevEl: '.swiper-button-prev',
+                        },
+                        breakpoints: {
+                            320: {
+                                spaceBetween: 15 // Smaller gap on mobile to allow peeking
+                            },
+                            768: {
+                                spaceBetween: 30 // Desktop gap
+                            }
                         },
                         grabCursor: true
                     });
