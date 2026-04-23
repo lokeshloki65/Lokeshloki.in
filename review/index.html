@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leave a Review | Lokesh M</title>
+    <meta name="description" content="Share your experience working with Lokesh M. Leave a review and rating.">
+    <link rel="icon" type="image/png" href="../logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #01010b;
+            --primary-color: #00a6ff;
+            --primary-color-darker: #007bb5;
+            --accent-color: #7000ff;
+            --card-bg-color: #121212;
+            --text-color: #ffffff;
+            --secondary-text-color: #cccccc;
+            --shadow-color: rgba(0, 166, 255, 0.2);
+            --border-color: #2a2a2a;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; text-decoration: none; list-style: none; }
+
+        body {
+            background: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: -200px; left: -200px;
+            width: 500px; height: 500px;
+            background: var(--primary-color);
+            filter: blur(150px);
+            opacity: 0.08;
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            bottom: -200px; right: -200px;
+            width: 500px; height: 500px;
+            background: var(--accent-color);
+            filter: blur(150px);
+            opacity: 0.08;
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        .review-page-container {
+            max-width: 580px;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .review-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .back-home-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 24px;
+            background: rgba(0, 166, 255, 0.1);
+            border: 1px solid rgba(0, 166, 255, 0.25);
+            color: var(--primary-color);
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            margin-bottom: 1.5rem;
+        }
+
+        .back-home-btn:hover {
+            background: var(--primary-color);
+            color: #fff;
+            box-shadow: 0 0 20px rgba(0, 166, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .review-header .logo-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 1.5rem;
+            color: var(--text-color);
+        }
+
+        .review-header .logo-link img {
+            height: 45px;
+        }
+
+        .review-header .logo-link span {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .review-header .logo-link span em {
+            color: var(--primary-color);
+            font-style: normal;
+        }
+
+        .review-header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(to right, #fff, var(--primary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .review-header p {
+            color: var(--secondary-text-color);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .review-form-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 2.5rem;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .form-group {
+            margin-bottom: 1.8rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--secondary-text-color);
+            margin-bottom: 0.6rem;
+            letter-spacing: 0.5px;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 14px 18px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            color: var(--text-color);
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 15px rgba(0, 166, 255, 0.15);
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-group select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%2300a6ff' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            padding-right: 40px;
+        }
+
+        .form-group select option {
+            background: #1a1a2e;
+            color: #fff;
+        }
+
+        /* Star Rating */
+        .star-rating-container {
+            display: flex;
+            gap: 8px;
+            flex-direction: row-reverse;
+            justify-content: flex-end;
+        }
+
+        .star-rating-container input {
+            display: none;
+        }
+
+        .star-rating-container label {
+            font-size: 2.2rem;
+            color: var(--border-color);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-bottom: 0;
+        }
+
+        .star-rating-container label:hover,
+        .star-rating-container label:hover ~ label,
+        .star-rating-container input:checked ~ label {
+            color: #FFD700;
+            filter: drop-shadow(0 0 6px rgba(255, 215, 0, 0.5));
+            transform: scale(1.1);
+        }
+
+        .submit-review-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0, 166, 255, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-review-btn::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .submit-review-btn:hover::before { left: 100%; }
+
+        .submit-review-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0, 166, 255, 0.5);
+        }
+
+        .submit-review-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Success State */
+        .success-overlay {
+            display: none;
+            text-align: center;
+            padding: 3rem 1rem;
+            animation: fadeInUp 0.6s ease;
+        }
+
+        .success-overlay.show { display: block; }
+
+        .success-icon {
+            width: 100px; height: 100px;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, #28a745, #20c997);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 3rem;
+            color: #fff;
+            animation: bounceIn 0.8s ease;
+            box-shadow: 0 0 40px rgba(40, 167, 69, 0.3);
+        }
+
+        .success-overlay h2 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            color: #28a745;
+        }
+
+        .success-overlay p {
+            color: var(--secondary-text-color);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 30px;
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: var(--primary-color);
+            color: #fff;
+            box-shadow: 0 0 20px rgba(0, 166, 255, 0.4);
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        @media (max-width: 600px) {
+            body { padding: 1rem; }
+            .review-form-card { padding: 1.5rem; }
+            .review-header h1 { font-size: 1.5rem; }
+            .star-rating-container label { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="review-page-container">
+    <div class="review-header">
+        <a href="../" class="back-home-btn">
+            <i class="fas fa-arrow-left"></i> Back to Home
+        </a>
+        <a href="../" class="logo-link">
+            <img src="../logo.png" alt="Lokesh Logo">
+            <span>Lokesh<em>.M</em></span>
+        </a>
+        <h1>Share Your Experience</h1>
+        <p>Your feedback helps me improve and grow. Please take a moment to share your honest review.</p>
+    </div>
+
+    <div class="review-form-card" id="reviewFormCard">
+        <form id="reviewForm">
+            <div class="form-group">
+                <label><i class="fas fa-user"></i> Your Name *</label>
+                <input type="text" id="reviewName" placeholder="Enter your full name" required>
+            </div>
+
+            <div class="form-group">
+                <label><i class="fas fa-star"></i> Rating *</label>
+                <div class="star-rating-container" id="starRating">
+                    <input type="radio" name="rating" id="star5" value="5"><label for="star5">★</label>
+                    <input type="radio" name="rating" id="star4" value="4"><label for="star4">★</label>
+                    <input type="radio" name="rating" id="star3" value="3"><label for="star3">★</label>
+                    <input type="radio" name="rating" id="star2" value="2"><label for="star2">★</label>
+                    <input type="radio" name="rating" id="star1" value="1"><label for="star1">★</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label><i class="fas fa-briefcase"></i> Service Used *</label>
+                <select id="reviewService" required>
+                    <option value="" disabled selected>Select the service</option>
+                    <option value="Web Development with SEO">Web Development with SEO</option>
+                    <option value="Website Deployment">Website Deployment</option>
+                    <option value="Final Year Projects">Final Year Projects</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label><i class="fas fa-comment-dots"></i> Your Review *</label>
+                <textarea id="reviewText" placeholder="Describe your experience working with me..." required></textarea>
+            </div>
+
+            <button type="submit" class="submit-review-btn" id="submitBtn">
+                Submit Review <i class="fas fa-paper-plane"></i>
+            </button>
+        </form>
+
+        <div class="success-overlay" id="successOverlay">
+            <div class="success-icon"><i class="fas fa-check"></i></div>
+            <h2>Thank You! 🎉</h2>
+            <p>Your review has been submitted successfully. I truly appreciate your valuable feedback!</p>
+            <a href="../" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Back to Portfolio
+            </a>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('reviewForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const name = document.getElementById('reviewName').value.trim();
+        const ratingEl = document.querySelector('input[name="rating"]:checked');
+        const service = document.getElementById('reviewService').value;
+        const text = document.getElementById('reviewText').value.trim();
+
+        if (!name || !ratingEl || !service || !text) {
+            alert('Please fill in all fields and select a rating.');
+            return;
+        }
+
+        const review = {
+            name: name,
+            rating: parseInt(ratingEl.value),
+            service: service,
+            text: text,
+            date: new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' }),
+            avatar: name.charAt(0).toUpperCase(),
+            timestamp: Date.now()
+        };
+
+        // Save to localStorage
+        let reviews = [];
+        try {
+            reviews = JSON.parse(localStorage.getItem('lokesh_client_reviews') || '[]');
+        } catch(e) { reviews = []; }
+
+        reviews.push(review);
+        localStorage.setItem('lokesh_client_reviews', JSON.stringify(reviews));
+
+        // Show success
+        document.getElementById('reviewForm').style.display = 'none';
+        document.getElementById('successOverlay').classList.add('show');
+    });
+</script>
+
+</body>
+</html>
