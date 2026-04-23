@@ -406,19 +406,26 @@
     </div>
 </div>
 
-<script>
-    document.getElementById('reviewForm').addEventListener('submit', function(e) {
+<script type="module">
+    import { db } from '../js/firebase-config.js';
+    import { collection, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+    document.getElementById('reviewForm').addEventListener('submit', async function(e) {
         e.preventDefault();
 
         const name = document.getElementById('reviewName').value.trim();
         const ratingEl = document.querySelector('input[name="rating"]:checked');
         const service = document.getElementById('reviewService').value;
         const text = document.getElementById('reviewText').value.trim();
+        const submitBtn = document.getElementById('submitBtn');
 
         if (!name || !ratingEl || !service || !text) {
             alert('Please fill in all fields and select a rating.');
             return;
         }
+
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
 
         const review = {
             name: name,
@@ -430,18 +437,19 @@
             timestamp: Date.now()
         };
 
-        // Save to localStorage
-        let reviews = [];
         try {
-            reviews = JSON.parse(localStorage.getItem('lokesh_client_reviews') || '[]');
-        } catch(e) { reviews = []; }
+            // Save to Firebase Firestore
+            await addDoc(collection(db, "reviews"), review);
 
-        reviews.push(review);
-        localStorage.setItem('lokesh_client_reviews', JSON.stringify(reviews));
-
-        // Show success
-        document.getElementById('reviewForm').style.display = 'none';
-        document.getElementById('successOverlay').classList.add('show');
+            // Show success
+            document.getElementById('reviewForm').style.display = 'none';
+            document.getElementById('successOverlay').classList.add('show');
+        } catch (error) {
+            console.error("Error adding document: ", error);
+            alert("Error submitting review. Please try again.");
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = 'Submit Review <i class="fas fa-paper-plane"></i>';
+        }
     });
 </script>
 
