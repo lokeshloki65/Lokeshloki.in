@@ -542,47 +542,66 @@
 
 <div class="admin-toast" id="adminToast"></div>
 
-<script>
-    // Hardcoded reviews (same as in index.html)
-    const defaultHardcoded = [
-        {
-            name: "Arun Kumar",
-            rating: 5,
-            text: "Lokesh developed an amazing e-commerce website for my business with perfect SEO optimization. The site loads fast, looks professional, and ranks well on Google. Highly recommend his web development services!",
-            service: "Web Development with SEO",
-            date: "March 2026",
-            avatar: "A"
-        },
-        {
-            name: "Priya Sharma",
-            rating: 5,
-            text: "Got my final year project done by Lokesh - an AI-based crop disease detection system. He delivered it on time with full documentation and explanation. The project was well-structured and impressed our panel!",
-            service: "Final Year Projects",
-            date: "February 2026",
-            avatar: "P"
-        }
-    ];
+<script type="module">
+    import { db, auth } from '../js/firebase-config.js';
+    import { collection, onSnapshot, doc, updateDoc, deleteDoc, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    import { onAuthStateChanged, signInWithPopup, GoogleAuthProvider, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-    function getHardcodedReviews() {
-        try {
-            const stored = localStorage.getItem('lokesh_hardcoded_reviews');
-            if (stored) return JSON.parse(stored);
-        } catch(e) {}
-        return [...defaultHardcoded];
-    }
+    let currentReviews = [];
+    let unsubscribe = null;
 
-    function saveHardcodedReviews(reviews) {
-        localStorage.setItem('lokesh_hardcoded_reviews', JSON.stringify(reviews));
-    }
+    const authContainer = document.createElement('div');
+    authContainer.innerHTML = `
+        <div id="loginSection" style="text-align: center; padding: 4rem 2rem;">
+            <h2>Admin Login Required</h2>
+            <p style="color: var(--secondary-text-color); margin: 1rem 0 2rem;">You must be logged in as an administrator to manage reviews.</p>
+            <button id="loginBtn" class="btn-save" style="padding: 12px 30px; font-size: 1rem;"><i class="fab fa-google"></i> Sign in with Google</button>
+        </div>
+    `;
+    const mainContainer = document.querySelector('.admin-container');
+    const originalMainContent = mainContainer.innerHTML;
 
-    function getUserReviews() {
-        try {
-            return JSON.parse(localStorage.getItem('lokesh_client_reviews') || '[]');
-        } catch(e) { return []; }
-    }
+    function setupAuth() {
+        mainContainer.innerHTML = '';
+        mainContainer.appendChild(authContainer);
 
-    function saveUserReviews(reviews) {
-        localStorage.setItem('lokesh_client_reviews', JSON.stringify(reviews));
+        document.getElementById('loginBtn').addEventListener('click', async () => {
+            const provider = new GoogleAuthProvider();
+            try {
+                await signInWithPopup(auth, provider);
+            } catch (error) {
+                showToast(error.message, 'error');
+            }
+        });
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // User is signed in
+                mainContainer.innerHTML = originalMainContent;
+                
+                // Add logout button to header
+                const headerRight = document.querySelector('.admin-header-right');
+                if (!document.getElementById('logoutBtn')) {
+                    const logoutBtn = document.createElement('a');
+                    logoutBtn.id = 'logoutBtn';
+                    logoutBtn.href = '#';
+                    logoutBtn.style.marginLeft = '10px';
+                    logoutBtn.innerHTML = '<i class="fas fa-sign-out-alt"></i> Logout';
+                    logoutBtn.onclick = (e) => { e.preventDefault(); signOut(auth); };
+                    headerRight.appendChild(logoutBtn);
+                }
+
+                loadReviews();
+                setupModalEvents();
+            } else {
+                // User is signed out
+                if (unsubscribe) unsubscribe();
+                mainContainer.innerHTML = '';
+                mainContainer.appendChild(authContainer);
+                const logoutBtn = document.getElementById('logoutBtn');
+                if (logoutBtn) logoutBtn.remove();
+            }
+        });
     }
 
     function showToast(msg, type = 'success') {
@@ -596,13 +615,12 @@
         return '<i class="fas fa-star"></i>'.repeat(rating) + '<i class="far fa-star" style="color:#555"></i>'.repeat(5 - rating);
     }
 
-    function renderReviewCard(review, index, type) {
-        const badgeClass = type === 'hardcoded' ? 'badge-hardcoded' : 'badge-user';
-        const badgeText = type === 'hardcoded' ? 'Hardcoded' : 'User';
-
+    function renderReviewCard(review) {
+        // Since we combined them, all are technically from Firestore now.
+        // We can just label them as "Firebase Review"
         return `
         <div class="admin-review-card">
-            <span class="review-type-badge ${badgeClass}">${badgeText}</span>
+            <span class="review-type-badge badge-user">Firebase</span>
             <div class="review-avatar">${review.avatar || review.name.charAt(0).toUpperCase()}</div>
             <div class="review-body">
                 <div class="review-meta">
@@ -613,84 +631,83 @@
                 <div class="review-text-content">"${review.text}"</div>
                 <span class="review-service"><i class="fas fa-briefcase"></i> ${review.service}</span>
                 <div class="review-actions">
-                    <button class="btn-action" onclick="openEdit(${index}, '${type}')"><i class="fas fa-edit"></i> Edit</button>
-                    <button class="btn-action btn-delete" onclick="deleteReview(${index}, '${type}')"><i class="fas fa-trash-alt"></i> Delete</button>
+                    <button class="btn-action" onclick="window.openEdit('${review.id}')"><i class="fas fa-edit"></i> Edit</button>
+                    <button class="btn-action btn-delete" onclick="window.deleteReview('${review.id}')"><i class="fas fa-trash-alt"></i> Delete</button>
                 </div>
             </div>
         </div>`;
     }
 
-    function renderAll() {
-        const hardcoded = getHardcodedReviews();
-        const user = getUserReviews();
+    function loadReviews() {
+        unsubscribe = onSnapshot(collection(db, "reviews"), (snapshot) => {
+            currentReviews = [];
+            snapshot.forEach((doc) => {
+                currentReviews.push({ id: doc.id, ...doc.data() });
+            });
 
-        // Stats
-        const total = hardcoded.length + user.length;
-        const allRatings = [...hardcoded, ...user].map(r => r.rating);
+            // Sort by newest first
+            currentReviews.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+            renderAll();
+        }, (error) => {
+            console.error(error);
+            showToast("Permission denied or error fetching reviews.", "error");
+        });
+    }
+
+    function renderAll() {
+        const total = currentReviews.length;
+        const allRatings = currentReviews.map(r => r.rating || 5);
         const avg = total > 0 ? (allRatings.reduce((a,b) => a+b, 0) / total).toFixed(1) : '0';
 
         document.getElementById('totalReviews').textContent = total;
         document.getElementById('avgRating').textContent = avg;
-        document.getElementById('hardcodedCount').textContent = hardcoded.length;
-        document.getElementById('userCount').textContent = user.length;
+        document.getElementById('hardcodedCount').textContent = "0"; // N/A anymore
+        document.getElementById('userCount').textContent = total;
 
-        // Hardcoded list
-        const hList = document.getElementById('hardcodedList');
-        if (hardcoded.length === 0) {
-            hList.innerHTML = '<div class="empty-state"><i class="fas fa-inbox"></i><p>No hardcoded reviews</p></div>';
-        } else {
-            hList.innerHTML = hardcoded.map((r, i) => renderReviewCard(r, i, 'hardcoded')).join('');
-        }
+        // Hide hardcoded section entirely since everything is in Firebase now
+        document.querySelector('.section-bar h2 i.fa-shield-alt').parentNode.parentNode.style.display = 'none';
+        document.getElementById('hardcodedList').style.display = 'none';
+        document.querySelector('.section-bar h2 i.fa-users').parentNode.innerHTML = '<h2><i class="fas fa-database"></i> All Reviews</h2>';
 
-        // User list
         const uList = document.getElementById('userList');
-        if (user.length === 0) {
-            uList.innerHTML = '<div class="empty-state"><i class="fas fa-inbox"></i><p>No user submitted reviews yet</p></div>';
+        if (currentReviews.length === 0) {
+            uList.innerHTML = '<div class="empty-state"><i class="fas fa-inbox"></i><p>No reviews found in database</p></div>';
         } else {
-            uList.innerHTML = user.map((r, i) => renderReviewCard(r, i, 'user')).join('');
+            uList.innerHTML = currentReviews.map(r => renderReviewCard(r)).join('');
         }
     }
 
-    function deleteReview(index, type) {
-        if (!confirm('Are you sure you want to delete this review?')) return;
-
-        if (type === 'hardcoded') {
-            const reviews = getHardcodedReviews();
-            reviews.splice(index, 1);
-            saveHardcodedReviews(reviews);
-        } else {
-            const reviews = getUserReviews();
-            reviews.splice(index, 1);
-            saveUserReviews(reviews);
+    // Attach to window so onclick works from innerHTML
+    window.deleteReview = async (id) => {
+        if (!confirm('Are you sure you want to delete this review from the database?')) return;
+        try {
+            await deleteDoc(doc(db, "reviews", id));
+            showToast('Review deleted successfully', 'error');
+        } catch (error) {
+            showToast('Error deleting review: ' + error.message, 'error');
         }
-
-        showToast('Review deleted successfully', 'error');
-        renderAll();
     }
 
-    function openEdit(index, type) {
-        const reviews = type === 'hardcoded' ? getHardcodedReviews() : getUserReviews();
-        const review = reviews[index];
+    window.openEdit = (id) => {
+        const review = currentReviews.find(r => r.id === id);
+        if (!review) return;
 
-        document.getElementById('editIndex').value = index;
-        document.getElementById('editType').value = type;
-        document.getElementById('editName').value = review.name;
-        document.getElementById('editRating').value = review.rating;
-        document.getElementById('editService').value = review.service;
-        document.getElementById('editText').value = review.text;
-        document.getElementById('editDate').value = review.date;
+        document.getElementById('editIndex').value = id;
+        document.getElementById('editName').value = review.name || '';
+        document.getElementById('editRating').value = review.rating || 5;
+        document.getElementById('editService').value = review.service || '';
+        document.getElementById('editText').value = review.text || '';
+        document.getElementById('editDate').value = review.date || '';
 
         document.getElementById('editModal').classList.add('show');
     }
 
-    function closeModal() {
+    window.closeModal = () => {
         document.getElementById('editModal').classList.remove('show');
     }
 
-    function saveEdit() {
-        const index = parseInt(document.getElementById('editIndex').value);
-        const type = document.getElementById('editType').value;
-
+    window.saveEdit = async () => {
+        const id = document.getElementById('editIndex').value;
         const updated = {
             name: document.getElementById('editName').value.trim(),
             rating: parseInt(document.getElementById('editRating').value),
@@ -705,28 +722,24 @@
             return;
         }
 
-        if (type === 'hardcoded') {
-            const reviews = getHardcodedReviews();
-            reviews[index] = { ...reviews[index], ...updated };
-            saveHardcodedReviews(reviews);
-        } else {
-            const reviews = getUserReviews();
-            reviews[index] = { ...reviews[index], ...updated };
-            saveUserReviews(reviews);
+        try {
+            await updateDoc(doc(db, "reviews", id), updated);
+            window.closeModal();
+            showToast('Review updated successfully!', 'success');
+        } catch (error) {
+            showToast('Error updating review: ' + error.message, 'error');
         }
-
-        closeModal();
-        showToast('Review updated successfully!', 'success');
-        renderAll();
     }
 
-    // Close modal on outside click
-    document.getElementById('editModal').addEventListener('click', function(e) {
-        if (e.target === this) closeModal();
-    });
+    function setupModalEvents() {
+        document.getElementById('editModal').addEventListener('click', function(e) {
+            if (e.target === this) window.closeModal();
+        });
+    }
 
-    // Initial render
-    renderAll();
+    // Start
+    setupAuth();
+
 </script>
 
 </body>
