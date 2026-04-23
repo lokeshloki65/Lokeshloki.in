@@ -2625,44 +2625,68 @@
             background: linear-gradient(to left, var(--bg-color), transparent);
         }
 
-        .reviews-marquee {
-            display: flex;
-            overflow: hidden;
+        .reviews-swiper {
             width: 100%;
+            padding: 2rem 0;
+            overflow: hidden;
+            position: relative;
         }
 
-        .reviews-track {
+        .reviews-swiper .swiper-slide {
+            width: 500px; /* Made the card wider and lengthier as requested */
             display: flex;
-            gap: 2rem;
-            flex-shrink: 0;
-            animation: reviewsScroll 45s linear infinite;
-            padding-right: 2rem;
+            justify-content: center;
+            opacity: 0.4;
+            transform: scale(0.85);
+            transition: all 0.6s ease; /* Smoother transition */
+            pointer-events: none; /* Disable clicks on inactive slides */
         }
 
-        .reviews-marquee:hover .reviews-track {
-            animation-play-state: paused;
+        .reviews-swiper .swiper-slide-active {
+            opacity: 1;
+            transform: scale(1);
+            pointer-events: auto;
         }
 
-        @keyframes reviewsScroll {
-            0% {
-                transform: translateX(0);
-            }
+        /* Swiper Navigation Arrows */
+        .swiper-button-next,
+        .swiper-button-prev {
+            color: var(--primary-color);
+            background: var(--card-bg-color);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
 
-            100% {
-                transform: translateX(-100%);
-            }
+        .swiper-button-next:hover,
+        .swiper-button-prev:hover {
+            background: var(--primary-color);
+            color: #fff;
+            border-color: var(--primary-color);
+            transform: scale(1.1);
+        }
+
+        .swiper-button-next::after,
+        .swiper-button-prev::after {
+            display: none; /* Hide default swiper icon */
+        }
+        
+        .swiper-button-next i,
+        .swiper-button-prev i {
+            font-size: 1.2rem;
         }
 
         .review-card {
-            min-width: 380px;
-            max-width: 380px;
+            width: 100%;
             background: var(--card-bg-color);
             border: 1px solid var(--border-color);
             border-radius: 20px;
             padding: 2rem;
             position: relative;
             transition: all 0.3s ease;
-            flex-shrink: 0;
         }
 
         .review-card:hover {
@@ -2791,32 +2815,22 @@
         }
 
         @media (max-width: 768px) {
+            .reviews-swiper .swiper-slide {
+                width: 90vw; /* Wide on mobile */
+            }
+
             .review-card {
-                min-width: 85vw;
-                max-width: 85vw;
                 padding: 1.5rem;
-                scroll-snap-align: center;
-            }
-
-            .reviews-marquee {
-                overflow-x: auto;
-                scroll-snap-type: x mandatory;
-                -webkit-overflow-scrolling: touch;
-                padding-bottom: 1rem;
-            }
-
-            .reviews-marquee::-webkit-scrollbar {
-                display: none;
-            }
-
-            .reviews-track {
-                animation: none; /* Disable auto-scroll on mobile to allow manual swipe */
-                gap: 1rem;
-                padding-right: 1rem;
             }
 
             .services-grid {
                 grid-template-columns: 1fr;
+            }
+            
+            /* Hide arrows on mobile for cleaner look (they can swipe) */
+            .swiper-button-next,
+            .swiper-button-prev {
+                display: none !important;
             }
         }
     </style>
@@ -3015,9 +3029,13 @@
             <span><i class="fas fa-check-circle"></i> 2 Projects Completed Successfully</span>
         </div>
         <div class="reviews-wrapper">
-            <div class="reviews-marquee">
-                <div class="reviews-track" id="reviews-track"></div>
-                <div class="reviews-track" id="reviews-track-dup"></div>
+            <div class="swiper reviews-swiper">
+                <div class="swiper-wrapper" id="reviews-track">
+                    <!-- Reviews will be injected here -->
+                </div>
+                <!-- Navigation arrows with FontAwesome -->
+                <div class="swiper-button-prev"><i class="fas fa-chevron-left"></i></div>
+                <div class="swiper-button-next"><i class="fas fa-chevron-right"></i></div>
             </div>
         </div>
         <div class="review-cta">
@@ -3475,7 +3493,7 @@
             <div class="footer-column">
                 <h3>Contact Info</h3>
                 <p><i class="fas fa-map-marker-alt"></i> <a href="#">Vellore, Tamil Nadu, India</a></p>
-                <p><i class="fas fa-phone"></i> <a href="tel:+918072894184">+91 96558 65777</a></p>
+                <p><i class="fas fa-phone"></i> <a href="tel:+918072894184">+91 80728 94184</a></p>
                 <p><i class="fas fa-envelope"></i> <a href="mailto:lokesh152005@gmail.com">lokesh152005@gmail.com</a>
                 </p>
             </div>
@@ -3507,9 +3525,7 @@
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
     <script>
-        // --- DATA ARRAYS FOR EASY UPDATES ---
 
-        // Timeline Data - UPDATED WITH SNESTRON SYSTEMS
         const timelineData = [
             {
                 type: 'experience',
@@ -4379,94 +4395,92 @@
             }
         }, 1500);
     </script>
-<script type="module">
-    import { db } from './js/firebase-config.js';
-    import { collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    <script type="module">
+        import { db } from './js/firebase-config.js';
+        import { collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-    // Initialize real-time listener for reviews
-    const track = document.getElementById('reviews-track');
-    const trackDup = document.getElementById('reviews-track-dup');
-    const clientsCounter = document.getElementById('clients-counter');
-    const badge = document.querySelector('.clients-completed-badge span');
+        // Initialize real-time listener for reviews
+        const track = document.getElementById('reviews-track');
+        const clientsCounter = document.getElementById('clients-counter');
+        const badge = document.querySelector('.clients-completed-badge span');
+        let reviewsSwiperInstance = null;
 
-    if (track && trackDup) {
-        onSnapshot(collection(db, "reviews"), (snapshot) => {
-            const allReviews = [];
-            snapshot.forEach((doc) => {
-                allReviews.push({ id: doc.id, ...doc.data() });
-            });
-
-            // Sort by timestamp if available (newest first)
-            allReviews.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
-
-            // Update clients counter dynamically
-            if (clientsCounter) {
-                clientsCounter.setAttribute('data-target', allReviews.length);
-                clientsCounter.textContent = allReviews.length; // Update immediately
-            }
-            // Update badge text
-            if (badge) {
-                badge.innerHTML = '<i class="fas fa-check-circle"></i> ' + allReviews.length + ' Projects Completed Successfully';
-            }
-
-            function createReviewCard(review) {
-                const rating = review.rating || 5;
-                const avatar = review.avatar || review.name.charAt(0).toUpperCase();
-                return `
-                <div class="review-card">
-                    <i class="fas fa-quote-right review-quote-icon"></i>
-                    <div class="review-card-header">
-                        <div class="review-avatar">${avatar}</div>
-                        <div class="review-author-info">
-                            <h4>${review.name}</h4>
-                            <span>${review.date}</span>
-                        </div>
-                    </div>
-                    <div class="review-stars">
-                        ${'<i class="fas fa-star"></i>'.repeat(rating)}${'<i class="far fa-star"></i>'.repeat(5 - rating)}
-                    </div>
-                    <p class="review-text">"${review.text}"</p>
-                    <span class="review-service-tag"><i class="fas fa-briefcase"></i> ${review.service}</span>
-                </div>`;
-            }
-
-            const reviewsHTML = allReviews.map(createReviewCard).join('');
-            track.innerHTML = reviewsHTML || '<p style="color:var(--secondary-text-color); margin-left: 2rem;">No reviews yet.</p>';
-            trackDup.innerHTML = reviewsHTML;
-
-            // Mobile Auto-Scroll Logic (Slowly scrolls but allows manual swipe)
-            if (window.innerWidth <= 768) {
-                const marqueeContainer = document.querySelector('.reviews-marquee');
-                let scrollSpeed = 0.5; 
-                let autoScrollInterval;
-
-                const startAutoScroll = () => {
-                    autoScrollInterval = setInterval(() => {
-                        if (marqueeContainer) {
-                            marqueeContainer.scrollLeft += scrollSpeed;
-                        }
-                    }, 30);
-                };
-
-                const stopAutoScroll = () => clearInterval(autoScrollInterval);
-
-                // Start scrolling
-                startAutoScroll();
-
-                // Pause on user interaction (touch or scroll)
-                marqueeContainer.addEventListener('touchstart', stopAutoScroll, {passive: true});
-                marqueeContainer.addEventListener('touchend', () => {
-                    setTimeout(startAutoScroll, 2000); // Resume after 2 seconds of no touch
+        if (track) {
+            onSnapshot(collection(db, "reviews"), (snapshot) => {
+                const allReviews = [];
+                snapshot.forEach((doc) => {
+                    allReviews.push({ id: doc.id, ...doc.data() });
                 });
-            }
 
-        }, (error) => {
-            console.error("Error fetching reviews:", error);
-        });
-    }
-</script>
+                // Sort by timestamp if available (newest first)
+                allReviews.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+
+                // Update clients counter dynamically
+                if (clientsCounter) {
+                    clientsCounter.setAttribute('data-target', allReviews.length);
+                    clientsCounter.textContent = allReviews.length; // Update immediately
+                }
+                // Update badge text
+                if (badge) {
+                    badge.innerHTML = '<i class="fas fa-check-circle"></i> ' + allReviews.length + ' Projects Completed Successfully';
+                }
+
+                function createReviewCard(review) {
+                    const rating = review.rating || 5;
+                    const avatar = review.avatar || review.name.charAt(0).toUpperCase();
+                    return `
+                <div class="swiper-slide">
+                    <div class="review-card">
+                        <i class="fas fa-quote-right review-quote-icon"></i>
+                        <div class="review-card-header">
+                            <div class="review-avatar">${avatar}</div>
+                            <div class="review-author-info">
+                                <h4>${review.name}</h4>
+                                <span>${review.date}</span>
+                            </div>
+                        </div>
+                        <div class="review-stars">
+                            ${'<i class="fas fa-star"></i>'.repeat(rating)}${'<i class="far fa-star"></i>'.repeat(5 - rating)}
+                        </div>
+                        <p class="review-text">"${review.text}"</p>
+                        <span class="review-service-tag"><i class="fas fa-briefcase"></i> ${review.service}</span>
+                    </div>
+                </div>`;
+                }
+
+                const reviewsHTML = allReviews.map(createReviewCard).join('');
+                track.innerHTML = reviewsHTML || '<p style="color:var(--secondary-text-color); margin-left: 2rem;">No reviews yet.</p>';
+
+                // Initialize or Update Swiper
+                if (reviewsSwiperInstance) {
+                    reviewsSwiperInstance.destroy(true, true);
+                }
+                
+                if (allReviews.length > 0) {
+                    reviewsSwiperInstance = new Swiper('.reviews-swiper', {
+                        slidesPerView: 'auto',
+                        centeredSlides: true,
+                        spaceBetween: 30,
+                        speed: 800, // Smooth 0.8s transition effect so the change is clearly visible
+                        loop: allReviews.length > 1, // Will handle exactly 1 review perfectly by not looping
+                        autoplay: allReviews.length > 1 ? {
+                            delay: 5000,
+                            disableOnInteraction: false,
+                        } : false, // Disable autoplay if only 1 review
+                        navigation: {
+                            nextEl: '.swiper-button-next',
+                            prevEl: '.swiper-button-prev',
+                        },
+                        grabCursor: true
+                    });
+                }
+
+            }, (error) => {
+                console.error("Error fetching reviews:", error);
+            });
+        }
+    </script>
 
 </body>
 
 </html>
-
