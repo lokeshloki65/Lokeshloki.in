@@ -1191,6 +1191,7 @@ input[type='file'] {
                 <button class="btn-secondary close-modal">Cancel</button>
             </div>
         </div>
+
         <!-- Add Skill Modal -->
         <div id="skill-modal" class="modal glass hidden">
             <h3>Add Skill</h3>
@@ -1202,50 +1203,62 @@ input[type='file'] {
                 <button class="btn-secondary close-modal">Cancel</button>
             </div>
         </div>
-    </div>
-    <!-- Add Cert Modal -->
-    <div id="cert-modal" class="modal glass hidden">
-        <h3>Add Certificate</h3>
-        <input type="text" id="c-title" placeholder="Certificate Title">
-        <input type="text" id="c-issuer" placeholder="Issuer (e.g. Google)">
-        <input type="text" id="c-img" placeholder="Image URL (or use below)">
-        <div class="file-upload-group">
-            <label for="c-img-file" class="file-label"><i class="fas fa-cloud-upload-alt"></i> Upload Image</label>
-            <input type="file" id="c-img-file" accept="image/*">
-            <p id="c-file-name" style="font-size:0.8rem; color: #aaa; margin-top: 5px;"></p>
-        </div>
-        <div class="modal-actions">
-            <button id="save-cert-btn" class="btn-primary">Save</button>
-            <button class="btn-secondary close-modal">Cancel</button>
-        </div>
-    </div>
 
-    <!-- Edit Review Modal -->
-    <div id="editModal" class="modal glass hidden">
-        <h3><i class="fas fa-edit"></i> Edit Review</h3>
-        <input type="hidden" id="editIndex">
-        <input type="text" id="editName" placeholder="Name">
-        <select id="editRating" style="width: 100%; padding: 10px; margin: 10px 0; background: rgba(255, 255, 255, 0.1); border: none; color: white; border-radius: 4px;">
-            <option style="color:black;" value="5">★★★★★ (5)</option>
-            <option style="color:black;" value="4">★★★★☆ (4)</option>
-            <option style="color:black;" value="3">★★★☆☆ (3)</option>
-            <option style="color:black;" value="2">★★☆☆☆ (2)</option>
-            <option style="color:black;" value="1">★☆☆☆☆ (1)</option>
-        </select>
-        <select id="editService" style="width: 100%; padding: 10px; margin: 10px 0; background: rgba(255, 255, 255, 0.1); border: none; color: white; border-radius: 4px;">
-            <option style="color:black;" value="Web Development with SEO">Web Development with SEO</option>
-            <option style="color:black;" value="Website Deployment">Website Deployment</option>
-            <option style="color:black;" value="Final Year Projects">Final Year Projects</option>
-            <option style="color:black;" value="Other">Other</option>
-        </select>
-        <textarea id="editText" placeholder="Review Text"></textarea>
-        <input type="text" id="editDate" placeholder="Date">
-        <div class="modal-actions">
-            <button id="save-review-btn" class="btn-primary">Save</button>
-            <button class="btn-secondary close-modal" onclick="document.getElementById('editModal').classList.add('hidden'); document.getElementById('modal-overlay').classList.add('hidden');">Cancel</button>
+        <!-- Add Cert Modal -->
+        <div id="cert-modal" class="modal glass hidden">
+            <h3>Add Certificate</h3>
+            <input type="text" id="c-title" placeholder="Certificate Title">
+            <input type="text" id="c-issuer" placeholder="Issuer (e.g. Google)">
+            <input type="text" id="c-img" placeholder="Image URL (or use below)">
+            <div class="file-upload-group">
+                <label for="c-img-file" class="file-label"><i class="fas fa-cloud-upload-alt"></i> Upload Image</label>
+                <input type="file" id="c-img-file" accept="image/*">
+                <p id="c-file-name" style="font-size:0.8rem; color: #aaa; margin-top: 5px;"></p>
+            </div>
+            <div class="modal-actions">
+                <button id="save-cert-btn" class="btn-primary">Save</button>
+                <button class="btn-secondary close-modal">Cancel</button>
+            </div>
         </div>
-    </div>
-    </div>
+
+        <!-- Edit Review Modal -->
+        <div id="editModal" class="modal glass hidden">
+            <h3><i class="fas fa-edit"></i> Edit Review</h3>
+            <input type="hidden" id="editIndex">
+            <input type="text" id="editName" placeholder="Name">
+            <select id="editRating" style="width: 100%; padding: 10px; margin: 10px 0; background: rgba(255, 255, 255, 0.1); border: none; color: white; border-radius: 4px;">
+                <option style="color:black;" value="5">★★★★★ (5)</option>
+                <option style="color:black;" value="4">★★★★☆ (4)</option>
+                <option style="color:black;" value="3">★★★☆☆ (3)</option>
+                <option style="color:black;" value="2">★★☆☆☆ (2)</option>
+                <option style="color:black;" value="1">★☆☆☆☆ (1)</option>
+            </select>
+            <select id="editService" style="width: 100%; padding: 10px; margin: 10px 0; background: rgba(255, 255, 255, 0.1); border: none; color: white; border-radius: 4px;">
+                <option style="color:black;" value="Web Development with SEO">Web Development with SEO</option>
+                <option style="color:black;" value="Website Deployment">Website Deployment</option>
+                <option style="color:black;" value="Final Year Projects">Final Year Projects</option>
+                <option style="color:black;" value="Other">Other</option>
+            </select>
+            <textarea id="editText" placeholder="Review Text"></textarea>
+            <input type="text" id="editDate" placeholder="Date">
+            <div class="modal-actions">
+                <button id="save-review-btn" class="btn-primary">Save</button>
+                <button class="btn-secondary close-modal" onclick="document.getElementById('editModal').classList.add('hidden'); document.getElementById('modal-overlay').classList.add('hidden');">Cancel</button>
+            </div>
+        </div>
+        
+        <!-- Reply Message Modal -->
+        <div id="replyModal" class="modal glass hidden">
+            <h3><i class="fas fa-reply"></i> Reply to Message</h3>
+            <input type="text" id="replyEmail" readonly style="opacity: 0.7; cursor: not-allowed; margin-bottom:10px;">
+            <input type="text" id="replySubject" placeholder="Subject">
+            <textarea id="replyText" placeholder="Type your message here..." style="height: 150px;"></textarea>
+            <div class="modal-actions">
+                <button onclick="sendEmailReply()" class="btn-primary"><i class="fas fa-paper-plane"></i> Send Reply</button>
+                <button class="btn-secondary close-modal" onclick="document.getElementById('replyModal').classList.add('hidden'); document.getElementById('modal-overlay').classList.add('hidden');">Cancel</button>
+            </div>
+        </div>
+    </div> <!-- Final closing tag for #modal-overlay -->
 
     <div class="admin-toast" id="adminToast"></div>
 
@@ -2123,14 +2136,23 @@ function initMessages() {
                             <span>${date}</span>
                         </div>
                         <p>${msg.message}</p>
-                        <button class="btn-sm" style="margin-top:10px; background:var(--danger)">Delete</button>
+                        <div style="margin-top: 10px; display: flex; gap: 10px;">
+                            <button class="btn-sm" style="background:var(--primary); color:#000;" onclick="openReply('${msg.email}', '${msg.name}')">
+                                <i class="fas fa-reply"></i> Reply
+                            </button>
+                            <button class="btn-sm" style="background:var(--danger)">Delete</button>
+                        </div>
                         `;
-            // Delete Logic
-            div.querySelector('button').addEventListener('click', async () => {
-                if (confirm('Delete this message?')) {
-                    await deleteDoc(doc.ref);
-                }
-            });
+            // Delete Logic - Targeting the button with 'Delete' text specifically
+            const deleteBtn = Array.from(div.querySelectorAll('button')).find(b => b.textContent.includes('Delete'));
+            if (deleteBtn) {
+                deleteBtn.addEventListener('click', async () => {
+                    if (confirm('Delete this message?')) {
+                        await deleteDoc(doc.ref);
+                        showToast('Message deleted', 'error');
+                    }
+                });
+            }
             msgContainer.appendChild(div);
         });
         document.getElementById('msg-count').innerText = count;
@@ -2330,6 +2352,34 @@ window.openEdit = (id) => {
 
     document.getElementById('editModal').classList.remove('hidden');
     document.getElementById('modal-overlay').classList.remove('hidden');
+}
+
+window.openReply = (email, name) => {
+    document.getElementById('replyEmail').value = email;
+    document.getElementById('replySubject').value = `Re: Message from ${name}`;
+    document.getElementById('replyText').value = `Hi ${name},\n\n`;
+    
+    document.getElementById('replyModal').classList.remove('hidden');
+    document.getElementById('modal-overlay').classList.remove('hidden');
+}
+
+window.sendEmailReply = () => {
+    const email = document.getElementById('replyEmail').value;
+    const subject = encodeURIComponent(document.getElementById('replySubject').value);
+    const body = encodeURIComponent(document.getElementById('replyText').value);
+    
+    if (!subject || !body) {
+        alert("Please fill in the subject and message.");
+        return;
+    }
+
+    // Open default mail client
+    window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+    
+    // Close modal
+    document.getElementById('replyModal').classList.add('hidden');
+    document.getElementById('modal-overlay').classList.add('hidden');
+    showToast('Mail client opened!', 'success');
 }
 
 
