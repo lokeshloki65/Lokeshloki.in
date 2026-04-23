@@ -2470,6 +2470,336 @@
                 width: 100%;
             }
         }
+
+        /* === SERVICES SECTION === */
+        #services {
+            padding: 6rem 5% 4rem;
+            position: relative;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background: var(--card-bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            backdrop-filter: blur(10px);
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 166, 255, 0.05), transparent);
+            transition: 0.6s;
+        }
+
+        .service-card:hover::before {
+            left: 100%;
+        }
+
+        .service-card:hover {
+            transform: translateY(-12px);
+            border-color: var(--primary-color);
+            box-shadow: 0 20px 40px rgba(0, 166, 255, 0.2), 0 0 30px rgba(0, 166, 255, 0.1);
+        }
+
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, rgba(0, 166, 255, 0.15), rgba(112, 0, 255, 0.15));
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            color: var(--primary-color);
+            transition: 0.4s;
+            border: 1px solid rgba(0, 166, 255, 0.2);
+        }
+
+        .service-card:hover .service-icon {
+            background: var(--primary-color);
+            color: #fff;
+            transform: rotateY(180deg);
+            box-shadow: 0 0 30px rgba(0, 166, 255, 0.4);
+        }
+
+        .service-card h3 {
+            font-size: 1.4rem;
+            color: var(--text-color);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .service-card p {
+            color: var(--secondary-text-color);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .service-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 24px;
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .service-btn:hover {
+            background: var(--primary-color);
+            color: #fff;
+            box-shadow: 0 0 20px rgba(0, 166, 255, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .service-tag {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: #fff;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        /* === CLIENT REVIEWS SECTION === */
+        #client-reviews {
+            padding: 6rem 5% 4rem;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .reviews-wrapper {
+            max-width: 1300px;
+            margin: 0 auto;
+            overflow: hidden;
+            position: relative;
+            padding: 1rem 0 2rem;
+        }
+
+        .reviews-wrapper::before,
+        .reviews-wrapper::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 80px;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .reviews-wrapper::before {
+            left: 0;
+            background: linear-gradient(to right, var(--bg-color), transparent);
+        }
+
+        .reviews-wrapper::after {
+            right: 0;
+            background: linear-gradient(to left, var(--bg-color), transparent);
+        }
+
+        .reviews-marquee {
+            display: flex;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .reviews-track {
+            display: flex;
+            gap: 2rem;
+            flex-shrink: 0;
+            animation: reviewsScroll 45s linear infinite;
+            padding-right: 2rem;
+        }
+
+        .reviews-marquee:hover .reviews-track {
+            animation-play-state: paused;
+        }
+
+        @keyframes reviewsScroll {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        .review-card {
+            min-width: 380px;
+            max-width: 380px;
+            background: var(--card-bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 2rem;
+            position: relative;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .review-card:hover {
+            border-color: var(--primary-color);
+            box-shadow: 0 10px 30px rgba(0, 166, 255, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .review-card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .review-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #fff;
+            flex-shrink: 0;
+        }
+
+        .review-author-info h4 {
+            color: var(--text-color);
+            font-size: 1.05rem;
+            font-weight: 600;
+        }
+
+        .review-author-info span {
+            color: var(--secondary-text-color);
+            font-size: 0.8rem;
+        }
+
+        .review-stars {
+            color: #FFD700;
+            font-size: 1rem;
+            margin-bottom: 0.8rem;
+            display: flex;
+            gap: 3px;
+        }
+
+        .review-stars i {
+            filter: drop-shadow(0 0 3px rgba(255, 215, 0, 0.4));
+        }
+
+        .review-text {
+            color: var(--secondary-text-color);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        .review-service-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(0, 166, 255, 0.1);
+            color: var(--primary-color);
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            border: 1px solid rgba(0, 166, 255, 0.2);
+        }
+
+        .review-quote-icon {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 2rem;
+            color: var(--primary-color);
+            opacity: 0.15;
+        }
+
+        .review-cta {
+            text-align: center;
+            margin-top: 2.5rem;
+        }
+
+        .review-cta a {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 30px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            color: #fff;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 166, 255, 0.3);
+        }
+
+        .review-cta a:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 166, 255, 0.5);
+        }
+
+        .clients-completed-badge {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .clients-completed-badge span {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(0, 166, 255, 0.08);
+            border: 1px solid rgba(0, 166, 255, 0.2);
+            padding: 8px 24px;
+            border-radius: 50px;
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .clients-completed-badge span i {
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 768px) {
+            .review-card {
+                min-width: 300px;
+                max-width: 300px;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 
@@ -2506,6 +2836,7 @@
             <div class="menu" id="navMenu">
                 <a href="#home" class="nav-link home-icon" aria-label="Home"><i class="fas fa-home"></i></a>
                 <a href="#about" class="nav-link">About</a>
+                <a href="#services" class="nav-link">Services</a>
                 <a href="#tech-stats" class="nav-link">Stats</a>
                 <a href="#timeline-section" class="nav-link">Timeline</a>
                 <a href="#skill" class="nav-link">Skills</a>
@@ -2548,7 +2879,7 @@
                 <a href="https://linkedin.com/in/lokesh-m-265b832b3" target="_blank" class="social-icon"><i
                         class="fab fa-linkedin-in"></i></a>
                 <a href="mailto:lokesh152005@gmail.com" class="social-icon"><i class="fas fa-envelope"></i></a>
-                <a href="https://wa.me/919655865777" target="_blank" class="social-icon"><i
+                <a href="https://wa.me/918072894184" target="_blank" class="social-icon"><i
                         class="fab fa-whatsapp"></i></a>
                 <a href="https://instagram.com/lovely_loki._65" target="_blank" class="social-icon"><i
                         class="fab fa-instagram"></i></a>
@@ -2618,6 +2949,60 @@
                 <h3><span id="hours-counter" class="counter" data-target="2">0</span>+</h3>
                 <p>Learning Years</p>
             </div>
+            <div class="stat-item">
+                <i class="fas fa-users"></i>
+                <h3><span id="clients-counter" class="counter" data-target="2">0</span></h3>
+                <p>Clients Completed</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" data-aos="fade-up">
+        <h2 class="section-title">My Services</h2>
+        <div class="services-grid" id="services-grid">
+            <div class="service-card" data-aos="fade-up" data-aos-delay="100">
+                <span class="service-tag">Popular</span>
+                <div class="service-icon"><i class="fas fa-globe"></i></div>
+                <h3>Web Development with SEO</h3>
+                <p>Custom responsive websites built with modern technologies, fully optimized for search engines to
+                    boost your online visibility and drive organic traffic.</p>
+                <a href="https://wa.me/918072894184?text=Hi%20Lokesh,%20I'm%20interested%20in%20Web%20Development%20with%20SEO%20service"
+                    target="_blank" class="service-btn"><i class="fab fa-whatsapp"></i> Get Started</a>
+            </div>
+            <div class="service-card" data-aos="fade-up" data-aos-delay="200">
+                <span class="service-tag">Fast</span>
+                <div class="service-icon"><i class="fas fa-rocket"></i></div>
+                <h3>Website Deployment</h3>
+                <p>Seamless deployment of your web applications to platforms like Vercel, Render, Firebase & more. Get
+                    your project live with custom domain and SSL setup.</p>
+                <a href="https://wa.me/918072894184?text=Hi%20Lokesh,%20I%20need%20help%20with%20Website%20Deployment"
+                    target="_blank" class="service-btn"><i class="fab fa-whatsapp"></i> Get Started</a>
+            </div>
+            <div class="service-card" data-aos="fade-up" data-aos-delay="300">
+                <span class="service-tag">Academic</span>
+                <div class="service-icon"><i class="fas fa-graduation-cap"></i></div>
+                <h3>Final Year Projects</h3>
+                <p>Custom-built academic projects in AI, ML, Web Development & more. Includes full source code,
+                    documentation, PPT, and explanation support for your viva.</p>
+                <a href="https://wa.me/918072894184?text=Hi%20Lokesh,%20I%20need%20a%20Final%20Year%20Project"
+                    target="_blank" class="service-btn"><i class="fab fa-whatsapp"></i> Get Started</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="client-reviews" data-aos="fade-up">
+        <h2 class="section-title">Client Reviews</h2>
+        <div class="clients-completed-badge">
+            <span><i class="fas fa-check-circle"></i> 2 Projects Completed Successfully</span>
+        </div>
+        <div class="reviews-wrapper">
+            <div class="reviews-marquee">
+                <div class="reviews-track" id="reviews-track"></div>
+                <div class="reviews-track" id="reviews-track-dup"></div>
+            </div>
+        </div>
+        <div class="review-cta">
+            <a href="review/" target="_blank"><i class="fas fa-pen"></i> Leave a Review</a>
         </div>
     </section>
 
@@ -2777,7 +3162,7 @@
                     <div class="icon-box"><i class="fas fa-phone-alt"></i></div>
                     <div>
                         <span class="label">Phone</span>
-                        <span class="value"><a href="tel:+919655865777">+91 965 586 5777</a></span>
+                        <span class="value"><a href="tel:+918072894184">+91 965 586 5777</a></span>
                     </div>
                 </div>
 
@@ -2788,7 +3173,7 @@
                         style="--i:1"><i class="fab fa-linkedin-in"></i></a>
                     <a href="https://instagram.com/lovely_loki._65" target="_blank" class="dock-item" style="--i:2"><i
                             class="fab fa-instagram"></i></a>
-                    <a href="https://wa.me/919655865777" target="_blank" class="dock-item" style="--i:3"><i
+                    <a href="https://wa.me/918072894184" target="_blank" class="dock-item" style="--i:3"><i
                             class="fab fa-whatsapp"></i></a>
                 </div>
             </div>
@@ -3046,10 +3431,12 @@
                 <ul>
                     <li><a href="#home">🏠 Home</a></li>
                     <li><a href="#about">👤 About</a></li>
+                    <li><a href="#services">🛠️ Services</a></li>
                     <li><a href="#timeline-section">📅 Timeline</a></li>
                     <li><a href="#skill">🚀 Skills</a></li>
                     <li><a href="#projects">💻 Projects</a></li>
                     <li><a href="#certifications">🎓 Certifications</a></li>
+                    <li><a href="#client-reviews">⭐ Reviews</a></li>
                     <li><a href="#contact">📩 Contact</a></li>
                 </ul>
             </div>
@@ -3062,14 +3449,14 @@
                     <a href="https://linkedin.com/in/lokesh-m-265b832b3" target="_blank"><i
                             class="fab fa-linkedin"></i></a>
                     <a href="mailto:lokesh152005@gmail.com"><i class="fas fa-envelope"></i></a>
-                    <a href="https://wa.me/919655865777" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://wa.me/918072894184" target="_blank"><i class="fab fa-whatsapp"></i></a>
                     <a href="https://instagram.com/lovely_loki._65" target="_blank"><i class="fab fa-instagram"></i></a>
                 </div>
             </div>
             <div class="footer-column">
                 <h3>Contact Info</h3>
                 <p><i class="fas fa-map-marker-alt"></i> <a href="#">Vellore, Tamil Nadu, India</a></p>
-                <p><i class="fas fa-phone"></i> <a href="tel:+919655865777">+91 96558 65777</a></p>
+                <p><i class="fas fa-phone"></i> <a href="tel:+918072894184">+91 96558 65777</a></p>
                 <p><i class="fas fa-envelope"></i> <a href="mailto:lokesh152005@gmail.com">lokesh152005@gmail.com</a>
                 </p>
             </div>
@@ -3299,6 +3686,11 @@
             { img: "image/certifications image/certfications 22.jpeg", title: "Ideathon 2026(NIT Trichy)", issuer: "NIT Trichy - Feb 2026" },
         ];
 
+        // === HARDCODED CLIENT REVIEWS ===
+        const hardcodedReviews = [
+
+        ];
+
         // --- MAIN SCRIPT ---
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -3328,6 +3720,7 @@
             // fetchGitHubRepos(); REMOVED IN FAVOR OF loadMoreProjects() ON CLICK
 
             initCyberEye();
+            generateClientReviews();
 
             // Start 3D Tilt
             setTimeout(initTiltEffect, 1000); // Delay to ensure elements are generated
@@ -3336,6 +3729,57 @@
         // --- FEATURE IMPLEMENTATIONS ---
 
 
+
+        // === GENERATE CLIENT REVIEWS MARQUEE ===
+        function generateClientReviews() {
+            const track = document.getElementById('reviews-track');
+            const trackDup = document.getElementById('reviews-track-dup');
+            if (!track || !trackDup) return;
+
+            let localReviews = [];
+            try { localReviews = JSON.parse(localStorage.getItem('lokesh_client_reviews') || '[]'); } catch (e) { }
+            // Check if admin has edited/deleted hardcoded reviews
+            let hReviews = hardcodedReviews;
+            try {
+                const adminEdited = localStorage.getItem('lokesh_hardcoded_reviews');
+                if (adminEdited) hReviews = JSON.parse(adminEdited);
+            } catch (e) { }
+            const allReviews = [...hReviews, ...localReviews];
+
+            // Update clients counter dynamically
+            const clientsCounter = document.getElementById('clients-counter');
+            if (clientsCounter) {
+                clientsCounter.setAttribute('data-target', allReviews.length);
+            }
+            // Update badge text
+            const badge = document.querySelector('.clients-completed-badge span');
+            if (badge) {
+                badge.innerHTML = '<i class="fas fa-check-circle"></i> ' + allReviews.length + ' Projects Completed Successfully';
+            }
+
+            function createReviewCard(review) {
+                return `
+                <div class="review-card">
+                    <i class="fas fa-quote-right review-quote-icon"></i>
+                    <div class="review-card-header">
+                        <div class="review-avatar">${review.avatar || review.name.charAt(0).toUpperCase()}</div>
+                        <div class="review-author-info">
+                            <h4>${review.name}</h4>
+                            <span>${review.date}</span>
+                        </div>
+                    </div>
+                    <div class="review-stars">
+                        ${'<i class="fas fa-star"></i>'.repeat(review.rating)}${'<i class="far fa-star"></i>'.repeat(5 - review.rating)}
+                    </div>
+                    <p class="review-text">"${review.text}"</p>
+                    <span class="review-service-tag"><i class="fas fa-briefcase"></i> ${review.service}</span>
+                </div>`;
+            }
+
+            const reviewsHTML = allReviews.map(createReviewCard).join('');
+            track.innerHTML = reviewsHTML;
+            trackDup.innerHTML = reviewsHTML;
+        }
 
         function initializeTypedJs() {
             new Typed('#typed', {
