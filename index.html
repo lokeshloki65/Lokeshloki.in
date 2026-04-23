@@ -3851,24 +3851,7 @@
         }
 
         function setupContactForm() {
-            const form = document.getElementById("contact-form");
-            form.addEventListener("submit", async function (e) {
-                e.preventDefault();
-                const formData = new FormData(form);
-                try {
-                    const response = await fetch(form.action, {
-                        method: "POST", body: formData, headers: { Accept: "application/json" },
-                    });
-                    if (response.ok) {
-                        showToast(" Thank you! Your message has been sent.", "success");
-                        form.reset();
-                    } else {
-                        showToast(" Something went wrong. Please try again.", "error");
-                    }
-                } catch (error) {
-                    showToast(" Network error. Please check your connection.", "error");
-                }
-            });
+            // Logic moved to the module script at the bottom to support Firebase integration
         }
 
 
@@ -4384,7 +4367,7 @@
     </script>
     <script type="module">
         import { db } from './js/firebase-config.js';
-        import { collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { collection, onSnapshot, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
         // Initialize real-time listener for reviews
         const track = document.getElementById('reviews-track');
@@ -4480,6 +4463,67 @@
 
             }, (error) => {
                 console.error("Error fetching reviews:", error);
+            });
+        }
+
+        // --- DUAL CONTACT FORM LOGIC (Firebase + Formspree) ---
+        const contactForm = document.getElementById("contact-form");
+        if (contactForm) {
+            contactForm.addEventListener("submit", async function (e) {
+                e.preventDefault();
+                
+                const btn = contactForm.querySelector('button');
+                const originalText = btn.innerHTML;
+                btn.innerHTML = 'Sending... <i class="fas fa-spinner fa-spin"></i>';
+                btn.disabled = true;
+
+                const name = contactForm.querySelector('input[name="name"]').value;
+                const email = contactForm.querySelector('input[name="email"]').value;
+                const message = contactForm.querySelector('textarea[name="message"]').value;
+
+                let firebaseSuccess = false;
+                let formspreeSuccess = false;
+
+                // 1. Save to Firebase Admin Dashboard
+                try {
+                    await addDoc(collection(db, "messages"), {
+                        name: name,
+                        email: email,
+                        message: message,
+                        timestamp: serverTimestamp()
+                    });
+                    firebaseSuccess = true;
+                    console.log("Message saved to Firebase");
+                } catch (error) {
+                    console.error("Firebase Error:", error);
+                }
+
+                // 2. Send via Formspree (Email)
+                try {
+                    const formData = new FormData(contactForm);
+                    const response = await fetch(contactForm.action, {
+                        method: "POST",
+                        body: formData,
+                        headers: { Accept: "application/json" }
+                    });
+                    if (response.ok) {
+                        formspreeSuccess = true;
+                        console.log("Email sent via Formspree");
+                    }
+                } catch (error) {
+                    console.error("Formspree Error:", error);
+                }
+
+                // Handle Response
+                if (firebaseSuccess || formspreeSuccess) {
+                    showToast("Your message was successfully sent!", "success");
+                    contactForm.reset();
+                } else {
+                    showToast("Failed to send message. Please try again.", "error");
+                }
+
+                btn.innerHTML = originalText;
+                btn.disabled = false;
             });
         }
     </script>
