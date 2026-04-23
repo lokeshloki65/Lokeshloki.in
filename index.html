@@ -4448,7 +4448,15 @@
                 </div>`;
                 }
 
-                const reviewsHTML = allReviews.map(createReviewCard).join('');
+                // Ensure we have enough reviews to loop flawlessly (Swiper needs a few slides for infinite loop)
+                let displayReviews = [...allReviews];
+                if (allReviews.length > 0 && allReviews.length < 4) {
+                    while (displayReviews.length < 4) {
+                        displayReviews = [...displayReviews, ...allReviews];
+                    }
+                }
+
+                const reviewsHTML = displayReviews.map(createReviewCard).join('');
                 track.innerHTML = reviewsHTML || '<p style="color:var(--secondary-text-color); margin-left: 2rem;">No reviews yet.</p>';
 
                 // Initialize or Update Swiper
@@ -4456,17 +4464,17 @@
                     reviewsSwiperInstance.destroy(true, true);
                 }
                 
-                if (allReviews.length > 0) {
+                if (displayReviews.length > 0) {
                     reviewsSwiperInstance = new Swiper('.reviews-swiper', {
                         slidesPerView: 'auto',
                         centeredSlides: true,
                         spaceBetween: 30,
-                        speed: 800, // Smooth 0.8s transition effect so the change is clearly visible
-                        loop: allReviews.length > 1, // Will handle exactly 1 review perfectly by not looping
-                        autoplay: allReviews.length > 1 ? {
+                        speed: 800, // Smooth 0.8s transition effect
+                        loop: true, // Always loop now since we guarantee enough slides
+                        autoplay: {
                             delay: 5000,
                             disableOnInteraction: false,
-                        } : false, // Disable autoplay if only 1 review
+                        },
                         navigation: {
                             nextEl: '.swiper-button-next',
                             prevEl: '.swiper-button-prev',
