@@ -7,6 +7,26 @@
     <link rel="icon" type="image/png" href="../logo.png">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script>
+        // Disable Right Click
+        document.addEventListener('contextmenu', event => event.preventDefault());
+
+        // Disable Shortcuts
+        document.addEventListener('keydown', function(event) {
+            // Prevent F12
+            if (event.key === 'F12' || event.keyCode === 123) {
+                event.preventDefault();
+            }
+            // Prevent Ctrl+Shift+I / J / C
+            if (event.ctrlKey && event.shiftKey && (event.key === 'I' || event.key === 'i' || event.key === 'J' || event.key === 'j' || event.key === 'C' || event.key === 'c')) {
+                event.preventDefault();
+            }
+            // Prevent Ctrl+U
+            if (event.ctrlKey && (event.key === 'U' || event.key === 'u')) {
+                event.preventDefault();
+            }
+        });
+    </script>
     <style>
         :root {
             --bg-color: #01010b;
@@ -545,63 +565,86 @@
 <script type="module">
     import { db, auth } from '../js/firebase-config.js';
     import { collection, onSnapshot, doc, updateDoc, deleteDoc, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-    import { onAuthStateChanged, signInWithPopup, GoogleAuthProvider, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
     let currentReviews = [];
     let unsubscribe = null;
 
     const authContainer = document.createElement('div');
     authContainer.innerHTML = `
-        <div id="loginSection" style="text-align: center; padding: 4rem 2rem;">
+        <div id="loginSection" style="text-align: center; padding: 4rem 2rem; max-width: 400px; margin: 0 auto;">
             <h2>Admin Login Required</h2>
-            <p style="color: var(--secondary-text-color); margin: 1rem 0 2rem;">You must be logged in as an administrator to manage reviews.</p>
-            <button id="loginBtn" class="btn-save" style="padding: 12px 30px; font-size: 1rem;"><i class="fab fa-google"></i> Sign in with Google</button>
+            <p style="color: var(--secondary-text-color); margin: 1rem 0 2rem;">Please enter your credentials to access the admin panel.</p>
+            <div style="margin-bottom: 1rem; text-align: left;">
+                <label style="display: block; font-size: 0.85rem; color: var(--secondary-text-color); margin-bottom: 0.4rem;">Email</label>
+                <input type="email" id="adminEmail" placeholder="Enter admin email" style="width: 100%; padding: 10px 14px; background: rgba(0, 0, 0, 0.3); border: 1px solid var(--border-color); border-radius: 10px; color: var(--text-color); font-family: 'Poppins', sans-serif; font-size: 0.95rem; outline: none; transition: 0.3s;">
+            </div>
+            <div style="margin-bottom: 1.5rem; text-align: left;">
+                <label style="display: block; font-size: 0.85rem; color: var(--secondary-text-color); margin-bottom: 0.4rem;">Password</label>
+                <input type="password" id="adminPassword" placeholder="Enter password" style="width: 100%; padding: 10px 14px; background: rgba(0, 0, 0, 0.3); border: 1px solid var(--border-color); border-radius: 10px; color: var(--text-color); font-family: 'Poppins', sans-serif; font-size: 0.95rem; outline: none; transition: 0.3s;">
+            </div>
+            <button id="loginBtn" class="btn-save" style="padding: 12px 30px; font-size: 1rem; width: 100%;"><i class="fas fa-sign-in-alt"></i> Login</button>
         </div>
     `;
     const mainContainer = document.querySelector('.admin-container');
     const originalMainContent = mainContainer.innerHTML;
 
     function setupAuth() {
-        mainContainer.innerHTML = '';
-        mainContainer.appendChild(authContainer);
+        const isLoggedIn = sessionStorage.getItem('adminLoggedIn');
+        if (isLoggedIn === 'true') {
+            showAdminPanel();
+        } else {
+            mainContainer.innerHTML = '';
+            mainContainer.appendChild(authContainer);
 
-        document.getElementById('loginBtn').addEventListener('click', async () => {
-            const provider = new GoogleAuthProvider();
-            try {
-                await signInWithPopup(auth, provider);
-            } catch (error) {
-                showToast(error.message, 'error');
-            }
-        });
-
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                // User is signed in
-                mainContainer.innerHTML = originalMainContent;
-                
-                // Add logout button to header
-                const headerRight = document.querySelector('.admin-header-right');
-                if (!document.getElementById('logoutBtn')) {
-                    const logoutBtn = document.createElement('a');
-                    logoutBtn.id = 'logoutBtn';
-                    logoutBtn.href = '#';
-                    logoutBtn.style.marginLeft = '10px';
-                    logoutBtn.innerHTML = '<i class="fas fa-sign-out-alt"></i> Logout';
-                    logoutBtn.onclick = (e) => { e.preventDefault(); signOut(auth); };
-                    headerRight.appendChild(logoutBtn);
+            document.getElementById('loginBtn').addEventListener('click', handleLogin);
+            document.getElementById('adminPassword').addEventListener('keypress', function (e) {
+                if (e.key === 'Enter') {
+                    handleLogin();
                 }
+            });
+            document.getElementById('adminEmail').addEventListener('keypress', function (e) {
+                if (e.key === 'Enter') {
+                    document.getElementById('adminPassword').focus();
+                }
+            });
+        }
+    }
 
-                loadReviews();
-                setupModalEvents();
-            } else {
-                // User is signed out
+    function handleLogin() {
+        const email = document.getElementById('adminEmail').value.trim();
+        const password = document.getElementById('adminPassword').value.trim();
+
+        if (email === 'lokesh152005@gmail.com' && password === 'Lokesh@152005') {
+            sessionStorage.setItem('adminLoggedIn', 'true');
+            showAdminPanel();
+            showToast('Logged in successfully', 'success');
+        } else {
+            showToast('Invalid email or password', 'error');
+        }
+    }
+
+    function showAdminPanel() {
+        mainContainer.innerHTML = originalMainContent;
+        
+        // Add logout button to header
+        const headerRight = document.querySelector('.admin-header-right');
+        if (!document.getElementById('logoutBtn')) {
+            const logoutBtn = document.createElement('a');
+            logoutBtn.id = 'logoutBtn';
+            logoutBtn.href = '#';
+            logoutBtn.style.marginLeft = '10px';
+            logoutBtn.innerHTML = '<i class="fas fa-sign-out-alt"></i> Logout';
+            logoutBtn.onclick = (e) => { 
+                e.preventDefault(); 
+                sessionStorage.removeItem('adminLoggedIn');
                 if (unsubscribe) unsubscribe();
-                mainContainer.innerHTML = '';
-                mainContainer.appendChild(authContainer);
-                const logoutBtn = document.getElementById('logoutBtn');
-                if (logoutBtn) logoutBtn.remove();
-            }
-        });
+                location.reload(); 
+            };
+            headerRight.appendChild(logoutBtn);
+        }
+
+        loadReviews();
+        setupModalEvents();
     }
 
     function showToast(msg, type = 'success') {
