@@ -3686,10 +3686,7 @@
             { img: "image/certifications image/certfications 22.jpeg", title: "Ideathon 2026(NIT Trichy)", issuer: "NIT Trichy - Feb 2026" },
         ];
 
-        // === HARDCODED CLIENT REVIEWS ===
-        const hardcodedReviews = [
-
-        ];
+        // Firebase handles all reviews now.
 
         // --- MAIN SCRIPT ---
 
@@ -3720,7 +3717,7 @@
             // fetchGitHubRepos(); REMOVED IN FAVOR OF loadMoreProjects() ON CLICK
 
             initCyberEye();
-            generateClientReviews();
+            // generateClientReviews() is now handled by the Firebase module script at the bottom
 
             // Start 3D Tilt
             setTimeout(initTiltEffect, 1000); // Delay to ensure elements are generated
@@ -3730,56 +3727,7 @@
 
 
 
-        // === GENERATE CLIENT REVIEWS MARQUEE ===
-        function generateClientReviews() {
-            const track = document.getElementById('reviews-track');
-            const trackDup = document.getElementById('reviews-track-dup');
-            if (!track || !trackDup) return;
-
-            let localReviews = [];
-            try { localReviews = JSON.parse(localStorage.getItem('lokesh_client_reviews') || '[]'); } catch (e) { }
-            // Check if admin has edited/deleted hardcoded reviews
-            let hReviews = hardcodedReviews;
-            try {
-                const adminEdited = localStorage.getItem('lokesh_hardcoded_reviews');
-                if (adminEdited) hReviews = JSON.parse(adminEdited);
-            } catch (e) { }
-            const allReviews = [...hReviews, ...localReviews];
-
-            // Update clients counter dynamically
-            const clientsCounter = document.getElementById('clients-counter');
-            if (clientsCounter) {
-                clientsCounter.setAttribute('data-target', allReviews.length);
-            }
-            // Update badge text
-            const badge = document.querySelector('.clients-completed-badge span');
-            if (badge) {
-                badge.innerHTML = '<i class="fas fa-check-circle"></i> ' + allReviews.length + ' Projects Completed Successfully';
-            }
-
-            function createReviewCard(review) {
-                return `
-                <div class="review-card">
-                    <i class="fas fa-quote-right review-quote-icon"></i>
-                    <div class="review-card-header">
-                        <div class="review-avatar">${review.avatar || review.name.charAt(0).toUpperCase()}</div>
-                        <div class="review-author-info">
-                            <h4>${review.name}</h4>
-                            <span>${review.date}</span>
-                        </div>
-                    </div>
-                    <div class="review-stars">
-                        ${'<i class="fas fa-star"></i>'.repeat(review.rating)}${'<i class="far fa-star"></i>'.repeat(5 - review.rating)}
-                    </div>
-                    <p class="review-text">"${review.text}"</p>
-                    <span class="review-service-tag"><i class="fas fa-briefcase"></i> ${review.service}</span>
-                </div>`;
-            }
-
-            const reviewsHTML = allReviews.map(createReviewCard).join('');
-            track.innerHTML = reviewsHTML;
-            trackDup.innerHTML = reviewsHTML;
-        }
+        // Real-time client reviews logic has been moved to the Firebase module script below.
 
         function initializeTypedJs() {
             new Typed('#typed', {
@@ -4412,6 +4360,65 @@
             }
         }, 1500);
     </script>
+<script type="module">
+    import { db } from './js/firebase-config.js';
+    import { collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+    // Initialize real-time listener for reviews
+    const track = document.getElementById('reviews-track');
+    const trackDup = document.getElementById('reviews-track-dup');
+    const clientsCounter = document.getElementById('clients-counter');
+    const badge = document.querySelector('.clients-completed-badge span');
+
+    if (track && trackDup) {
+        onSnapshot(collection(db, "reviews"), (snapshot) => {
+            const allReviews = [];
+            snapshot.forEach((doc) => {
+                allReviews.push({ id: doc.id, ...doc.data() });
+            });
+
+            // Sort by timestamp if available (newest first)
+            allReviews.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+
+            // Update clients counter dynamically
+            if (clientsCounter) {
+                clientsCounter.setAttribute('data-target', allReviews.length);
+                clientsCounter.textContent = allReviews.length; // Update immediately
+            }
+            // Update badge text
+            if (badge) {
+                badge.innerHTML = '<i class="fas fa-check-circle"></i> ' + allReviews.length + ' Projects Completed Successfully';
+            }
+
+            function createReviewCard(review) {
+                const rating = review.rating || 5;
+                const avatar = review.avatar || review.name.charAt(0).toUpperCase();
+                return `
+                <div class="review-card">
+                    <i class="fas fa-quote-right review-quote-icon"></i>
+                    <div class="review-card-header">
+                        <div class="review-avatar">${avatar}</div>
+                        <div class="review-author-info">
+                            <h4>${review.name}</h4>
+                            <span>${review.date}</span>
+                        </div>
+                    </div>
+                    <div class="review-stars">
+                        ${'<i class="fas fa-star"></i>'.repeat(rating)}${'<i class="far fa-star"></i>'.repeat(5 - rating)}
+                    </div>
+                    <p class="review-text">"${review.text}"</p>
+                    <span class="review-service-tag"><i class="fas fa-briefcase"></i> ${review.service}</span>
+                </div>`;
+            }
+
+            const reviewsHTML = allReviews.map(createReviewCard).join('');
+            track.innerHTML = reviewsHTML || '<p style="color:var(--secondary-text-color); margin-left: 2rem;">No reviews yet.</p>';
+            trackDup.innerHTML = reviewsHTML;
+        }, (error) => {
+            console.error("Error fetching reviews:", error);
+        });
+    }
+</script>
 
 </body>
 
