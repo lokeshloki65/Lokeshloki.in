@@ -2334,6 +2334,40 @@ window.openEdit = (id) => {
 
 
 </script>
+
+<script>
+    // --- SOURCE CODE PROTECTION (ADMIN) ---
+    function killEvent(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+    }
+
+    document.addEventListener("contextmenu", e => {
+        killEvent(e);
+    });
+
+    document.addEventListener("keydown", e => {
+        // Disable F12
+        if (e.key === "F12") killEvent(e);
+        // Disable Ctrl+U
+        if (e.ctrlKey && e.key.toLowerCase() === "u") killEvent(e);
+        // Disable Ctrl+Shift+I (Inspect)
+        if (e.ctrlKey && e.shiftKey && ["i", "j", "c"].includes(e.key.toLowerCase())) killEvent(e);
+        // Disable Ctrl+S
+        if (e.ctrlKey && e.key.toLowerCase() === "s") killEvent(e);
+    });
+
+    // Detect if DevTools is open by window size difference
+    setInterval(() => {
+        const widthDiff = window.outerWidth - window.innerWidth;
+        const heightDiff = window.outerHeight - window.innerHeight;
+        if (widthDiff > 160 || heightDiff > 160) {
+            document.body.innerHTML = '<div style="background:#000; color:red; height:100vh; display:flex; align-items:center; justify-content:center; font-family:sans-serif;"><h2>🚫 Access Denied: Developer Tools Detected</h2></div>';
+        }
+    }, 2000);
+</script>
+
 </body>
 
 </html>
