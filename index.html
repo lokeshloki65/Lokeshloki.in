@@ -989,24 +989,43 @@
         }
 
         /* Image Styles */
-.about-section .profile-img {
+/* 1. The New Frame */
+.img-crop-circle {
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    object-fit: cover;
-    object-position: 50% 0%; /* Add this line to shift the image focus up */
+    overflow: hidden; /* This acts like a mask, hiding the image edges */
     border: 6px solid var(--card-bg-color);
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
     z-index: 1;
     position: relative;
-    
-    transform: scale(0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #050b14; /* Dark color to blend perfectly with your studio background */
 }
 
+/* 2. The Photo Inside */
+.about-section .profile-img {
+    width: 100%;
+    height: auto;
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+    
+    /* 🎯 THE MAGIC FIX: Adjust these two numbers to place your photo perfectly */
+    transform: scale(0.75) translateY(15px); 
+    
+    transition: transform 0.5s ease;
+}
 
-        .about-image-wrapper:hover .profile-img {
-            transform: scale(0.95);
-        }
+/* 3. The Hover Effect */
+.about-image-wrapper:hover .profile-img {
+    /* Slightly increase the scale for the zoom effect, keep translateY the same */
+    transform: scale(0.90) translateY(15px); 
+}
+
+       
 
         .about-text {
             max-width: 600px;
@@ -3960,7 +3979,7 @@
         <div class="home-profile-animation" data-aos="zoom-in" data-aos-delay="200">
             <div class="profile-orbit-container">
                 <div class="profile-img-box">
-                    <img src="lokeshm2026.jpeg" alt="Lokesh M" class="profile-img" />
+                    <img src="lokeshm2025.jpeg" alt="Lokesh M" class="profile-img" />
                 </div>
 
                 <div class="orbit-ring ring-1">
@@ -3982,10 +4001,12 @@
         <h2 class="section-title">About Me</h2>
         <div class="about-section">
             <!-- Profile Image with Pulse & Spin Animation -->
-            <div class="about-image-wrapper profile-pulse">
-                <div class="spin-ring"></div>
-                <img src="aboutlokesh.png" alt="About Lokesh" class="profile-img" data-aos="fade-right" />
-            </div>
+          <div class="about-image-wrapper profile-pulse">
+    <div class="spin-ring"></div>
+    <div class="img-crop-circle" data-aos="fade-right">
+        <img src="aboutlokesh.png" alt="About Lokesh" class="profile-img" />
+    </div>
+</div>
             <div class="about-text" data-aos="fade-left">
                 I'm <span>Lokesh</span> from <span>Vellore</span>, an <span>enthusiastic and dedicated</span>
                 <span>Final-year B.Tech student</span> in
