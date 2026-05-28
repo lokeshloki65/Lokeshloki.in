@@ -1008,21 +1008,22 @@
 /* 2. The Photo Inside */
 .about-section .profile-img {
     width: 100%;
-    height: auto;
+    height: 100%; /* Force it to fill the height */
+    object-fit: cover; /* Makes sure it completely covers the circle without stretching */
+    
+    /* 🎯 THE MAGIC FIX: Adjust the 10% to move your head up or down */
+    object-position: center 10%; 
+    
     border-radius: 0;
     border: none;
     box-shadow: none;
-    
-    /* 🎯 THE MAGIC FIX: Adjust these two numbers to place your photo perfectly */
-    transform: scale(0.60) translateY(15px); 
-    
+    transform: scale(1.05); /* Slight zoom to hide any gaps at the edges */
     transition: transform 0.5s ease;
 }
 
 /* 3. The Hover Effect */
 .about-image-wrapper:hover .profile-img {
-    /* Slightly increase the scale for the zoom effect, keep translateY the same */
-    transform: scale(0.90) translateY(15px); 
+    transform: scale(1.12); /* Smooth zoom effect on hover */
 }
 
        
