@@ -2029,6 +2029,12 @@
             justify-content: center;
             align-items: center;
             filter: drop-shadow(0 0 15px var(--primary-color));
+            transition: all 0.3s ease;
+        }
+
+        .cert-section-header:hover .cyber-eye-container {
+            transform: scale(1.05);
+            filter: drop-shadow(0 0 25px var(--primary-color)) drop-shadow(0 0 10px var(--accent-color));
         }
 
         .eye-outer-ring {
@@ -2100,223 +2106,680 @@
             gap: 2.5rem;
             max-width: 1300px;
             margin: 0 auto;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
             perspective: 1000px;
         }
 
         .cert-card {
-            background: var(--card-bg-color);
-            border-radius: 15px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
+            border-radius: 16px;
             position: relative;
             overflow: hidden;
             cursor: pointer;
-            transition: all 0.4s ease;
-            border: 1px solid rgba(0, 166, 255, 0.3);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-            /* clip-path: polygon(0 0, 100% 0, 100% 85%, 90% 100%, 0 100%);  Removed to allow badge to fit nicely if needed, or keep it */
-            position: relative;
-            /* Ensure relative positioning for absolute badge */
+            transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+            border: 1px solid rgba(0, 166, 255, 0.2);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), inset 0 0 15px rgba(0, 166, 255, 0.05);
+            display: flex;
+            flex-direction: column;
         }
 
-        /* --- VERIFIED BADGE STYLE --- */
+        body.light-mode .cert-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.5) 100%);
+            border-color: rgba(0, 86, 179, 0.15);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05), inset 0 0 15px rgba(255, 255, 255, 0.8);
+        }
+
+        /* Sci-fi Scanline effect */
+        .cert-scanline {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to bottom,
+                rgba(0, 166, 255, 0) 0%,
+                rgba(0, 166, 255, 0) 45%,
+                rgba(0, 166, 255, 0.08) 50%,
+                rgba(0, 166, 255, 0) 55%,
+                rgba(0, 166, 255, 0) 100%
+            );
+            background-size: 100% 200%;
+            z-index: 5;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .cert-card:hover .cert-scanline {
+            opacity: 1;
+            animation: cert-scan 2.5s linear infinite;
+        }
+
+        @keyframes cert-scan {
+            0% { background-position: 0 -100%; }
+            100% { background-position: 0 100%; }
+        }
+
+        /* Decorative Corners */
+        .cert-corners .corner {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border: 2px solid transparent;
+            z-index: 6;
+            pointer-events: none;
+            transition: all 0.4s ease;
+        }
+
+        .cert-corners .top-left {
+            top: 12px;
+            left: 12px;
+            border-top-color: rgba(0, 166, 255, 0.4);
+            border-left-color: rgba(0, 166, 255, 0.4);
+        }
+
+        .cert-corners .top-right {
+            top: 12px;
+            right: 12px;
+            border-top-color: rgba(0, 166, 255, 0.4);
+            border-right-color: rgba(0, 166, 255, 0.4);
+        }
+
+        .cert-corners .bottom-left {
+            bottom: 12px;
+            left: 12px;
+            border-bottom-color: rgba(0, 166, 255, 0.4);
+            border-left-color: rgba(0, 166, 255, 0.4);
+        }
+
+        .cert-corners .bottom-right {
+            bottom: 12px;
+            right: 12px;
+            border-bottom-color: rgba(0, 166, 255, 0.4);
+            border-right-color: rgba(0, 166, 255, 0.4);
+        }
+
+        .cert-card:hover .cert-corners .corner {
+            width: 16px;
+            height: 16px;
+            border-color: var(--primary-color);
+            filter: drop-shadow(0 0 4px var(--primary-color));
+        }
+
+        /* --- UPGRADED VERIFIED BADGE --- */
         .cert-badge {
             position: absolute;
-            top: 10px;
-            right: 10px;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
-            padding: 5px 12px;
+            top: 20px;
+            right: 20px;
+            background: rgba(1, 1, 11, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            padding: 6px 14px;
             border-radius: 20px;
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 6px;
             z-index: 10;
-            border: 1px solid rgba(255, 215, 0, 0.5);
-            box-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
+            border: 1px solid rgba(255, 215, 0, 0.7);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        body.light-mode .cert-badge {
+            background: rgba(255, 255, 255, 0.9);
+            border-color: rgba(212, 175, 55, 0.8);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
         .cert-badge i {
             color: #FFD700;
-            font-size: 0.9rem;
-            filter: drop-shadow(0 0 5px #FFD700);
+            font-size: 0.95rem;
+            filter: drop-shadow(0 0 3px rgba(255, 215, 0, 0.6));
+            animation: pulse-gold 2s infinite alternate;
+        }
+
+        @keyframes pulse-gold {
+            0% { filter: drop-shadow(0 0 2px rgba(255, 215, 0, 0.4)); }
+            100% { filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.9)); }
         }
 
         .cert-badge span {
-            color: #fff;
-            font-size: 0.8rem;
-            font-weight: 600;
-            letter-spacing: 0.5px;
+            color: #ffffff;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1px;
             text-transform: uppercase;
         }
 
-        .cert-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            border-color: var(--primary-color);
-            box-shadow: 0 10px 30px rgba(0, 166, 255, 0.3), inset 0 0 20px rgba(0, 166, 255, 0.1);
+        body.light-mode .cert-badge span {
+            color: #1a1a1a;
         }
 
-        .cert-card img {
+        /* Image container and overlay styling */
+        .cert-img-container {
             width: 100%;
             height: 220px;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 2px solid rgba(0, 166, 255, 0.2);
+        }
+
+        body.light-mode .cert-img-container {
+            border-bottom-color: rgba(0, 86, 179, 0.1);
+        }
+
+        .cert-img-container img {
+            width: 100%;
+            height: 100%;
             object-fit: cover;
-            border-bottom: 2px solid var(--primary-color);
-            opacity: 0.8;
-            transition: 0.5s;
+            opacity: 0.75;
+            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
 
-        .cert-card:hover img {
+        .cert-img-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0) 50%, rgba(1, 1, 11, 0.9) 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: all 0.4s ease;
+            z-index: 4;
+        }
+
+        body.light-mode .cert-img-overlay {
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0) 50%, rgba(255, 255, 255, 0.9) 100%);
+        }
+
+        .cert-view-txt {
+            color: #ffffff;
+            font-size: 1rem;
+            font-weight: 800;
+            letter-spacing: 2.5px;
+            border: 2px solid var(--primary-color);
+            padding: 10px 22px;
+            border-radius: 8px;
+            background: rgba(1, 1, 11, 0.85);
+            box-shadow: 0 0 20px rgba(0, 166, 255, 0.5);
+            text-shadow: 0 0 5px var(--primary-color);
+            transition: all 0.3s ease;
+            transform: translateY(20px);
+        }
+
+        body.light-mode .cert-view-txt {
+            color: #0056b3;
+            border-color: #0056b3;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 4px 15px rgba(0, 86, 179, 0.2);
+            text-shadow: none;
+        }
+
+        .cert-card:hover .cert-img-container img {
+            opacity: 0.95;
+            transform: scale(1.08);
+        }
+
+        .cert-card:hover .cert-img-overlay {
             opacity: 1;
-            filter: brightness(1.2);
         }
 
+        .cert-card:hover .cert-view-txt {
+            transform: translateY(0);
+            border-color: var(--primary-color);
+            color: #ffffff;
+            box-shadow: 0 0 25px var(--primary-color);
+        }
+
+        body.light-mode .cert-card:hover .cert-view-txt {
+            color: #ffffff;
+            background: #0056b3;
+            border-color: #0056b3;
+            box-shadow: 0 8px 20px rgba(0, 86, 179, 0.3);
+        }
+
+        /* Certificate Info Section */
         .cert-info {
             padding: 1.5rem;
             position: relative;
             z-index: 2;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .cert-hash {
+            font-family: monospace;
+            font-size: 0.72rem;
+            color: rgba(0, 166, 255, 0.6);
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        body.light-mode .cert-hash {
+            color: rgba(0, 86, 179, 0.7);
         }
 
         .cert-info h3 {
-            color: #fff;
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
-            text-shadow: 0 0 5px var(--primary-color);
+            color: var(--text-color);
+            font-size: 1.25rem;
+            margin-bottom: 0.8rem;
+            line-height: 1.4;
+            transition: color 0.3s;
+            font-weight: 600;
         }
 
-        .cert-info p {
+        .cert-card:hover .cert-info h3 {
             color: var(--primary-color);
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            text-shadow: 0 0 8px rgba(0, 166, 255, 0.2);
         }
 
+        .cert-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 0.8rem;
+        }
+
+        body.light-mode .cert-meta {
+            border-top-color: rgba(0, 0, 0, 0.05);
+        }
+
+        .cert-meta p.issuer {
+            color: var(--secondary-text-color);
+            font-size: 0.82rem;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 500;
+            letter-spacing: 0.2px;
+            text-transform: none;
+        }
+
+        .cert-meta p.issuer i {
+            color: var(--primary-color);
+        }
+
+        .cert-status-chip {
+            background: rgba(40, 167, 69, 0.15);
+            color: #28a745;
+            border: 1px solid rgba(40, 167, 69, 0.3);
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 4px;
+            letter-spacing: 0.5px;
+        }
+
+        /* Hover states */
+        .cert-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-color);
+            box-shadow: 0 20px 40px rgba(0, 166, 255, 0.25), inset 0 0 20px rgba(0, 166, 255, 0.1);
+        }
+
+        body.light-mode .cert-card:hover {
+            box-shadow: 0 15px 35px rgba(0, 86, 179, 0.15), inset 0 0 20px rgba(255, 255, 255, 0.9);
+            border-color: var(--primary-color);
+        }
+
+        /* Light sweep shimmer effect */
         .cert-card::before {
             content: '';
             position: absolute;
-            top: -100%;
-            left: 0;
-            width: 100%;
-            height: 20px;
-            background: linear-gradient(180deg, transparent, var(--primary-color), transparent);
-            opacity: 0.5;
-            z-index: 10;
-            transition: 0.5s;
+            top: 0;
+            left: -150%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.13) 50%, rgba(255,255,255,0) 100%);
+            transform: skewX(-25deg);
+            z-index: 8;
+            pointer-events: none;
         }
 
         .cert-card:hover::before {
-            top: 100%;
-            transition: 1s;
+            animation: cert-shine 1s ease-in-out;
         }
 
-        .cert-card::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 30px;
-            height: 30px;
-            background: linear-gradient(135deg, transparent 50%, var(--primary-color) 50%);
-            opacity: 0.7;
+        @keyframes cert-shine {
+            0% { left: -150%; }
+            100% { left: 150%; }
         }
 
         #view-certifications {
             display: none;
         }
 
+        /* === UPGRADED HIGH-TECH LIGHTBOX STYLES === */
         .lightbox {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.95);
+            background: rgba(1, 1, 11, 0.98);
             display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 2500;
+            padding: 30px 20px;
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            transition: all 0.4s ease;
+        }
+
+        .lightbox-header {
+            width: 100%;
+            max-width: 900px;
+            text-align: center;
+            z-index: 2502;
+            margin-bottom: 10px;
+        }
+
+        .lh-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 166, 255, 0.1);
+            border: 1px solid rgba(0, 166, 255, 0.3);
+            padding: 6px 16px;
+            border-radius: 20px;
+            margin-bottom: 12px;
+            font-size: 0.75rem;
+            color: var(--primary-color);
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .lh-badge i {
+            animation: pulse-cyan-lh 1.5s infinite alternate;
+        }
+
+        @keyframes pulse-cyan-lh {
+            0% { filter: drop-shadow(0 0 2px rgba(0, 166, 255, 0.4)); }
+            100% { filter: drop-shadow(0 0 8px rgba(0, 166, 255, 0.9)); }
+        }
+
+        .lightbox-header h2 {
+            color: #fff;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            line-height: 1.3;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+        }
+
+        .lightbox-header p {
+            color: var(--primary-color);
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+        }
+
+        .lightbox-content {
+            display: flex;
+            width: 100%;
+            max-width: 1200px;
+            justify-content: space-between;
+            align-items: center;
+            flex-grow: 1;
+            gap: 20px;
+        }
+
+        .lightbox-frame {
+            position: relative;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(0, 166, 255, 0.25);
+            border-radius: 12px;
+            padding: 12px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(0, 166, 255, 0.1);
+            max-width: 85%;
+            max-height: 70vh;
+            display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 2000;
-            padding: 20px;
-            backdrop-filter: blur(5px);
+            overflow: hidden;
+            animation: zoomInFuturistic 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
         }
 
-        .lightbox img {
-            max-width: 90%;
-            max-height: 80%;
-            border: 2px solid var(--primary-color);
-            border-radius: 5px;
-            box-shadow: 0 0 50px var(--primary-color);
-            animation: rotateZoom 0.6s ease-in-out;
-        }
-
-        @keyframes rotateZoom {
+        @keyframes zoomInFuturistic {
             from {
-                transform: scale(0.7) rotate(-5deg);
+                transform: scale(0.9);
                 opacity: 0;
             }
-
             to {
-                transform: scale(1) rotate(0deg);
+                transform: scale(1);
                 opacity: 1;
             }
         }
 
-        .lightbox .close {
+        .lightbox-frame img {
+            max-width: 100%;
+            max-height: 65vh;
+            border-radius: 6px;
+            object-fit: contain;
+            display: block;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Frame Corner Brackets */
+        .lightbox-frame .f-corner {
             position: absolute;
-            top: 20px;
-            right: 30px;
-            font-size: 40px;
-            color: var(--primary-color);
-            cursor: pointer;
-            z-index: 2001;
-            transition: 0.3s;
+            width: 20px;
+            height: 20px;
+            border: 2px solid transparent;
+            z-index: 2505;
+            pointer-events: none;
         }
 
-        .lightbox .close:hover {
-            transform: rotate(90deg);
-            color: #fff;
+        .lightbox-frame .top-left {
+            top: 4px;
+            left: 4px;
+            border-top-color: var(--primary-color);
+            border-left-color: var(--primary-color);
         }
 
+        .lightbox-frame .top-right {
+            top: 4px;
+            right: 4px;
+            border-top-color: var(--primary-color);
+            border-right-color: var(--primary-color);
+        }
+
+        .lightbox-frame .bottom-left {
+            bottom: 4px;
+            left: 4px;
+            border-bottom-color: var(--primary-color);
+            border-left-color: var(--primary-color);
+        }
+
+        .lightbox-frame .bottom-right {
+            bottom: 4px;
+            right: 4px;
+            border-bottom-color: var(--primary-color);
+            border-right-color: var(--primary-color);
+        }
+
+        /* Hologram scanning overlay */
+        .frame-scanner {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0, 166, 255, 0) 0%, rgba(0, 166, 255, 0.15) 50%, rgba(0, 166, 255, 0) 100%);
+            z-index: 2504;
+            pointer-events: none;
+            animation: f-scan 4s linear infinite;
+        }
+
+        @keyframes f-scan {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+
+        /* Navigation buttons style */
         .lightbox .nav-btn {
             cursor: pointer;
-            position: absolute;
-            top: 50%;
-            padding: 16px;
-            margin-top: -30px;
-            color: var(--primary-color);
-            font-weight: bold;
-            font-size: 30px;
-            transition: 0.3s ease;
-            user-select: none;
-            background: rgba(0, 0, 0, 0.5);
+            width: 54px;
+            height: 54px;
             border-radius: 50%;
-            width: 60px;
-            height: 60px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(0, 166, 255, 0.3);
             display: flex;
             justify-content: center;
             align-items: center;
-            border: 1px solid var(--primary-color);
-        }
-
-        .lightbox .prev {
-            left: 20px;
-        }
-
-        .lightbox .next {
-            right: 20px;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            z-index: 2503;
         }
 
         .lightbox .nav-btn:hover {
             background: var(--primary-color);
             color: #000;
             box-shadow: 0 0 20px var(--primary-color);
+            transform: scale(1.1);
+        }
+
+        .lightbox .close {
+            position: absolute;
+            top: 25px;
+            right: 35px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 61, 61, 0.1);
+            border: 1px solid rgba(255, 61, 61, 0.3);
+            color: #ff3d3d;
+            font-size: 1.2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 2506;
+            transition: all 0.3s ease;
+        }
+
+        .lightbox .close:hover {
+            background: #ff3d3d;
+            color: #fff;
+            transform: rotate(90deg);
+            box-shadow: 0 0 20px #ff3d3d;
+        }
+
+        /* Footer inside lightbox */
+        .lightbox-footer {
+            width: 100%;
+            max-width: 900px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 2502;
+            margin-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 15px;
         }
 
         #img-count {
-            position: absolute;
-            bottom: 20px;
+            position: static;
+            color: rgba(255, 255, 255, 0.5);
+            font-family: monospace;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+        }
+
+        .lh-status {
             color: var(--primary-color);
-            font-size: 1.2rem;
-            letter-spacing: 2px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background: #28a745;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #28a745;
+            animation: dot-pulse 1.5s infinite alternate;
+        }
+
+        @keyframes dot-pulse {
+            0% { transform: scale(0.8); opacity: 0.5; }
+            100% { transform: scale(1.2); opacity: 1; }
+        }
+
+        /* Mobile specific styling for lightbox */
+        @media (max-width: 768px) {
+            .lightbox {
+                padding: 60px 15px 20px;
+                justify-content: center;
+                gap: 15px;
+            }
+
+            .lightbox-header h2 {
+                font-size: 1.25rem;
+            }
+
+            .lightbox-header p {
+                font-size: 0.8rem;
+            }
+
+            .lightbox-content {
+                flex-direction: column;
+                justify-content: center;
+                gap: 15px;
+            }
+
+            .lightbox-frame {
+                max-width: 100%;
+                max-height: 50vh;
+                order: -1;
+            }
+
+            .lightbox-frame img {
+                max-height: 45vh;
+            }
+
+            .lightbox-content .nav-btn {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 48px;
+                height: 48px;
+            }
+
+            .lightbox-content .prev {
+                left: 10px;
+            }
+
+            .lightbox-content .next {
+                right: 10px;
+            }
+
+            .lightbox-footer {
+                flex-direction: column;
+                gap: 8px;
+                text-align: center;
+            }
         }
 
         /* === CONTACT SECTION === */
@@ -3325,7 +3788,16 @@
 
         @media (max-width: 600px) {
             .stats-container {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 0.6rem !important;
+                padding: 0 12px !important;
+                margin-top: 2rem !important;
+                width: 100% !important;
+                box-sizing: border-box !important;
+            }
+            .stat-item {
+                padding: 1.2rem 0.6rem !important;
+                box-sizing: border-box !important;
             }
         }
 
@@ -3470,6 +3942,14 @@
 
             .stats-container {
                 grid-template-columns: repeat(2, 1fr) !important;
+                gap: 0.6rem !important;
+                padding: 0 12px !important;
+                width: 100% !important;
+                box-sizing: border-box !important;
+            }
+            .stat-item {
+                padding: 1.2rem 0.6rem !important;
+                box-sizing: border-box !important;
             }
 
             .home-profile-animation {
@@ -4171,7 +4651,7 @@
                         <a href="https://propcarenw.co.uk" target="_blank" class="ach-link-btn ach-link-live">
                             <i class="fas fa-external-link-alt"></i> Live Site
                         </a>
-                        <a href="https://www.linkedin.com/in/lokesh-m-265b832b3/recent-activity/all/" target="_blank"
+                        <a href="https://www.linkedin.com/posts/lokesh-m-265b832b3_webdevelopment-internationalclient-websitelaunch-activity-7460903351749099520-m4qt?utm_source=share&utm_medium=member_android&rcm=ACoAAEt1Ua0B9GoC4-gzBel2HO2jOc4MNGmD68g" target="_blank"
                             class="ach-link-btn ach-link-li">
                             <i class="fab fa-linkedin-in"></i> LinkedIn Post
                         </a>
@@ -4202,7 +4682,7 @@
                         <span class="co-chip"><i class="fas fa-building"></i> +More</span>
                     </div>
                     <div class="ach-links-row">
-                        <a href="https://www.linkedin.com/in/lokesh-m-265b832b3/recent-activity/all/" target="_blank"
+                        <a href="https://www.linkedin.com/posts/lokesh-m-265b832b3_ai-hackathon-smartcity-activity-7452205968383303680-QhJA?utm_source=share&utm_medium=member_android&rcm=ACoAAEt1Ua0B9GoC4-gzBel2HO2jOc4MNGmD68g" target="_blank"
                             class="ach-link-btn ach-link-li">
                             <i class="fab fa-linkedin-in"></i> LinkedIn Post
                         </a>
@@ -4234,9 +4714,9 @@
                         <span class="ach-cert-label"><i class="fas fa-certificate"></i> Click to view certificate</span>
                     </div>
                     <div class="ach-links-row">
-                        <a href="https://www.linkedin.com/in/lokesh-m-265b832b3/recent-activity/all/" target="_blank"
+                        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7424759789999575040/" target="_blank"
                             class="ach-link-btn ach-link-li">
-                            <i class="fab fa-linkedin-in"></i> LinkedIn Proof
+                            <i class="fab fa-linkedin-in"></i> LinkedIn Post
                         </a>
                     </div>
                 </div>
@@ -4680,11 +5160,41 @@
     </section>
 
     <div class="lightbox" id="cert-lightbox">
-        <span class="close" onclick="closeCertLightbox()">×</span>
-        <span class="nav-btn prev" onclick="changeCertSlide(-1)">❮</span>
-        <img id="lightboxImage" src="" alt="Certificate Preview" />
-        <p id="img-count"></p>
-        <span class="nav-btn next" onclick="changeCertSlide(1)">❯</span>
+        <!-- Close button at top right -->
+        <span class="close" onclick="closeCertLightbox()"><i class="fas fa-times"></i></span>
+        
+        <!-- High-tech header panel inside the lightbox -->
+        <div class="lightbox-header">
+            <div class="lh-badge">
+                <i class="fas fa-shield-alt"></i>
+                <span>VERIFIED DOCUMENT SCANNER</span>
+            </div>
+            <h2 id="lightboxTitle">Certificate Title</h2>
+            <p id="lightboxIssuer">Issuer Name</p>
+        </div>
+
+        <div class="lightbox-content">
+            <!-- Sleek navigation buttons -->
+            <span class="nav-btn prev" onclick="changeCertSlide(-1)"><i class="fas fa-chevron-left"></i></span>
+            
+            <div class="lightbox-frame">
+                <div class="frame-scanner"></div>
+                <div class="frame-corners">
+                    <div class="f-corner top-left"></div>
+                    <div class="f-corner top-right"></div>
+                    <div class="f-corner bottom-left"></div>
+                    <div class="f-corner bottom-right"></div>
+                </div>
+                <img id="lightboxImage" src="" alt="Certificate Preview" />
+            </div>
+
+            <span class="nav-btn next" onclick="changeCertSlide(1)"><i class="fas fa-chevron-right"></i></span>
+        </div>
+
+        <div class="lightbox-footer">
+            <p id="img-count"></p>
+            <div class="lh-status"><span class="pulse-dot"></span> SECURE ENCRYPTED VIEW</div>
+        </div>
     </div>
 
     <section id="contact" style="position: relative; overflow: hidden; padding: 6rem 5%;">
@@ -5106,7 +5616,8 @@
                     { title: 'Node.js', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg', filterClass: '' },
                 ]
             },
-           {
+
+{
     label: 'Database',
     icon: 'fas fa-database',
     color: '#00ffcc',
@@ -5130,8 +5641,10 @@
             filterClass: '' 
         },
 
-       
+        // BETTER VISIBLE SUPABASE
+    
 
+        // BETTER PNG LOGO
         { 
             title: 'PHPMyAdmin', 
             logo: 'https://www.phpmyadmin.net/static/images/logo-og.png', 
@@ -5140,7 +5653,8 @@
 
     ]
 },
- {
+
+{
     label: 'AI & ML',
     icon: 'fas fa-brain',
     color: '#ff6b6b',
@@ -5158,28 +5672,26 @@
             filterClass: '' 
         },
 
-        // ORIGINAL HUGGING FACE LOGO
         { 
             title: 'Hugging Face', 
             logo: 'https://huggingface.co/front/assets/huggingface_logo-noborder.svg', 
             filterClass: '' 
         },
 
-        // LLM PLATFORM
+        // WHITE VERSION FOR DARK UI
         { 
             title: 'Ollama', 
-            logo: 'https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/light/ollama.png', 
+            logo: 'https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/dark/ollama.png', 
             filterClass: '' 
         },
 
-        // OPENAI
+        // WHITE OPENAI ICON
         { 
             title: 'OpenAI / GPT', 
-            logo: 'https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/light/openai.png', 
+            logo: 'https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/dark/openai.png', 
             filterClass: '' 
         },
 
-        // GEMINI
         { 
             title: 'Gemini AI', 
             logo: 'https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/light/gemini-color.png', 
@@ -5188,11 +5700,13 @@
 
     ]
 },
+
 {
     label: 'Deploy & Tools',
     icon: 'fas fa-tools',
     color: '#ffd700',
     skills: [
+
         { 
             title: 'Git & GitHub', 
             logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg', 
@@ -5217,42 +5731,38 @@
             filterClass: '' 
         },
 
-        // BLACK ICON → WHITE FILTER
+        // WHITE VERCEL ICON
         { 
             title: 'Vercel', 
-            logo: 'https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/vercel.svg', 
-            filterClass: 'filter-white' 
-        },
-
-        // BETTER VISIBLE NETLIFY
-        { 
-            title: 'Netlify', 
-            logo: 'https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/netlify.svg', 
+            logo: 'https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/dark/vercel.png', 
             filterClass: '' 
         },
 
-        // WHITE FILTER FOR DARK ICON
-        { 
-            title: 'Render', 
-            logo: 'https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/render.svg', 
-            filterClass: 'filter-white' 
-        },
+        // BETTER BRIGHT NETLIFY
+       {
+    title: 'Netlify',
+    logo: 'https://cdn.simpleicons.org/netlify/00C7B7',
+    filterClass: 'brightness-125 drop-shadow-lg'
+},
 
-        // BETTER CLOUDINARY LOGO
-        { 
-            title: 'Cloudinary', 
-            logo: 'https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/cloudinary.svg', 
-            filterClass: '' 
-        },
+{
+    title: 'Render',
+    logo: 'https://cdn.simpleicons.org/render/ffffff',
+    filterClass: 'brightness-200 drop-shadow-lg'
+},
 
-        // ORIGINAL GEMINI ICON
+{
+    title: 'Cloudinary',
+    logo: 'https://cdn.simpleicons.org/cloudinary/3448C5',
+    filterClass: 'brightness-125 drop-shadow-lg'
+},
         { 
             title: 'Gemini AI', 
             logo: 'https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/light/gemini-color.png', 
             filterClass: '' 
         },
 
-        // WORKING CLAUDE ICON
+        // BRIGHT CLAUDE ICON
         { 
             title: 'Claude AI', 
             logo: 'https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/light/claude-color.png', 
@@ -5363,7 +5873,7 @@
             const grid = document.getElementById('more-projects-grid');
             grid.innerHTML = ''; // Clear loading message
 
-            repos.forEach(repo => {
+            repos.forEach(repo => { 
                 // Create card HTML
                 const card = document.createElement('div');
                 card.className = 'project-card';
@@ -5727,20 +6237,42 @@
         function generateFeaturedCertificates() {
             const grid = document.getElementById('featured-certs-grid');
             if (!grid) return;
+            grid.innerHTML = '';
             allCertificatesData.slice(0, 6).forEach((cert, index) => {
                 const card = document.createElement('div');
                 card.className = 'cert-card';
                 card.setAttribute('data-aos', 'fade-up');
                 card.setAttribute('onclick', `openCertLightbox(${index})`);
+                
+                // Deterministic high-tech hash based on certificate title
+                const hash = [...cert.title].reduce((acc, char) => (acc * 31 + char.charCodeAt(0)) & 0xFFFFFFFF, 0)
+                    .toString(16).toUpperCase().substring(0, 8).padStart(8, '0');
+
                 card.innerHTML = `
+                    <div class="cert-scanline"></div>
+                    <div class="cert-corners">
+                        <div class="corner top-left"></div>
+                        <div class="corner top-right"></div>
+                        <div class="corner bottom-left"></div>
+                        <div class="corner bottom-right"></div>
+                    </div>
                     <div class="cert-badge">
-                        <i class="fas fa-check-circle"></i>
+                        <i class="fas fa-shield-alt"></i>
                         <span>Verified</span>
                     </div>
-                    <img src="${cert.img}" alt="${cert.title}" loading="lazy" />
+                    <div class="cert-img-container">
+                        <img src="${cert.img}" alt="${cert.title}" loading="lazy" />
+                        <div class="cert-img-overlay">
+                            <span class="cert-view-txt"><i class="fas fa-fingerprint"></i> SECURE VIEW</span>
+                        </div>
+                    </div>
                     <div class="cert-info">
+                        <div class="cert-hash">SECURE ID: LM-${hash}</div>
                         <h3>${cert.title}</h3>
-                        <p>${cert.issuer}</p>
+                        <div class="cert-meta">
+                            <p class="issuer"><i class="fas fa-university"></i> ${cert.issuer}</p>
+                            <span class="cert-status-chip">ACTIVE</span>
+                        </div>
                     </div>`;
                 grid.appendChild(card);
             });
@@ -5749,20 +6281,42 @@
         function generateAllCertificates() {
             const grid = document.getElementById('all-certs-grid');
             if (!grid) return;
+            grid.innerHTML = '';
             allCertificatesData.forEach((cert, index) => {
                 const card = document.createElement('div');
                 card.className = 'cert-card';
                 card.setAttribute('data-aos', 'fade-up');
                 card.setAttribute('onclick', `openCertLightbox(${index})`);
+                
+                // Deterministic high-tech hash based on certificate title
+                const hash = [...cert.title].reduce((acc, char) => (acc * 31 + char.charCodeAt(0)) & 0xFFFFFFFF, 0)
+                    .toString(16).toUpperCase().substring(0, 8).padStart(8, '0');
+
                 card.innerHTML = `
+                    <div class="cert-scanline"></div>
+                    <div class="cert-corners">
+                        <div class="corner top-left"></div>
+                        <div class="corner top-right"></div>
+                        <div class="corner bottom-left"></div>
+                        <div class="corner bottom-right"></div>
+                    </div>
                     <div class="cert-badge">
-                        <i class="fas fa-check-circle"></i>
+                        <i class="fas fa-shield-alt"></i>
                         <span>Verified</span>
                     </div>
-                    <img src="${cert.img}" alt="${cert.title}" loading="lazy" />
+                    <div class="cert-img-container">
+                        <img src="${cert.img}" alt="${cert.title}" loading="lazy" />
+                        <div class="cert-img-overlay">
+                            <span class="cert-view-txt"><i class="fas fa-fingerprint"></i> SECURE VIEW</span>
+                        </div>
+                    </div>
                     <div class="cert-info">
+                        <div class="cert-hash">SECURE ID: LM-${hash}</div>
                         <h3>${cert.title}</h3>
-                        <p>${cert.issuer}</p>
+                        <div class="cert-meta">
+                            <p class="issuer"><i class="fas fa-university"></i> ${cert.issuer}</p>
+                            <span class="cert-status-chip">ACTIVE</span>
+                        </div>
                     </div>`;
                 grid.appendChild(card);
             });
@@ -5839,7 +6393,8 @@
 
         // --- FUTURISTIC 3D TILT EFFECT ---
         function initTiltEffect() {
-            const cards = document.querySelectorAll('.project-card, .cert-card');
+            // Exclude .cert-card from 3D rotation so they stay perfectly straight as requested!
+            const cards = document.querySelectorAll('.project-card');
 
             cards.forEach(card => {
                 card.addEventListener('mousemove', (e) => {
@@ -5870,30 +6425,45 @@
         }
 
         // --- CERTIFICATE LIGHTBOX ---
-        const certImages = allCertificatesData.map(cert => cert.img);
         let currentImageIndex = 0;
 
         function openCertLightbox(index) {
             currentImageIndex = index;
             document.getElementById("cert-lightbox").style.display = "flex";
-            updateLightbox();
+            document.body.style.overflow = "hidden"; // Lock background scroll
+            updateLightbox(true);
         }
         function closeCertLightbox() {
             document.getElementById("cert-lightbox").style.display = "none";
+            document.body.style.overflow = ""; // Restore background scroll
         }
         function changeCertSlide(direction) {
-            currentImageIndex = (currentImageIndex + direction + certImages.length) % certImages.length;
+            currentImageIndex = (currentImageIndex + direction + allCertificatesData.length) % allCertificatesData.length;
             updateLightbox(true);
         }
         function updateLightbox(animated = false) {
             const img = document.getElementById("lightboxImage");
-            if (animated) {
+            const frame = document.querySelector(".lightbox-frame");
+            const titleEl = document.getElementById("lightboxTitle");
+            const issuerEl = document.getElementById("lightboxIssuer");
+            
+            const activeCert = allCertificatesData[currentImageIndex];
+            
+            if (titleEl && activeCert) titleEl.textContent = activeCert.title;
+            if (issuerEl && activeCert) issuerEl.textContent = activeCert.issuer;
+
+            if (animated && img) {
                 img.style.animation = "none";
-                void img.offsetWidth; // Trigger reflow
-                img.style.animation = "rotateZoom 0.6s ease-in-out";
+                if (frame) {
+                    frame.style.animation = "none";
+                    void frame.offsetWidth; // Trigger reflow
+                    frame.style.animation = "zoomInFuturistic 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards";
+                }
             }
-            img.src = certImages[currentImageIndex];
-            document.getElementById("img-count").textContent = `Certificate ${currentImageIndex + 1} of ${certImages.length}`;
+            if (img && activeCert) img.src = activeCert.img;
+            
+            const countEl = document.getElementById("img-count");
+            if (countEl) countEl.textContent = `DOCUMENT ${currentImageIndex + 1} OF ${allCertificatesData.length}`;
         }
 
     </script>
