@@ -27,6 +27,12 @@
         rel="stylesheet">
     <script type="module" src="./js/tracking.js"></script>
 
+    <link rel="preconnect" href="https://unpkg.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="dns-prefetch" href="https://unpkg.com">
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
@@ -108,6 +114,12 @@
             font-family: 'Poppins', sans-serif;
             overflow-x: hidden;
             transition: background 0.4s ease, color 0.4s ease;
+        }
+
+        /* AOS fallback: smooth reveal transition when safety net fires */
+        noscript [data-aos],
+        [data-aos] {
+            transition: opacity 0.3s ease, transform 0.3s ease;
         }
 
 
@@ -364,8 +376,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 100000;
-            /* Initially high to show on loading screen */
+            z-index: 1;
+            /* Background layer — sits behind all page content */
             pointer-events: none;
             /* Let clicks pass through */
         }
@@ -930,8 +942,8 @@
 
         .profile-orbit-container {
             position: relative;
-            width: 480px;
-            height: 480px;
+            width: 520px;
+            height: 520px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -940,11 +952,11 @@
         /* Spinning gradient border ring around the photo — PERFECT CIRCLE */
         .profile-img-box {
             position: relative;
-            width: 300px;
-            height: 300px;
+            width: 320px;
+            height: 320px;
             border-radius: 50%;
             padding: 5px;
-            z-index: 5;
+            z-index: 10;
             animation: float-profile 6s ease-in-out infinite;
         }
 
@@ -977,22 +989,22 @@
             pointer-events: none;
         }
         .profile-aura-blue {
-            width: 320px;
-            height: 320px;
+            width: 340px;
+            height: 340px;
             background: radial-gradient(circle, rgba(0,166,255,0.55) 0%, transparent 70%);
             filter: blur(30px);
             animation: aura-pulse 3s ease-in-out infinite alternate;
         }
         .profile-aura-purple {
-            width: 290px;
-            height: 290px;
+            width: 310px;
+            height: 310px;
             background: radial-gradient(circle, rgba(112,0,255,0.45) 0%, transparent 70%);
             filter: blur(25px);
             animation: aura-pulse 3s ease-in-out infinite alternate 1.5s;
         }
         .profile-aura-cyan {
-            width: 270px;
-            height: 270px;
+            width: 290px;
+            height: 290px;
             background: radial-gradient(circle, rgba(0,255,204,0.25) 0%, transparent 70%);
             filter: blur(20px);
             animation: aura-pulse 4s ease-in-out infinite alternate 0.5s;
@@ -1049,7 +1061,7 @@
             height: 100%;
             border-radius: 50%;
             object-fit: cover;
-            object-position: center 15%;
+            object-position: center top;
             border: 4px solid var(--card-bg-color);
             background: var(--card-bg-color);
             box-shadow: 0 0 40px rgba(0, 166, 255, 0.4), 0 0 80px rgba(112, 0, 255, 0.2);
@@ -1078,8 +1090,8 @@
         }
 
         .ring-3 {
-            width: 500px;
-            height: 500px;
+            width: 520px;
+            height: 520px;
             border: 1px solid rgba(0, 255, 204, 0.15);
             box-shadow: 0 0 10px rgba(0, 255, 204, 0.08);
             animation: rotate-cw 40s linear infinite;
@@ -4416,10 +4428,6 @@
         </div>
     </div>
 
-    <!-- AUDIO ELEMENTS -->
-    <audio id="snd1" src="mp3/1.mp3"></audio>
-    <audio id="snd2" src="mp3/3.mp3"></audio>
-    <audio id="snd3" src="mp3/22.mp3"></audio>
 
     <div id="particles-js"></div>
 
@@ -5555,6 +5563,25 @@
 
     <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      // Safety fallback: force-reveal all [data-aos] content if AOS fails to load
+      // or takes too long, so the page is never permanently blank.
+      (function () {
+        function forceRevealAOS() {
+          document.querySelectorAll('[data-aos]').forEach(function (el) {
+            el.classList.add('aos-animate');
+            el.style.opacity = '1';
+            el.style.transform = 'none';
+          });
+        }
+        // If AOS library itself never loaded as a global, reveal immediately
+        if (typeof AOS === 'undefined') {
+          window.addEventListener('DOMContentLoaded', forceRevealAOS);
+        }
+        // Hard safety net: no matter what, force reveal after 2.5 seconds
+        setTimeout(forceRevealAOS, 2500);
+      })();
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
 
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
@@ -6469,7 +6496,19 @@
     </script>
 
     <script>
-        window.addEventListener('load', function () {
+        // HARD SAFETY NET: no matter what happens with scripts, audio, or network,
+        // force-remove the intro overlay after 4 seconds maximum so the site is
+        // never permanently stuck behind it.
+        setTimeout(function () {
+            const overlay = document.getElementById('logo-animation-overlay');
+            if (overlay && overlay.style.display !== 'none') {
+                overlay.style.display = 'none';
+            }
+            const headerLogoImg = document.querySelector('.logo img');
+            if (headerLogoImg) headerLogoImg.style.opacity = '1';
+        }, 4000);
+
+        document.addEventListener('DOMContentLoaded', function () {
             // Check if intro has already played dynamically
             if (sessionStorage.getItem('introPlayed')) {
                 const overlay = document.getElementById('logo-animation-overlay');
@@ -6488,42 +6527,26 @@
             const logoBox = document.getElementById('logoBox');
             const overlay = document.getElementById('logo-animation-overlay');
 
-            const s1 = document.getElementById('snd1');
-            const s2 = document.getElementById('snd2');
-            const s3 = document.getElementById('snd3');
-
-            function play(audio) {
-                if (audio) {
-                    audio.currentTime = 0;
-                    audio.play().catch(e => console.log("Audio auto-play needs user interaction first or file missing."));
-                }
-            }
-
             setTimeout(() => {
                 txtL.classList.add('anim-l');
-                play(s1);
             }, 100);
 
             setTimeout(() => {
                 txtM.classList.add('anim-m');
-                play(s1);
             }, 300);
 
             setTimeout(() => {
                 arcBlue.classList.add('anim-arc');
-                play(s2);
             }, 500);
 
             setTimeout(() => {
                 arcWhite.classList.add('anim-arc');
-                play(s2);
             }, 700);
 
 
             setTimeout(() => {
 
                 logoBox.classList.add('anim-flash');
-                play(s3);
 
 
                 const headerLogoImg = document.getElementById('headerLogoImg');
@@ -6656,40 +6679,6 @@
         });
 
         document.addEventListener("dragstart", e => killEvent(e));
-
-
-        document.addEventListener("visibilitychange", () => {
-            if (document.hidden) {
-                document.title = "🔒 Content Locked";
-                document.body.style.opacity = "0"; // Hide content
-            } else {
-                document.title = "Lokesh M | AI & Web Developer";
-                document.body.style.opacity = "1"; // Show content
-            }
-        });
-
-        // Also hide on blur (when user switches window or uses snipping tool)
-        window.addEventListener('blur', () => {
-            document.body.style.opacity = "0";
-            document.title = "🔒 Content Locked";
-        });
-
-        window.addEventListener('focus', () => {
-            document.body.style.opacity = "1";
-            document.title = "Lokesh M | AI & Web Developer";
-        });
-
-        setInterval(() => {
-            const widthDiff = window.outerWidth - window.innerWidth;
-            const heightDiff = window.outerHeight - window.innerHeight;
-
-            if (widthDiff > 150 || heightDiff > 150) {
-                document.body.innerHTML = `
-            <h2 style="text-align:center;margin-top:20%;color:red;">
-                🚫 Developer Tools Detected
-            </h2>`;
-            }
-        }, 1500);
     </script>
     <script type="module">
         import { db } from './js/firebase-config.js';
