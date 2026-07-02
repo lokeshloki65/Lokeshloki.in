@@ -821,8 +821,28 @@
             gap: 2rem;
             /* Changed flex-wrap from wrap-reverse to wrap for better control */
             flex-wrap: wrap;
-            background: radial-gradient(circle at top right, rgba(0, 166, 255, 0.1), transparent 40%),
-                radial-gradient(circle at bottom left, rgba(112, 0, 255, 0.05), transparent 40%);
+            background: radial-gradient(circle at 75% 20%, rgba(0, 166, 255, 0.13), transparent 45%),
+                radial-gradient(circle at 15% 80%, rgba(112, 0, 255, 0.09), transparent 45%),
+                radial-gradient(circle at 50% 50%, rgba(0, 255, 204, 0.04), transparent 55%),
+                radial-gradient(circle at 85% 70%, rgba(0, 166, 255, 0.07), transparent 35%),
+                radial-gradient(circle at 20% 20%, rgba(112, 0, 255, 0.06), transparent 35%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Subtle HUD grid overlay */
+        #home::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(0, 166, 255, 0.028) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 166, 255, 0.028) 1px, transparent 1px);
+            background-size: 60px 60px;
+            z-index: 0;
+            pointer-events: none;
+            mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+            -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
         }
 
         .home-content {
@@ -871,14 +891,73 @@
             }
         }
 
+        /* === TYPED TEXT CONTAINER UPGRADE === */
+        .typed-text-wrapper {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(0, 166, 255, 0.06);
+            border: 1px solid rgba(0, 166, 255, 0.18);
+            border-radius: 50px;
+            padding: 8px 22px 8px 16px;
+            margin-bottom: 1.2rem;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            box-shadow: 0 0 20px rgba(0, 166, 255, 0.06), inset 0 0 12px rgba(0, 166, 255, 0.03);
+            transition: box-shadow 0.4s ease;
+        }
+
+        .typed-text-wrapper:hover {
+            box-shadow: 0 0 30px rgba(0, 166, 255, 0.15), inset 0 0 20px rgba(0, 166, 255, 0.05);
+        }
+
+        body.light-mode .typed-text-wrapper {
+            background: rgba(0, 86, 179, 0.06);
+            border-color: rgba(0, 86, 179, 0.18);
+            box-shadow: 0 0 20px rgba(0, 86, 179, 0.06);
+        }
+
+        /* Live status dot before typed text */
+        .typed-live-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            flex-shrink: 0;
+            box-shadow: 0 0 6px var(--primary-color), 0 0 14px rgba(0, 166, 255, 0.4);
+            animation: typed-dot-pulse 1.6s ease-in-out infinite;
+        }
+
+        @keyframes typed-dot-pulse {
+            0%, 100% { opacity: 1; transform: scale(1); box-shadow: 0 0 6px var(--primary-color), 0 0 14px rgba(0, 166, 255, 0.4); }
+            50% { opacity: 0.6; transform: scale(0.75); box-shadow: 0 0 3px var(--primary-color); }
+        }
+
         .typed-text {
-            font-size: 1.8rem;
+            font-size: 1.1rem;
             color: var(--primary-color);
             font-weight: 600;
-            min-height: 3rem;
-            margin-bottom: 1rem;
-            text-align: left;
-            text-shadow: 0 0 10px rgba(0, 166, 255, 0.3);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Custom glow cursor replacing typed.js default */
+        .typed-cursor {
+            display: inline-block;
+            width: 3px;
+            height: 1.2em;
+            background: var(--primary-color);
+            margin-left: 2px;
+            border-radius: 2px;
+            vertical-align: middle;
+            animation: typed-cursor-glow 0.9s ease-in-out infinite;
+            box-shadow: 0 0 8px var(--primary-color), 0 0 20px rgba(0, 166, 255, 0.5);
+        }
+
+        @keyframes typed-cursor-glow {
+            0%, 100% { opacity: 1; box-shadow: 0 0 8px var(--primary-color), 0 0 20px rgba(0, 166, 255, 0.5); }
+            50% { opacity: 0; box-shadow: 0 0 0px transparent; }
         }
 
         .home-description {
@@ -952,20 +1031,40 @@
         }
 
         .social-icon {
-            width: 45px;
-            height: 45px;
+            width: 46px;
+            height: 46px;
             display: flex;
             justify-content: center;
             align-items: center;
-            border: 2px solid var(--border-color);
+            border: 1.5px solid rgba(0, 166, 255, 0.2);
             border-radius: 50%;
             font-size: 1.2rem;
             color: var(--secondary-text-color);
-            transition: all 0.3s ease;
+            transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
             position: relative;
             z-index: 1;
             overflow: hidden;
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(0, 166, 255, 0.04);
+            backdrop-filter: blur(4px);
+        }
+
+        /* Expanding glow ring on hover */
+        .social-icon::before {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            border-radius: 50%;
+            border: 2px solid var(--primary-color);
+            opacity: 0;
+            transform: scale(0.7);
+            transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+            pointer-events: none;
+        }
+
+        .social-icon:hover::before {
+            opacity: 0.6;
+            transform: scale(1.1);
+            box-shadow: 0 0 12px var(--primary-color);
         }
 
         .social-icon::after {
@@ -973,9 +1072,10 @@
             position: absolute;
             width: 0%;
             height: 100%;
-            background: var(--primary-color);
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
             z-index: -1;
-            transition: width 0.3s ease;
+            transition: width 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+            border-radius: 50%;
         }
 
         .social-icon:hover::after {
@@ -985,8 +1085,8 @@
         .social-icon:hover {
             color: white;
             border-color: var(--primary-color);
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px var(--shadow-color);
+            transform: translateY(-6px) scale(1.1);
+            box-shadow: 0 8px 20px rgba(0, 166, 255, 0.35), 0 0 15px rgba(0, 166, 255, 0.2);
         }
 
         /* === ORBIT ANIMATION === */
@@ -1031,38 +1131,75 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            /* Subtle breathing animation so it never feels static */
+            animation: orbit-breathe 8s ease-in-out infinite;
         }
 
-        /* Spinning gradient border ring around the photo — PERFECT CIRCLE */
+        @keyframes orbit-breathe {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.015); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .profile-orbit-container {
+                animation: none;
+            }
+        }
+
+        /* Tilt wrapper: handles desktop 3D mouse perspective (no CSS animation — set by JS) */
+        .profile-tilt-wrapper {
+            will-change: transform;
+            transform-style: preserve-3d;
+        }
+
+        /* Float animation on the img-box level so JS tilt on wrapper doesn't conflict */
         .profile-img-box {
             position: relative;
             width: 320px;
             height: 320px;
             border-radius: 50%;
-            padding: 5px;
+            padding: 6px;
             z-index: 10;
             animation: float-profile 6s ease-in-out infinite;
         }
 
-        /* Single spinning conic border — full color */
+        /* Single spinning conic border — full color, premium */
         .profile-img-box::before {
             content: '';
             position: absolute;
-            inset: -5px;
+            inset: -7px;
             border-radius: 50%;
             background: conic-gradient(from 0deg,
-                    #00a6ff,
-                    #7000ff,
-                    #00ffcc,
-                    #ffd700,
-                    #00a6ff);
-            animation: spin-border 3s linear infinite;
+                    var(--primary-color) 0deg,
+                    #7000ff 72deg,
+                    #00ffcc 144deg,
+                    #ffd700 216deg,
+                    var(--primary-color) 288deg,
+                    #7000ff 360deg);
+            animation: spin-border 5s linear infinite;
             z-index: -1;
+            filter: drop-shadow(0 0 8px rgba(0, 166, 255, 0.6)) drop-shadow(0 0 18px rgba(112, 0, 255, 0.3));
         }
 
-        /* No ::after double layer — removed */
+        /* Inner vignette — blends photo edges into dark bg */
         .profile-img-box::after {
-            display: none;
+            content: '';
+            position: absolute;
+            inset: 6px;
+            border-radius: 50%;
+            background: radial-gradient(circle,
+                transparent 55%,
+                rgba(0, 0, 0, 0.35) 80%,
+                rgba(0, 0, 0, 0.55) 100%);
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        body.light-mode .profile-img-box::after {
+            background: radial-gradient(circle,
+                transparent 50%,
+                rgba(0, 0, 0, 0.12) 80%,
+                rgba(0, 0, 0, 0.22) 100%);
         }
 
         /* === OUTER BLUR GLOW AURA around photo === */
@@ -1179,10 +1316,11 @@
             height: 100%;
             border-radius: 50%;
             object-fit: cover;
-            object-position: center top;
+            object-position: center 15%;
             border: 4px solid var(--card-bg-color);
             background: var(--card-bg-color);
             box-shadow: 0 0 40px rgba(0, 166, 255, 0.4), 0 0 80px rgba(112, 0, 255, 0.2);
+            display: block;
         }
 
         /* Orbit rings */
@@ -1240,7 +1378,8 @@
             font-size: 1.6rem;
             color: var(--primary-color);
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), 0 0 10px rgba(0, 166, 255, 0.2);
-            transition: all 0.3s ease;
+            transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+            backdrop-filter: blur(6px);
         }
 
         .ring-1 .orbit-icon {
@@ -1333,11 +1472,11 @@
         }
 
         .orbit-icon:hover {
-            transform: scale(1.3) !important;
+            transform: scale(1.35) !important;
             border-color: var(--primary-color);
-            background: var(--primary-color);
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
             color: white;
-            box-shadow: 0 0 25px var(--primary-color), 0 0 50px rgba(0, 166, 255, 0.3);
+            box-shadow: 0 0 30px var(--primary-color), 0 0 60px rgba(0, 166, 255, 0.4), 0 0 6px rgba(0, 166, 255, 0.8);
         }
 
         /* === ABOUT SECTION === */
@@ -1361,6 +1500,35 @@
             align-items: center;
             margin: 0 auto;
             flex-shrink: 0;
+            /* 3D tilt perspective origin */
+            perspective: 900px;
+            perspective-origin: center center;
+        }
+
+        /* 3D inner tilt container */
+        .about-img-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transform-style: preserve-3d;
+            transform: rotateY(0deg) rotateX(0deg);
+            transition: transform 0.08s linear;
+            will-change: transform;
+        }
+
+        /* Scroll-reveal initial state (JS will remove class) */
+        .about-img-inner.scroll-reveal-init {
+            transform: rotateY(18deg) scale(0.94);
+            opacity: 0;
+        }
+
+        .about-img-inner.scroll-revealed {
+            transform: rotateY(0deg) scale(1);
+            opacity: 1;
+            transition: transform 0.85s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.85s ease;
         }
 
         /* Pulse Rings — adapted for rectangle */
@@ -1418,6 +1586,11 @@
             box-shadow: 0 0 30px var(--shadow-color);
         }
 
+        /* Glow border intensification on tilt */
+        .about-img-inner.tilted .about-section .profile-img {
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.65), 0 0 45px rgba(0, 166, 255, 0.35);
+        }
+
         /* Image Styles — full photo, rounded rectangle */
         .about-section .profile-img {
             width: 100%;
@@ -1435,6 +1608,25 @@
         .about-image-wrapper:hover .profile-img {
             transform: scale(1.02);
             box-shadow: 0 25px 70px rgba(0, 0, 0, 0.6), 0 0 40px rgba(0, 166, 255, 0.3);
+        }
+
+        /* On mobile/touch: keep simple, no tilt JS effects */
+        @media (hover: none), (pointer: coarse) {
+            .about-img-inner {
+                transition: transform 0.85s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.85s ease;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .about-img-inner.scroll-reveal-init {
+                transform: none;
+                opacity: 0;
+            }
+            .about-img-inner.scroll-revealed {
+                transform: none;
+                opacity: 1;
+                transition: opacity 0.4s ease;
+            }
         }
 
         .about-text {
@@ -3324,6 +3516,36 @@
                 gap: 8px;
                 text-align: center;
             }
+
+            .home-content h1,
+            .typed-text {
+                text-align: center;
+            }
+
+            .typed-text-wrapper {
+                justify-content: center;
+                max-width: 100%;
+                white-space: nowrap;
+                overflow: hidden;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            /* Disable only new home/about animations; keep logo intro and other existing ones */
+            .typed-live-dot,
+            .typed-cursor,
+            .profile-img-box,
+            .profile-img-box::before,
+            .profile-aura-blue,
+            .profile-aura-purple,
+            .profile-aura-cyan,
+            .profile-glow-ring-1,
+            .profile-glow-ring-2,
+            .profile-orbit-container,
+            .orbit-ring,
+            .home-profile-animation::before {
+                animation: none !important;
+            }
         }
 
         /* === CONTACT SECTION === */
@@ -5209,7 +5431,7 @@
                 <label for="theme-toggle">
                     <i class="fas fa-sun"></i>
                     <i class="fas fa-moon"></i>
-                </label>
+                </label> 
             </div>
             <div class="nav-toggle" id="navToggle">
                 <span></span>
@@ -5223,7 +5445,11 @@
         <div class="home-content" data-aos="fade-right">
             <h3>Hello,</h3>
             <h1>I'm <span class="animate-text">Lokesh M</span></h1>
-            <div class="typed-text">And I'm a <span id="typed"></span></div>
+
+            <div class="typed-text-wrapper">
+                <span class="typed-live-dot" aria-hidden="true"></span>
+                <span class="typed-text">And I'm a <span id="typed"></span></span>
+            </div>
 
             <p class="home-description">
                 An enthusiastic and dedicated B.Tech student with a strong passion for Artificial Intelligence, Data
@@ -5249,7 +5475,7 @@
             </div>
         </div>
 
-        <div class="home-profile-animation" data-aos="zoom-in" data-aos-delay="200">
+        <div class="home-profile-animation" data-aos="zoom-in" data-aos-delay="200" id="home-profile-animation">
             <div class="profile-orbit-container">
                 <!-- Blurred color aura glow behind photo -->
                 <div class="profile-aura profile-aura-blue"></div>
@@ -5260,9 +5486,11 @@
                 <div class="profile-glow-ring profile-glow-ring-1"></div>
                 <div class="profile-glow-ring profile-glow-ring-2"></div>
 
-                <!-- Profile Photo -->
-                <div class="profile-img-box">
-                    <img src="aboutlokesh.png" alt="Lokesh M" class="profile-img" />
+                <!-- Profile Photo — wrapped in tilt container for desktop 3D mouse effect -->
+                <div class="profile-tilt-wrapper" id="profileTiltWrapper">
+                    <div class="profile-img-box" id="profileImgBox">
+                        <img src="aboutlokesh.png" alt="Lokesh M" class="profile-img" />
+                    </div>
                 </div>
 
                 <!-- Inner orbit ring: 2 icons -->
@@ -5292,10 +5520,13 @@
     <section id="about" data-aos="fade-up">
         <h2 class="section-title">About Me</h2>
         <div class="about-section">
-            <!-- Profile Image with Pulse & Spin Animation -->
-            <div class="about-image-wrapper profile-pulse">
+            <!-- Profile Image with Pulse & Spin Animation + 3D scroll-reveal/tilt -->
+            <div class="about-image-wrapper profile-pulse" id="aboutImgWrapper">
                 <div class="spin-ring"></div>
-                <img src="lokeshm2026.jpeg" alt="About Lokesh" class="profile-img" data-aos="fade-right" />
+                <!-- Inner tilt/reveal container -->
+                <div class="about-img-inner scroll-reveal-init" id="aboutImgInner">
+                <img src="lokeshm2026.png" alt="About Lokesh" class="profile-img" />
+                </div>
             </div>
             <div class="about-text-block" data-aos="fade-left">
                 <div class="about-label"><i class="fas fa-user-astronaut"></i> AI & Full-Stack Developer</div>
@@ -7182,6 +7413,184 @@
             if (countEl) countEl.textContent = `DOCUMENT ${currentImageIndex + 1} OF ${allCertificatesData.length}`;
         }
 
+    </script>
+
+    <!-- ============================================================
+         PREMIUM 3D UPGRADE — HOME PROFILE TILT + ABOUT SCROLL REVEAL
+         Pure vanilla JS — no external libs, GPU-accelerated transforms
+    ============================================================ -->
+    <script>
+    (function() {
+        'use strict';
+
+        var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var isPointerFine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+        var isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+
+        /* =============================================
+           1) HOME PROFILE PHOTO — DESKTOP 3D MOUSE TILT
+           Tilt applied to profileTiltWrapper's transform.
+           Float animation stays on the same element.
+           Max tilt: ±9deg.
+        ============================================= */
+        function initHomeTilt() {
+            if (prefersReducedMotion || isTouchDevice || !isPointerFine) return;
+
+            var homeSection = document.getElementById('home');
+            var tiltWrapper = document.getElementById('profileTiltWrapper');
+            if (!homeSection || !tiltWrapper) return;
+
+            var rafId = null;
+            var targetRX = 0, targetRY = 0;
+            var currentRX = 0, currentRY = 0;
+            var isOver = false;
+
+            function lerp(a, b, t) { return a + (b - a) * t; }
+
+            function tick() {
+                rafId = null;
+                currentRX = lerp(currentRX, targetRX, 0.1);
+                currentRY = lerp(currentRY, targetRY, 0.1);
+
+                // Apply tilt via perspective wrapper — float animation is also on this element
+                // We compose: existing translateY from float anim is on the CSS keyframe;
+                // we apply rotateX/Y via inline style transform WITHOUT overriding the float.
+                // Strategy: apply perspective + rotate to the wrapper; float keyframe is also on wrapper.
+                // We must avoid fighting the keyframe — use a separate translateZ trick.
+                tiltWrapper.style.transform = 'perspective(900px) rotateX(' + currentRX.toFixed(3) + 'deg) rotateY(' + currentRY.toFixed(3) + 'deg)';
+
+                var stillMoving = Math.abs(currentRX - targetRX) > 0.01 || Math.abs(currentRY - targetRY) > 0.01;
+                if (stillMoving || isOver) {
+                    rafId = requestAnimationFrame(tick);
+                }
+            }
+
+            function onMouseMove(e) {
+                var rect = homeSection.getBoundingClientRect();
+                var cx = rect.left + rect.width / 2;
+                var cy = rect.top + rect.height / 2;
+                var dx = (e.clientX - cx) / (rect.width / 2);
+                var dy = (e.clientY - cy) / (rect.height / 2);
+
+                // Max 9deg each axis
+                targetRY = dx * 9;
+                targetRX = -dy * 7;
+
+                if (!rafId) rafId = requestAnimationFrame(tick);
+            }
+
+            function onMouseLeave() {
+                isOver = false;
+                targetRX = 0;
+                targetRY = 0;
+                if (!rafId) rafId = requestAnimationFrame(tick);
+            }
+
+            function onMouseEnter() {
+                isOver = true;
+            }
+
+            homeSection.addEventListener('mousemove', onMouseMove, { passive: true });
+            homeSection.addEventListener('mouseleave', onMouseLeave, { passive: true });
+            homeSection.addEventListener('mouseenter', onMouseEnter, { passive: true });
+        }
+
+        /* =============================================
+           2) ABOUT IMAGE — SCROLL-DRIVEN 3D REVEAL
+           On scroll into view: rotateY 18deg -> 0deg + fade in
+           Uses IntersectionObserver.
+        ============================================= */
+        function initAboutScrollReveal() {
+            var innerEl = document.getElementById('aboutImgInner');
+            if (!innerEl) return;
+
+            if (prefersReducedMotion) {
+                innerEl.classList.remove('scroll-reveal-init');
+                innerEl.classList.add('scroll-revealed');
+                return;
+            }
+
+            var revealed = false;
+            var observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting && !revealed) {
+                        revealed = true;
+                        innerEl.classList.remove('scroll-reveal-init');
+                        innerEl.classList.add('scroll-revealed');
+                        observer.disconnect();
+                    }
+                });
+            }, { threshold: 0.25 });
+
+            observer.observe(innerEl);
+        }
+
+        /* =============================================
+           3) ABOUT IMAGE — DESKTOP MOUSE TILT
+           Tied to cursor relative to image itself.
+           Max tilt: ±7deg. CSS transition handles lerp.
+        ============================================= */
+        function initAboutTilt() {
+            if (prefersReducedMotion || isTouchDevice || !isPointerFine) return;
+
+            var wrapper = document.getElementById('aboutImgWrapper');
+            var innerEl = document.getElementById('aboutImgInner');
+            if (!wrapper || !innerEl) return;
+
+            var rafId = null;
+            var targetRX = 0, targetRY = 0;
+            var currentRX = 0, currentRY = 0;
+
+            function lerp(a, b, t) { return a + (b - a) * t; }
+
+            function tick() {
+                rafId = null;
+                currentRX = lerp(currentRX, targetRX, 0.12);
+                currentRY = lerp(currentRY, targetRY, 0.12);
+
+                innerEl.style.transform = 'rotateX(' + currentRX.toFixed(3) + 'deg) rotateY(' + currentRY.toFixed(3) + 'deg)';
+
+                var stillMoving = Math.abs(currentRX - targetRX) > 0.02 || Math.abs(currentRY - targetRY) > 0.02;
+                if (stillMoving) rafId = requestAnimationFrame(tick);
+            }
+
+            wrapper.addEventListener('mousemove', function(e) {
+                var rect = wrapper.getBoundingClientRect();
+                var cx = rect.left + rect.width / 2;
+                var cy = rect.top + rect.height / 2;
+                var dx = (e.clientX - cx) / (rect.width / 2);
+                var dy = (e.clientY - cy) / (rect.height / 2);
+
+                // Clamp to -1..1
+                dx = Math.max(-1, Math.min(1, dx));
+                dy = Math.max(-1, Math.min(1, dy));
+
+                targetRY = dx * 7;
+                targetRX = -dy * 5;
+
+                if (!rafId) rafId = requestAnimationFrame(tick);
+            }, { passive: true });
+
+            wrapper.addEventListener('mouseleave', function() {
+                targetRX = 0;
+                targetRY = 0;
+                if (!rafId) rafId = requestAnimationFrame(tick);
+            }, { passive: true });
+        }
+
+        /* Boot everything after DOM ready */
+        function boot() {
+            initHomeTilt();
+            initAboutScrollReveal();
+            initAboutTilt();
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', boot);
+        } else {
+            boot();
+        }
+    })();
     </script>
 
     <script>
